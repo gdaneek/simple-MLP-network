@@ -1,5 +1,5 @@
-#ifndef BASE_HPP
-#define BASE_HPP
+#ifndef MLP_HH
+#define MLP_HH
 #include <stdexcept>
 #include <iostream>
 #include <vector>

@@ -1,4 +1,4 @@
-#include "../include/neuralnet.hpp"
+#include "../include/mlp.hh"
 
 NeuralLink::NeuralLink(size_t input_layer_size, size_t output_layer_size) {
     weights = weight_matrix(input_layer_size,weight_vector(output_layer_size));
