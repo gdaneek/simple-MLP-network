@@ -2,6 +2,7 @@
 #define MLP_HH
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <cmath>
 #include <memory>
@@ -19,7 +20,9 @@ struct NeuralLink {
    weight_vector& operator [](int64_t i);        
    size_t size();                     
    weight_matrix::iterator begin();                     
-   weight_matrix::iterator end();                           
+   weight_matrix::iterator end();    
+   weight_matrix::reverse_iterator rbegin();                     
+   weight_matrix::reverse_iterator rend();                           
 };                                                                            
 struct Neuron {                                                                                                                                          
     double value;                
@@ -40,7 +43,9 @@ struct Layer {
     size_t size();                                                           
     Neuron& operator [](int64_t i);                                           
     std::vector<Neuron>::iterator begin();                                    
-    std::vector<Neuron>::iterator end();                                       
+    std::vector<Neuron>::iterator end();      
+    std::vector<Neuron>::reverse_iterator rbegin();                                       
+    std::vector<Neuron>::reverse_iterator rend();                                 
 };                                                                             
                                                                                
 namespace activations {                                                        
@@ -83,15 +88,18 @@ struct Net {
     void add_layer(size_t neuron_count, activations::ActivationFunc* activation, size_t layer_index); 
     void add_layer(size_t neuron_count, activations::ActivationFunc* activation); 
     Net(size_t input_size, size_t output_size, activations::ActivationFunc* activation_in, activations::ActivationFunc* activation_out);
+    Net(){;};
     void make();                                                               
     size_t size();                                                              
     Layer& operator [](int64_t i);                                              
     void set_input(weight_vector& values);                                
     Layer& calc_output();                                                       
     Layer& calc_output(weight_vector& input_values);                    
-    std::pair<size_t, Neuron> result();                                        
+    std::tuple<size_t, Neuron> Net::result();      
     std::vector<Layer>::iterator begin();                                       
     std::vector<Layer>::iterator end();
+    std::vector<Layer>::reverse_iterator rbegin();                                       
+    std::vector<Layer>::reverse_iterator rend();
 };
 weight_vector operator*(Layer& layer, NeuralLink& links);
 #endif
