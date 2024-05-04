@@ -95,7 +95,7 @@ struct Net {
     void set_input(weight_vector& values);                                
     Layer& calc_output();                                                       
     Layer& calc_output(weight_vector& input_values);                    
-    std::tuple<size_t, Neuron> Net::result();      
+    std::tuple<size_t, Neuron> result();      
     std::vector<Layer>::iterator begin();                                       
     std::vector<Layer>::iterator end();
     std::vector<Layer>::reverse_iterator rbegin();                                       
