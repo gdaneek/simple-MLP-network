@@ -1,3 +1,9 @@
+/**
+ * \file mlp.hh
+ * Multilayer perceptron implementation header file <br>
+ *
+ */
+
 #ifndef MLP_HH
 #define MLP_HH
 #include <stdexcept>
@@ -9,36 +15,88 @@
 #include <set>
 #include <cstdlib>
 #include <ctime>
-#include "stdarg.h"
+
 typedef double weight;
 typedef std::vector<std::vector<weight>> weight_matrix;
 typedef std::vector<weight> weight_vector;
-                                      
-struct NeuralLink {                                                   
-   weight_matrix weights;                             
-   NeuralLink(size_t input_layer_size, size_t output_layer_size);         
-   weight_vector& operator [](int64_t i);        
-   size_t size();                     
-   weight_matrix::iterator begin();                     
-   weight_matrix::iterator end();    
-   weight_matrix::reverse_iterator rbegin();                     
-   weight_matrix::reverse_iterator rend();                           
+
+/**
+ * A structure that implements neural connections between two successive layers <br>
+ * Structure is quite simplified because it is assumed that it is only necessary to create a certain number of weights for successive layers <br>
+ *
+ */                                   
+class NeuralLink {
+  public:                                                   
+    weight_matrix weights;  //< implements a weight matrix
+    /**
+      * Neural connection builder
+      * \param input_layer_size first layer size 
+      * \param output_layer_size second layer size (must follow the first one!) 
+    */
+    NeuralLink(size_t input_layer_size, size_t output_layer_size);       
+    /**
+      * Getting an element by index <br>
+      * Supports negative indexing  <br>
+      * \param i first layer size 
+      * \return vector of input layer neuron weights with index `i`
+    */  
+    weight_vector& operator [](int64_t i);  
+    /**
+      * Size of neural connections
+      * \return Returns the size of the weight matrix (i.e. the size of the input layer)
+    */        
+    size_t size();                     
+    weight_matrix::iterator begin();                     
+    weight_matrix::iterator end();    
+    weight_matrix::reverse_iterator rbegin();                     
+    weight_matrix::reverse_iterator rend();                           
+};                           
+
+/**
+ * Structure implementing a neuron <br>
+ * Neuron has a value and shift field <br>
+ * The value stores the current accumulated amount and is used only in the feedforward algorithm <br>
+ * The shift represents the number by which the accumulated amount must be changed. Is a trainable parameter <br>
+ *
+ */           
+class Neuron {                                                                                                                                          
+    double value;   //< Accumulated value during feedforward
+  public:
+    double shift;   //< Accumulated value offset. Trainable
+    /**
+      * Neuron constructor
+      * \param value the value with which to create a neuron
+    */
+    Neuron(double value = 0);              
+    Neuron() = delete;                    
+    /**
+      * Sets an attribute `value` to a new value
+      * \param value new attribute value
+      * \return link to the current object
+    */                    
+    Neuron& operator =(double value);           
+     /**
+      * Adds any value to the `value` attribute
+      * \param value value to be added
+      * \return link to the current object
+    */                                                     
+    Neuron& operator +=(double value);   
+    /**
+      * returns the current accumulated value
+      * \return `value` attribute
+    */            
+    double get_value();
 };                                                                            
-struct Neuron {                                                                                                                                          
-    double value;                
-    double shift;     
-    Neuron(double value = 0);                                                     
-    Neuron& operator =(double value);                                             
-    void operator +=(double value);    
-};                                                                            
-struct Layer {                                                                  
-    std::vector<Neuron> neurons;                                              
+class Layer {                                                                  
+    std::vector<Neuron> neurons;
+  public:                                              
     Layer(size_t size);              
     Layer(std::vector<Neuron>& neurons);    
     Layer(weight_vector& neuron_values);                                      
     weight_vector operator *(weight_vector& weights);               
-    //std::vector<double> operator *(NeuralLink& weights);                         
-    Layer& operator = (weight_vector values);         
+                             
+    Layer& operator = (weight_vector values);
+    // тут надо Layer& operator = (weight_vector& values); и Layer& operator = (weight_vector&& values);
     void apply_offsets();                    
     size_t size();                                                           
     Neuron& operator [](int64_t i);                                           
@@ -48,54 +106,63 @@ struct Layer {
     std::vector<Neuron>::reverse_iterator rend();                                 
 };                                                                             
                                                                                
-namespace activations {                                                        
-    struct ActivationFunc {                                                    
-        virtual void operator ()(Neuron& neuron, ... ) = 0;                  
-        virtual void operator ()(Layer& layer, ... ) = 0;                      
-    };                                                                         
-    struct Empty : public ActivationFunc {                                     
-      void operator ()(Neuron& neuron, ... ) override;                         
-      void operator ()(Layer& layer, ... ) override;                            
-    };                                                                          
-    struct ReLU: public ActivationFunc {                                        
-      void operator ()(Neuron& neuron, ... ) override;                         
-      void operator ()(Layer& layer, ... ) override;                         
-    };                                                                        
-    struct Tanh: public ActivationFunc {                                      
-      void operator ()(Neuron& neuron, ... ) override;                         
-      void operator ()(Layer& layer, ... ) override;                           
-    };                                                                        
-    struct Sigmoid: public ActivationFunc {                                    
-      void operator ()(Neuron& neuron, ... ) override;                         
-      void operator ()(Layer& layer, ... ) override;                         
-    };                                                                         
-    struct Softmax : public ActivationFunc {                                   
-      double exp_sum{0};                                                       
-      void operator ()(Neuron& neuron, ... ) override;                         
-      void operator ()(Layer& layer, ... ) override;                           
-    };                                                                         
-                                                                               
-    double derivative(double x0, ActivationFunc& f, double accuracy);                                                       
-    double derivative(Neuron &neuron, ActivationFunc& f, double accuracy);     
+namespace activations {             
+
+  class ActivationFunc {             
+      friend double derivative(double x0, ActivationFunc& f, double accuracy);       
+      friend double derivative(Neuron &neuron, ActivationFunc& f, double accuracy);                                     
+      virtual void operator ()(Neuron& neuron) = 0;  
+    public:                
+      virtual void operator ()(Layer& layer) = 0;                      
+  };                                                                         
+  class Empty : public ActivationFunc {                                     
+      void operator ()(Neuron& neuron) override;        
+    public:                 
+      void operator ()(Layer& layer) override;                            
+  };                                                                          
+  class ReLU: public ActivationFunc {                                        
+      void operator ()(Neuron& neuron) override;        
+    public:                 
+      void operator ()(Layer& layer) override;                                       
+  };                                                                        
+  class Tanh: public ActivationFunc {                                        
+      void operator ()(Neuron& neuron) override;        
+    public:                 
+      void operator ()(Layer& layer) override;                             
+  };                                                                        
+  class Sigmoid: public ActivationFunc {                                        
+      void operator ()(Neuron& neuron) override;        
+    public:                 
+      void operator ()(Layer& layer) override;                           
+  };                                                                         
+  class Softmax : public ActivationFunc {                                   
+      double exp_sum;                                                          
+      void operator ()(Neuron& neuron) override;        
+    public:                 
+      void operator ()(Layer& layer) override;                           
+  };                                
+
+  double derivative(double x0, ActivationFunc& f, double accuracy);        // должны быть френдами класса активации                                               
+  double derivative(Neuron &neuron, ActivationFunc& f, double accuracy);     
 };                                                                             
                                 
-struct Net {                                                                    
-    size_t layer_indexer;                                                      
-    std::set<std::pair<size_t,std::pair<size_t, activations::ActivationFunc*>>> layer_table; 
+class Net {                                                                    
+    size_t layer_indexer; 
+    std::set<std::tuple<size_t, size_t, activations::ActivationFunc*>> table;
+    void set_input(weight_vector& values);           
+    void calc_output();
+    std::tuple<size_t, double> result();     
+  public:
     std::vector<Layer> layers;                                                  
     std::vector<NeuralLink> NeuralLinks;                                        
     std::vector<activations::ActivationFunc*> activations;                      
-    void add_layer(size_t neuron_count, activations::ActivationFunc* activation, size_t layer_index); 
-    void add_layer(size_t neuron_count, activations::ActivationFunc* activation); 
+    void add(size_t neuron_count, activations::ActivationFunc* activation, size_t layer_index = 0); 
     Net(size_t input_size, size_t output_size, activations::ActivationFunc* activation_in, activations::ActivationFunc* activation_out);
-    Net(){;};
+    //Net() = default;
     void make();                                                               
     size_t size();                                                              
     Layer& operator [](int64_t i);                                              
-    void set_input(weight_vector& values);                                
-    Layer& calc_output();                                                       
-    Layer& calc_output(weight_vector& input_values);                    
-    std::tuple<size_t, Neuron> result();      
+    std::tuple<size_t, double> feedforward(weight_vector& input_values);             
     std::vector<Layer>::iterator begin();                                       
     std::vector<Layer>::iterator end();
     std::vector<Layer>::reverse_iterator rbegin();                                       
