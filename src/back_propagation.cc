@@ -28,14 +28,13 @@ void back_propagation(double n, double a, Net& net, weight_vector& x, std::vecto
                 for (size_t t{0}; t < d_previous.size(); t++) {
                     sum_d += d_previous[t] * net.NeuralLinks[j].weights[k][t];
                 }
-                // d[k] = net[k][j].value * (1 - net[k][j].value) * sum_d; // rec func???
                 d[k] = 2 * a * net[k][j].value * (1 - net[k][j].value) * sum_d;
             }
             // change w with d_previous (from k to t)
             for (size_t k{0}; k < net[j].size(); k++) {
                 for (size_t t{0}; t < net.NeuralLinks.size(); t++) {
-                    double dw = -n * d_previous[t] * net[j][k].value;   // dla reccurentnoi func ne ponal????
-                    net.NeuralLinks[j].weights[k][t] += dw;
+                    double dw = -n * d_previous[t] * net[j][k].value; 
+                    net.NeuralLinks[j].weights[k][t] += dw;     // forgot bias changes
                 }
             }
             // d_previous = d
