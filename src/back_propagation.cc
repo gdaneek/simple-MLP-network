@@ -42,6 +42,7 @@ void back_propagation(double n, double a, Net& net, weight_vector& x, std::vecto
             d_previous.resize(d.size());
             d_previous = d;
             d.clear();
+        
         }
     }
 }
