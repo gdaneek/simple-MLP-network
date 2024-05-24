@@ -7,115 +7,173 @@ NeuralLink::NeuralLink(size_t input_layer_size, size_t output_layer_size) {
         for(size_t j{0};j < output_layer_size;j++)
             weights[i][j] = (weight)(rand())/RAND_MAX;
 }
-size_t NeuralLink::size() {return weights.size();}
-weight_vector& NeuralLink::operator [](int64_t i) {return weights[(i < 0)? weights.size()+i : i];  }
-weight_matrix::iterator NeuralLink::begin() {return weights.begin();}
-weight_matrix::iterator NeuralLink::end() {return weights.end();}
-weight_matrix::reverse_iterator NeuralLink::rbegin() {return weights.rbegin();}
-weight_matrix::reverse_iterator NeuralLink::rend() {return weights.rend();}
-
-
-
-Neuron::Neuron(nvalue value) {
-        shift = (nvalue)(rand())/RAND_MAX;
-        this->value = value;
+size_t NeuralLink::size() {
+    return weights.size();
 }
-Neuron& Neuron::operator =(nvalue value) {
+
+weight_vector& NeuralLink::operator [](int64_t i) {
+    return weights[(i < 0)? weights.size()+i : i];  
+}
+
+weight_matrix::iterator NeuralLink::begin() {
+    return weights.begin();
+}
+
+weight_matrix::iterator NeuralLink::end() {
+    return weights.end();
+}
+
+weight_matrix::reverse_iterator NeuralLink::rbegin() {
+    return weights.rbegin();
+}
+
+weight_matrix::reverse_iterator NeuralLink::rend() {
+    return weights.rend();
+}
+
+NeuronMLP::NeuronMLP() {
+    value = 0;
+    shift = (neuronval)(rand())/RAND_MAX;
+}
+
+NeuronMLP::NeuronMLP(NeuronMLP&& other){
+    value = other.value;
+    shift = other.shift;
+}
+NeuronMLP::NeuronMLP(NeuronMLP const& other){
+    value = other.value;
+    shift = other.shift;
+}
+
+NeuronMLP::NeuronMLP(neuronval _value) {
+        shift = (neuronval)(rand())/RAND_MAX;
+        value = _value;
+}
+
+constexpr NeuronMLP& NeuronMLP::operator=(const NeuronMLP& other) {
+    value = other.value;
+    shift = other.shift;
+    return *this;
+}
+
+Neuron& NeuronMLP::operator =(neuronval value) {
         this->value = value;
         return *this;
 }
-Neuron& Neuron::operator +=(nvalue value) {
+
+Neuron& NeuronMLP::operator +=(neuronval value) {
     this->value += value;
     return *this;
 }
-nvalue Neuron::get_value() {return value;}
 
+Neuron& NeuronMLP::operator *=(neuronval value) {
+    this->value *= value;
+    return *this;
+}
 
-Layer::Layer(size_t size) {neurons = std::vector<Neuron>(size, Neuron(0));}
-Layer::Layer(std::vector<Neuron>& neurons) {this->neurons = neurons;}
-Layer::Layer(nvalues_vector& neuron_values) {for(auto value : neuron_values)neurons.push_back(Neuron(value));}                                      
+LayerMLP::LayerMLP(size_t size) {
+    neurons.resize(size, NeuronMLP(0));
+}
 
-Layer& Layer::operator =(nvalues_vector&& values) {   
-    if(values.size() != neurons.size())
-        throw std::runtime_error{"The size of the layer and the size of the value vector do not match"};
-    for(size_t i{0}; i < values.size();neurons[i] = values[i], i++);
+LayerMLP::LayerMLP(std::vector<NeuronMLP>& neurons) {
+    this->neurons = neurons;
+}
+
+LayerMLP::LayerMLP(vector_neuronval& neuron_values) {
+    neurons.clear();
+    for(auto value : neuron_values)
+        neurons.push_back(NeuronMLP(value));
+}                                      
+
+LayerMLP& LayerMLP::operator =(vector_neuronval&& values) {
+    (*this) = LayerMLP(values); 
+    return *this;
+}
+
+LayerMLP::LayerMLP(const LayerMLP& other) {
+    neurons = other.neurons;
+}                                    
+
+void LayerMLP::apply_offsets() {
+    for(NeuronMLP& neuron : neurons)
+        neuron += neuron.shift;
+}
+
+size_t LayerMLP::size() const {
+    return neurons.size();
+}
+
+NeuronMLP& LayerMLP::operator [](int64_t i) {
+    return neurons[(i < 0)? neurons.size()+i : i];
+}
+
+LayerMLP& LayerMLP::operator=(LayerMLP&& layer) {
+     if(layer.size() != neurons.size())
+        throw std::runtime_error{"The size of the layer and the size of the other layer do not match"};
+    for(size_t i{0}; i < layer.size();neurons[i] = layer[i], i++);
     return *this;  
 }
+LayerMLP& LayerMLP::operator=(const LayerMLP& other){
+    return this->operator=(std::move(other));
+}
 
-void Layer::apply_offsets() {for(Neuron& neuron : neurons)neuron += neuron.shift;}
-size_t Layer::size() {return neurons.size();}
-Neuron& Layer::operator [](int64_t i) {return neurons[(i < 0)? neurons.size()+i : i];}
-std::vector<Neuron>::iterator Layer::begin() {return neurons.begin();}
-std::vector<Neuron>::iterator Layer::end() {return neurons.end();}
-std::vector<Neuron>::reverse_iterator Layer::rbegin() {return neurons.rbegin();}
-std::vector<Neuron>::reverse_iterator Layer::rend() {return neurons.rend();}
+// LayerMLP::iterator& LayerMLP::begin() {static LayerMLP::iterator it_begin{0}; return it_begin;}
+// LayerMLP::iterator& LayerMLP::end() {static LayerMLP::iterator it_end{neurons.size()}; return it_end;}
 
-double activations::derivative(double x0, ActivationFunc& f, double accuracy = 1e-6) {
-    Neuron wrapper1(x0), wrapper2(x0+accuracy);
-    f(wrapper2);     f(wrapper1);
-    return (wrapper2.get_value() - wrapper1.get_value()) / accuracy;
-}
-double activations::derivative(Neuron &neuron, ActivationFunc& f, double accuracy = 1e-6) {
-    Neuron wrapper(neuron.get_value()+accuracy);
-    f(wrapper);
-    return (wrapper.get_value() - neuron.get_value()) / accuracy;
-}
-   
-void activations::Empty::operator ()(Neuron& neuron) {}
-void activations::Empty::operator ()(Layer& layer) {}
-std::string activations::Empty::name(){return "empty";}
-void  activations::ReLU::operator ()(Neuron& neuron) { 
-    if(neuron.get_value() < 0)neuron = 0;
-}
-void  activations::ReLU::operator ()(Layer& layer)   { 
-    for(Neuron& neuron : layer)(*this)(neuron);
-}
-std::string activations::ReLU::name(){return "ReLU";}
+// Layer::iterator& LayerMLP::iterator::operator--(int) {
+//     index--;
+//     return *this;
 
-void activations::Tanh::operator ()(Neuron& neuron){
-    neuron = std::tanh(neuron.get_value());
-}
-void activations::Tanh::operator ()(Layer& layer)  {
-    for(Neuron& neuron : layer)(*this)(neuron);
-}
-std::string activations::Tanh::name(){return "tanh";}
+// }
+// Layer::iterator& LayerMLP::iterator::operator++(int) {
+//     index++;
+//     return *this;
+// }
+// Layer::iterator& LayerMLP::iterator::operator++() {
+//       index++;
+//     return *this;
 
-void activations::Sigmoid::operator ()(Neuron& neuron){
-    neuron = 1.0/(1.0+std::exp(-1.0*neuron.get_value())); 
-}
-void activations::Sigmoid::operator ()(Layer& layer)  {
-    for(Neuron& neuron : layer)(*this)(neuron);
-}
-std::string activations::Sigmoid::name(){return "sigmoid";}
+// }
+// Layer::iterator&LayerMLP::iterator::operator--(){
+//       index--;
+//     return *this;
 
-void  activations::Softmax::operator ()(Neuron& neuron) {
-    neuron = std::exp(neuron.get_value())/exp_sum;
-}
-void activations::Softmax::operator ()(Layer& layer)    {
-     exp_sum = 0;
-     for(Neuron& neuron : layer)exp_sum += std::exp(neuron.get_value());
-     for(Neuron& neuron : layer)(*this)(neuron);
-}
-std::string activations::Softmax::name(){return "softmax";}
+// }
+// Neuron& LayerMLP::iterator::operator*() {
+//     ;
 
-void Net::add(size_t neuron_count, activation_ptr activation, size_t layer_index) {
+// }
+// Neuron* LayerMLP::iterator::operator->() {
+//     ;
+// }
+// bool LayerMLP::iterator::operator==(Layer::iterator& other) {
+//     ;
+// }
+// bool LayerMLP::iterator::operator!=(Layer::iterator& other) {
+//     ;
+// }
+
+void NetMLP::add(size_t neuron_count, activations::fptr activation, size_t layer_index) {
    table.insert({((layer_index)? layer_index : ++layer_indexer), neuron_count, activation});
 }
 
-Net::Net(size_t input_size, size_t output_size, activation_ptr activation_in, activation_ptr activation_out) {
+NetMLP::NetMLP(size_t in_sz, activations::fptr in, size_t out_sz, activations::fptr out) {
     layer_indexer = 0;  
-    add(input_size, activation_in, ++layer_indexer);
-    add(output_size, activation_out, -1);
+    add(in_sz, in, ++layer_indexer);
+    add(out_sz, out, -1);
 }
 
-void Net::make() {
-    if(!table.size())return;
+void NetMLP::make() {
+    if(!table.size())
+        return;
+    layers.clear(); links.clear(); activations.clear();
     size_t prev_layer_size{0};
     std::unordered_set<size_t> indexes;
     for(auto& row : table) {
         if(indexes.count(std::get<0>(row)))
             throw std::runtime_error{"Network creation error: several different layers have the same index"};
-        else indexes.insert(std::get<0>(row));
+        else 
+            indexes.insert(std::get<0>(row));
         layers.push_back(std::get<1>(row));
         activations.push_back(std::get<2>(row));
         if(prev_layer_size) 
@@ -125,73 +183,85 @@ void Net::make() {
     table.clear();
 }
 
-size_t Net::size() {return layers.size();}
+size_t NetMLP::size() const {
+    return layers.size();
+}
 
-Layer& Net::operator [](int64_t i) {return layers[(i < 0)? layers.size()+i : i];}
-    
+NetMLP::NetMLP(NetMLP&& other) {
+    table.clear();
+    layers = other.layers;
+    links = other.links;
+    activations = other.activations;
+}
+NetMLP::NetMLP(const NetMLP& other) {
+    table.clear();
+    layers = other.layers;
+    links = other.links;
+    activations = other.activations;
+}
 
-weight_vector operator*(Layer& layer, NeuralLink& links) {
+LayerMLP operator*(LayerMLP& layer, NeuralLink& links) {
     weight_vector weights(links[0].size(), 0);
     for(size_t neuron_it{0};neuron_it < layer.size();neuron_it++) 
         for(size_t weight_it{0};weight_it < links[neuron_it].size();weight_it++) 
             weights[weight_it] += layer[neuron_it].get_value() * links[neuron_it][weight_it];
-    return weights;
+    return LayerMLP(weights);
 }
 
-void Net::set_input(weight_vector& values) {layers[0] = values;}
-void Net::calc_output() {
+void NetMLP::set_input(weight_vector& values) {
+     if(!layers.size())
+        throw std::runtime_error{"It's impossible to calculate the result for an unmaked net"};
+    layers[0] = values;
+}
+void NetMLP::calc_output() {
     for(size_t i{1};i < layers.size();i++) {
         layers[i] = layers[i-1]*links[i-1];
         layers[i].apply_offsets();
         (*activations[i])(layers[i]);
     }
 }
-std::tuple<size_t, nvalue> Net::result() {      
-    std::tuple<size_t, nvalue> neuron {0, (*--layers.end())[0].get_value()};
+//void NetMLP::tng(){backprop();}
+void NetMLP::backprop(const std::vector<double>& target, double learning_rate) {
+        // std::vector<std::vector<double>> deltas(layers.size());
+        // // Вычисление дельт для выходного слоя
+        // for (size_t i = 0; i < layers.back().size(); ++i) {
+        //     double error = target[i] - layers.back()[i].get_value();
+        //     deltas.back().push_back(error * activations::derivative(layers.back()[i], *activations[layers.size()-1], 1e-6));
+        // }
+
+        // // Вычисление дельт для скрытых слоев
+        // for (int i = layers.size() - 2; i > 0; --i) {
+        //     for (size_t j = 0; j < layers[i].size(); ++j) {
+        //         double error = 0.0;
+        //         for (size_t k = 0; k < layers[i + 1].size(); ++k) {
+        //             error += deltas[i + 1][k] * links[i][k][j];
+        //         }
+        //         deltas[i].push_back(error * activations::derivative(layers[i][j], *activations[layers.size()-1], 1e-6));
+        //     }
+        // }
+
+        // // Обновление весов
+        // for (size_t i = 0; i < links.size(); ++i) {
+        //     for (size_t j = 0; j < links[i].size(); ++j) {
+        //         for (size_t k = 0; k < links[i][j].size(); ++k) {
+        //             links[i][j][k] += learning_rate * deltas[i + 1][j] * layers[i][k].get_value();
+        //         }
+        //     }
+        // }
+} 
+
+std::tuple<size_t, neuronval> NetMLP::response() {      
+    std::tuple<size_t, neuronval> neuron {0, (*--layers.end())[0].get_value()};
     for(size_t i{0};i < (*--layers.end()).size();i++) 
-        if(std::get<nvalue>(neuron) < (*--layers.end())[i].get_value()) 
+        if(std::get<neuronval>(neuron) < (*--layers.end())[i].get_value()) 
             neuron = {i, (*--layers.end())[i].get_value()};
     return neuron;
 }
-std::tuple<size_t, nvalue> Net::feedforward(weight_vector& input_values) {
+std::tuple<size_t, neuronval> NetMLP::feedforward(vector_neuronval& input_values) {
     set_input(input_values);
     calc_output();
-    return result();
+    return response();
 }
-
-
-std::vector<Layer>::iterator Net::begin() {return layers.begin();}
-std::vector<Layer>::iterator Net::end() {return layers.end();}
-std::vector<Layer>::reverse_iterator Net::rbegin() {return layers.rbegin();}
-std::vector<Layer>::reverse_iterator Net::rend() {return layers.rend();}
-
-
-
-
-
-// ---------------------------------------------------------
-
-/*
-std::vector<double> pixels(std::string image_path) {
-    std::vector<double> res;
-    sf::Image img;
-    img.loadFromFile(image_path);
-    auto size = img.getSize();
-    for(size_t i{0};i < size.x;i++) 
-        for(size_t j{0};j < size.y;j++) 
-            res.push_back(img.getPixel(i, j).r/255);
-    return res;
-}  
-int main() {
-    activations::Empty empty;
-    activations::ReLU relu;
-    activations::Softmax softmax;
-    auto pxs = pixels("triangle0.png");
-  //  Net net(pxs.size(), 3, &empty, &softmax);
-  //  net.add(7, &relu);
-  //  net.make();
-  //  net.calc_output(pxs);
-  //  for(auto neuron : net[-1])std::cout << neuron.get_value() << std::endl;
-    return 0;
+void NetMLP::feedforward() {
+    calc_output();
 }
-*/
