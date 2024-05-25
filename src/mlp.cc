@@ -84,7 +84,11 @@ LayerMLP::LayerMLP(vector_neuronval& neuron_values) {
     for(auto value : neuron_values)
         neurons.push_back(NeuronMLP(value));
 }                                      
-
+LayerMLP::LayerMLP(vector_neuronval&& neuron_values) {
+    neurons.clear();
+    for(auto value : neuron_values)
+        neurons.push_back(NeuronMLP(value));
+}          
 LayerMLP& LayerMLP::operator =(vector_neuronval&& values) {
     (*this) = LayerMLP(values); 
     return *this;
@@ -209,11 +213,13 @@ LayerMLP operator*(LayerMLP& layer, NeuralLink& links) {
 }
 
 void NetMLP::set_input(weight_vector& values) {
-     if(!layers.size())
+    if(enable_automake && table.size())make();
+    if(!layers.size())
         throw std::runtime_error{"It's impossible to calculate the result for an unmaked net"};
     layers[0] = values;
 }
 void NetMLP::calc_output() {
+    if(enable_automake && table.size())make();
     for(size_t i{1};i < layers.size();i++) {
         layers[i] = layers[i-1]*links[i-1];
         layers[i].apply_offsets();
@@ -264,4 +270,8 @@ std::tuple<size_t, neuronval> NetMLP::feedforward(vector_neuronval& input_values
 }
 void NetMLP::feedforward() {
     calc_output();
+}
+
+void NetMLP::disable_automake() {   // Отключает автосборку сети, есть таблица непустая
+    enable_automake = false;
 }

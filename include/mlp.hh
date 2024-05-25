@@ -83,6 +83,7 @@ class LayerMLP : public Layer {
     LayerMLP(size_t size);            
     LayerMLP(std::vector<NeuronMLP>& neurons);  
     LayerMLP(vector_neuronval& neuron_values);  
+    LayerMLP(vector_neuronval&& neuron_values);  
     LayerMLP(const LayerMLP& other);                                        
     LayerMLP& operator=(vector_neuronval&& values);
     LayerMLP& operator=(LayerMLP&& layer);
@@ -110,6 +111,7 @@ class LayerMLP : public Layer {
 class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>, std::vector<NeuralLink>,  std::tuple<size_t, neuronval>> {      
     friend class MLPModelSaver;      
     size_t layer_indexer; 
+    bool enable_automake{true};
     std::set<std::tuple<size_t, size_t, activations::fptr>> table;
     void set_input(weight_vector& values);           
     void calc_output();
@@ -124,7 +126,7 @@ class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>,
     size_t size() const override;                                                              
     void feedforward() override;             
     void tng() override {}; 
-                           
+    void disable_automake();
     std::tuple<size_t, neuronval> feedforward(vector_neuronval& input_values);           
     void backprop(const std::vector<double>& target, double learning_rate);  
    
