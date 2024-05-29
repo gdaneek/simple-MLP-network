@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <stdexcept>
-double activations::derivative(Neuron& neuron, activations::flink f, double accuracy) {
+double activations::derivative(Neuron& neuron, activations::ActivationFunc& f, double accuracy) {
     neuron += accuracy;
     f(neuron);
     auto nval = neuron.get_value();
@@ -24,8 +24,8 @@ void  activations::ReLU::operator ()(Neuron& neuron) {
 
 }
 void  activations::ReLU::operator ()(Layer& layer)   {
-    //for(Neuron& neuron : layer)(*this)(neuron);
-    for(size_t i{0};i < layer.size();(*this)(layer[i++]));
+    for(Neuron& neuron : layer)(*this)(neuron);
+    //for(size_t i{0};i < layer.size();(*this)(layer[i++]));
 }
 
 std::string activations::ReLU::name() {
@@ -37,8 +37,8 @@ void activations::Tanh::operator ()(Neuron& neuron) {
 }
 
 void activations::Tanh::operator ()(Layer& layer)  {
-    //for(Neuron& neuron : layer)(*this)(neuron);
-    for(size_t i{0};i < layer.size();(*this)(layer[i++]));
+    for(Neuron& neuron : layer)(*this)(neuron);
+    //for(size_t i{0};i < layer.size();(*this)(layer[i++]));
 }
 
 std::string activations::Tanh::name(){
@@ -50,8 +50,8 @@ void activations::Sigmoid::operator ()(Neuron& neuron) {
 }
 
 void activations::Sigmoid::operator ()(Layer& layer)  {
-   // for(Neuron& neuron : layer)(*this)(neuron);
-   for(size_t i{0};i < layer.size();(*this)(layer[i++]));
+   for(Neuron& neuron : layer)(*this)(neuron);
+   //for(size_t i{0};i < layer.size();(*this)(layer[i++]));
 }
 
 std::string activations::Sigmoid::name(){
@@ -62,13 +62,14 @@ void  activations::Softmax::operator ()(Neuron& neuron) {
     neuron = std::exp(neuron.get_value())/exp_sum;
 }
 
-void activations::Softmax::operator ()(Layer& layer)    {
+void activations::Softmax::operator ()(Layer& layer) {
     exp_sum = 0;
-    //for(Neuron& neuron : layer)exp_sum += std::exp(neuron.get_value());
-    //for(Neuron& neuron : layer)(*this)(neuron);
-    for(size_t i{0};i < layer.size();exp_sum += std::exp(layer[i++].get_value()));
-    for(size_t i{0};i < layer.size();(*this)(layer[i++]));
-
+    for(Neuron& neuron : layer)
+        exp_sum += std::exp(neuron.get_value());
+    for(Neuron& neuron : layer)
+        (*this)(neuron);
+    //for(size_t i{0};i < layer.size();exp_sum += std::exp(layer[i++].get_value()));
+    //for(size_t i{0};i < layer.size();(*this)(layer[i++]));
 }
 
 std::string activations::Softmax::name() {

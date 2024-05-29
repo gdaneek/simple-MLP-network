@@ -45,7 +45,7 @@ NeuronMLP::NeuronMLP(NeuronMLP const& other){
     shift = other.shift;
 }
 
-NeuronMLP::NeuronMLP(neuronval _value) {
+NeuronMLP::NeuronMLP(const neuronval _value) {
         shift = (neuronval)(rand())/RAND_MAX;
         value = _value;
 }
@@ -56,21 +56,24 @@ constexpr NeuronMLP& NeuronMLP::operator=(const NeuronMLP& other) {
     return *this;
 }
 
-Neuron& NeuronMLP::operator =(neuronval value) {
+Neuron& NeuronMLP::operator =(const neuronval value) {
         this->value = value;
         return *this;
 }
 
-Neuron& NeuronMLP::operator +=(neuronval value) {
+Neuron& NeuronMLP::operator +=(const neuronval value) {
     this->value += value;
     return *this;
 }
 
-Neuron& NeuronMLP::operator *=(neuronval value) {
+Neuron& NeuronMLP::operator *=(const neuronval value) {
     this->value *= value;
     return *this;
 }
 
+NeuronMLP::operator neuronval() const {
+    return value;
+}
 LayerMLP::LayerMLP(size_t size) {
     neurons.resize(size, NeuronMLP(0));
 }
@@ -121,41 +124,44 @@ LayerMLP& LayerMLP::operator=(const LayerMLP& other){
     return this->operator=(std::move(other));
 }
 
-// LayerMLP::iterator& LayerMLP::begin() {static LayerMLP::iterator it_begin{0}; return it_begin;}
-// LayerMLP::iterator& LayerMLP::end() {static LayerMLP::iterator it_end{neurons.size()}; return it_end;}
+LayerIteratorProxy LayerMLP::begin() {
+    return LayerIteratorProxy(new LayerMLP::iterator{&*neurons.begin()});
+};
+LayerIteratorProxy LayerMLP::end() {
+    return LayerIteratorProxy(new LayerMLP::iterator{&*neurons.end()});
+};           
+Layer::iterator& LayerMLP::iterator::operator--(int) {
+    LayerMLP::iterator it = *this;
+    --*this;
+    return it;
 
-// Layer::iterator& LayerMLP::iterator::operator--(int) {
-//     index--;
-//     return *this;
+}
+Layer::iterator& LayerMLP::iterator::operator++(int) {
+    LayerMLP::iterator it = *this;
+    ++*this;
+    return it;
+}
+Layer::iterator& LayerMLP::iterator::operator++() {
+    ptr = static_cast<NeuronMLP*>(ptr)+1;
+    return *this;
+}
+Layer::iterator&LayerMLP::iterator::operator--(){
+    ptr = static_cast<NeuronMLP*>(ptr)-1;
+    return *this;
 
-// }
-// Layer::iterator& LayerMLP::iterator::operator++(int) {
-//     index++;
-//     return *this;
-// }
-// Layer::iterator& LayerMLP::iterator::operator++() {
-//       index++;
-//     return *this;
-
-// }
-// Layer::iterator&LayerMLP::iterator::operator--(){
-//       index--;
-//     return *this;
-
-// }
-// Neuron& LayerMLP::iterator::operator*() {
-//     ;
-
-// }
-// Neuron* LayerMLP::iterator::operator->() {
-//     ;
-// }
-// bool LayerMLP::iterator::operator==(Layer::iterator& other) {
-//     ;
-// }
-// bool LayerMLP::iterator::operator!=(Layer::iterator& other) {
-//     ;
-// }
+}
+Neuron& LayerMLP::iterator::operator*() {
+    return *ptr;
+}
+Neuron* LayerMLP::iterator::operator->() {
+    return ptr;
+}
+bool LayerMLP::iterator::operator==(Layer::iterator& other) {
+    return ptr == other.ptr;
+}
+bool LayerMLP::iterator::operator!=(Layer::iterator& other) {
+    return ptr != other.ptr;
+}
 
 void NetMLP::add(size_t neuron_count, activations::fptr activation, size_t layer_index) {
    table.insert({((layer_index)? layer_index : ++layer_indexer), neuron_count, activation});

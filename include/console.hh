@@ -28,8 +28,8 @@ class Console {
   bool enable_colors{false};
 public:
     void print(std::string msg) ;
-    void println(std::string msg);
-    void net_info(std::vector<std::string> args);
+    void println(std::string msg);                          // нужна команда make
+    void net_info(std::vector<std::string> args);           // help
     void save(std::vector<std::string> args);
     void new_net(std::vector<std::string> args);
     void train(std::vector<std::string> args);

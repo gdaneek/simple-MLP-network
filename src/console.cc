@@ -54,6 +54,8 @@ void Console::train(std::vector<std::string> args) {
 }
 
 void Console::add_layer(std::vector<std::string> args) {
+    if(currNet == nullptr)
+        return println("No net loaded");
     if(args.size() < 2)
         return println(std::string(__func__)+" command requires at least 2 argument");
     try {

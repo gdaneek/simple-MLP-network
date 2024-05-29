@@ -3,7 +3,8 @@
 
 const std::string MLPModelSaver::make_filename(NetMLP& net) {
     std::string filename{"model"};
-    for(auto& layer : net.layers) filename += "-"+std::to_string(layer.size());    
+    for(auto& layer : net.layers) 
+        filename += "-"+std::to_string(layer.size());    
     return filename+".mlp";
 }
 
@@ -42,7 +43,8 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
             //byte_writer(neuron.shift, fout);
             byte_writer(static_cast<NeuronMLP>(layer[i]).shift, fout);
     byte_writer(net_info_label, fout);
-    for(auto c : msg)byte_writer(c, fout);
+    for(auto c : msg)
+        byte_writer(c, fout);
     byte_writer('\0', fout);
     fout.close();
     return (path == "")?  make_filename(net) : path;
@@ -52,19 +54,28 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
 NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, vector_neuronval& shifts) {
     NetMLP net(std::get<size_t>(*layers.begin()), std::get<activations::fptr>(*layers.begin()),
                std::get<size_t>(*--layers.end()), std::get<activations::fptr>(*--layers.end()));
-    for(size_t i{1};i < layers.size()-1;i++) net.add(std::get<size_t>(layers[i]), std::get<activations::fptr>(layers[i]));
-    try {net.make();}    
-    catch(...){throw std::runtime_error{"Model builder: This model uses invalid layers. Build failed\n"};}
+
+    for(size_t i{1};i < layers.size()-1;i++) 
+        net.add(std::get<size_t>(layers[i]), std::get<activations::fptr>(layers[i]));
+    try {
+            net.make();
+    }    
+    catch(...) {
+        throw std::runtime_error{"Model builder: This model uses invalid layers. Build failed\n"};
+    }
     try {
         for(size_t i{0}, w_iter{0};i < net.links.size();i++) 
             for(size_t j{0};j < net.links[i].size();j++) 
                 for(size_t g{0};g < net.links[i][j].size();g++) 
                     net.links[i][j][g] = weights[w_iter++];
+
         for(size_t i{0}, s_iter{0};i < net.size();i++) 
             for(size_t j{0};j < net.layers[i].size();j++)
                 net.layers[i][j].shift = shifts[s_iter++];
     }
-    catch(...) {throw std::runtime_error{"Model builder: missing weights or offsets. Initialization of trainable parameters failed\n"};}
+    catch(...) {
+        throw std::runtime_error{"Model builder: missing weights or offsets. Initialization of trainable parameters failed\n"};
+    }
     return net;
 }
 
@@ -73,8 +84,10 @@ std::tuple<NetMLP, std::string> MLPModelSaver::upload_net_from_file(std::string 
     auto byte_reader{[](auto &value, std::ifstream& f){f.read((char*)&value, sizeof(value));return value;}};
     check_file_signature(fin);
     size_t layers_num, weight_num, shifts_num{0};
-    for(auto data : std::vector<size_t*>{&layers_num, &weight_num})byte_reader(*data, fin);
+    for(auto data : std::vector<size_t*>{&layers_num, &weight_num})
+        byte_reader(*data, fin);
     std::vector<std::tuple<size_t, activations::fptr>> layers(layers_num); // число нейронов + активация
+
     for(size_t i{0};i < layers_num;shifts_num += std::get<size_t>(layers[i]), i++) {
         size_t neurons_num, activation;
         byte_reader(neurons_num, fin);
@@ -88,14 +101,20 @@ std::tuple<NetMLP, std::string> MLPModelSaver::upload_net_from_file(std::string 
         }
     }
     weight_vector weights(weight_num);
-    for(size_t i{0};i < weight_num;i++) byte_reader(weights[i] , fin);
+    for(size_t i{0};i < weight_num;i++) 
+        byte_reader(weights[i] , fin);
+
     std::vector<double> shifts(shifts_num);
-    for(size_t i{0};i < shifts_num;i++) byte_reader(shifts[i], fin);
-    size_t check_valid; byte_reader(check_valid, fin);
+    for(size_t i{0};i < shifts_num;i++) 
+        byte_reader(shifts[i], fin);
+
+    size_t check_valid;
+    byte_reader(check_valid, fin);
     if(check_valid != net_info_label)
         throw std::runtime_error{"Model builder: This file was damaged or saved incorrectly"};
     std::string info{""};
     for(char x;fin;info+=byte_reader(x, fin));
+
     fin.close();
     return {netmaker(layers, weights, shifts), info};
 }
