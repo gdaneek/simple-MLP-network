@@ -17,10 +17,10 @@
 #include <filesystem>       // ВЕРСИЯ CPP не ниже 17
 
 namespace fs = std::filesystem;
-vector_neuronval vectorize_image(std::string fpath);
+std::vector<neuron_t> vectorize_image(std::string fpath);
 
 template<typename LabelType>
-vector_neuronval vectorize_label(LabelType& label);
+std::vector<neuron_t> vectorize_label(LabelType& label);
 void train(NetMLP& net, std::string dir);
 std::tuple<size_t, size_t> test(NetMLP& net, std::string dir);
 

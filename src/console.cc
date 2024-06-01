@@ -77,9 +77,18 @@ void Console::test(std::vector<std::string> args) {
     /* call test function... */
 }
 
+void Console::make(std::vector<std::string> args) {
+     if(currNet == nullptr)
+        return println("No net loaded");
+    currNet->make();
+}
+
+
 void Console::predict(std::vector<std::string> args) {// Предсказывает что изображено на картинке. 1 агрумент - картинка, второй - где можно поискать разметку
     if(currNet == nullptr)
         return println("No net loaded");
+     if(!args.size())
+        return println(std::string(__func__)+" command requires at least 1 argument");
     auto img_path = *args.begin();
     auto input = vectorize_image(img_path);
     try { 
@@ -89,7 +98,7 @@ void Console::predict(std::vector<std::string> args) {// Предсказыва�
         auto lbname = std::find_if(lnmap.begin(), lnmap.end(), [res](std::tuple<size_t, std::string> elem){
                                     return std::get<size_t>(elem) == std::get<size_t>(res);});
         auto classname = (lnmap.size()&&(lbname != lnmap.end()))? std::get<std::string>(*lbname) : std::to_string(std::get<size_t>(res));
-        println("With "+std::to_string(std::get<neuronval>(res)*1e2).substr(0, 5)+"% probability it is "+classname+" class");
+        println("With "+std::to_string(std::get<neuron_t>(res)*1e2).substr(0, 5)+"% probability it is "+classname+" class");
     }
     catch(std::runtime_error& err) {
         std::cout << err.what() << std::endl;

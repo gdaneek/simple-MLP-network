@@ -76,11 +76,11 @@ std::string activations::Softmax::name() {
     return "softmax";
 }
 
-size_t activations::Table::make_id(activations::fname name) {
+size_t activations::Table::make_id(const activations::fname name) {
     return (size_t)std::hash<std::string>{}(name);
 }
 
-activations::fptr activations::Table::get_by_id(size_t id) {
+activations::fptr activations::Table::get_by_id(const size_t id) {
     for(auto af : table)
         if(activations::Table::make_id(af->name()) == id)
             return af;
@@ -88,7 +88,7 @@ activations::fptr activations::Table::get_by_id(size_t id) {
     return nullptr;
 }
 
-activations::fptr activations::Table::get_by_name(activations::fname name) {
+activations::fptr activations::Table::get_by_name(const activations::fname name) {
     for(auto af : table)
         if(af->name() == name)
             return af;
@@ -96,17 +96,17 @@ activations::fptr activations::Table::get_by_name(activations::fname name) {
     return nullptr;
 }
 
-activations::fname activations::Table::name_by_id(size_t id) {
+activations::fname activations::Table::name_by_id(const size_t id) {
     for(auto af : table)
         if(activations::Table::make_id(af->name()) == id)
             return af->name();
     return "undefined";
 }
 
-activations::fname activations::Table::name_by_ptr(activations::fptr ptr) { 
+activations::fname activations::Table::name_by_ptr(const activations::fptr ptr) { 
     return ptr->name();
 }
 
-size_t activations::Table::id_by_ptr(activations::fptr ptr) {
+size_t activations::Table::id_by_ptr(const activations::fptr ptr) {
     return make_id(ptr->name());
 }

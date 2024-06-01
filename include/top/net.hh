@@ -1,14 +1,26 @@
 #ifndef NET_HH
 #define NET_HH
+
 #include <vector>
 #include <cstdint>
 #include <memory>
+#include<concepts>
 
-using neuronval = double;
-using vector_neuronval = std::vector<neuronval>;
-using weight = double;
-using weight_vector = std::vector<weight> ;
-using weight_matrix = std::vector<std::vector<weight>>;
+template<typename type>
+concept addable_and_multiplyable = requires(type a, type b) {
+    { a + b } -> std::convertible_to<type>;
+    { a * b } -> std::convertible_to<type>;
+    { a - b } -> std::convertible_to<type>;
+    { a / b } -> std::convertible_to<type>;
+};
+
+template<typename T>
+struct check_neuron_value_type {
+    static_assert(addable_and_multiplyable<T>, "Type used for neuron value must support addition, multiplication, subtraction, and division.");
+    using type = T;
+};
+
+using neuron_t = check_neuron_value_type< double >::type;
 
 /**
  * Polymorphic neuron class <br>
@@ -16,36 +28,36 @@ using weight_matrix = std::vector<std::vector<weight>>;
 */
 class Neuron {          
   protected:                                                                                                                                
-    neuronval value; //< current neuron value
+    neuron_t value; //< current neuron value
   public:       
     /**
      * allows to assign a neuron the new value
      * \param value new value
      * \return this
     */
-    virtual Neuron& operator =(const neuronval value) = 0;       
+    virtual Neuron& operator =(const neuron_t value) = 0;       
     /**
      *  Requires += operator
      * \param value to be added
      * \return this
     */       
-    virtual Neuron& operator +=(const neuronval value) = 0;  
+    virtual Neuron& operator +=(const neuron_t value) = 0;  
     /**
      *  Requires *= operator
      * \param value to multiply by
      * \return this
     */       
-    virtual Neuron& operator *=(const neuronval value) = 0; 
+    virtual Neuron& operator *=(const neuron_t value) = 0; 
     /**
      * Requires a cast to value
-     * \return neuronval value
+     * \return neuron_t value
     */  
-    explicit virtual operator neuronval() const = 0; // оператор приведения типа. explicit запрещает неявное использование
+    explicit virtual operator neuron_t() const = 0; // оператор приведения типа. explicit запрещает неявное использование
     /**
      * Getter for neuron value
      * \return value of a neuron
     */
-    const neuronval get_value() const {return value;}
+    neuron_t get_value() const {return value;}
 };                   
 
 /**
@@ -120,16 +132,96 @@ public:
   }
 };
 
+using weight = double;
+using weight_vector = std::vector<weight> ;
+
+
+class NLinkIteratorProxy;
+class NLink {      
+  public:                     
+
+    virtual size_t size() const = 0;   
+    /**
+     * NLink iterator interface
+    */
+    struct iterator {
+        weight* ptr;
+        virtual iterator& operator++(int) = 0; 
+        virtual iterator& operator--(int) = 0; 
+        virtual iterator& operator++() = 0; 
+        virtual iterator& operator--() = 0; 
+        virtual weight& operator*() = 0;
+        virtual weight* operator->() = 0;
+        virtual bool operator==(iterator& other) = 0;
+        virtual bool operator!=(iterator& other) = 0;
+    };              
+
+    /**
+     * requires a method that returns an iterator to the beginning of the nlink
+     * \return iterator pointing to the element
+    */
+    virtual NLinkIteratorProxy begin() = 0;
+
+     /**
+     * requires a method that returns an iterator to the ending of the nlink
+     * \return iterator pointing to the memory area behind the last element
+    */
+    virtual NLinkIteratorProxy end() = 0;
+};        
+
+class NLinkIteratorProxy { 
+  std::shared_ptr<NLink::iterator> ptr; 
+public:
+  explicit operator NLink::iterator&() {
+    return *(ptr.get());
+  }
+  NLinkIteratorProxy(NLink::iterator *_ptr) : ptr{std::move(_ptr)} {};
+  
+  bool operator!=(NLinkIteratorProxy other) {
+    return (*(ptr.get())) != (*(other.ptr.get())); 
+  }
+  NLink::iterator& operator++() {
+    return (*(ptr.get()))++;
+  }
+
+  NLink::iterator& operator--() {
+    return (*(ptr.get()))--;
+  }
+
+  weight& operator*() {
+    return *(*(ptr.get()));
+  }
+};
+
+
+template<typename T>
+concept container_of_layers = requires(T x) {
+    { *std::begin(x) } -> std::convertible_to<const Layer&>;
+    { *std::end(x) } -> std::convertible_to<const Layer&>;
+};
+
+template<typename T>
+concept container_of_links = requires(T x) {
+    { *std::begin(x) } -> std::convertible_to<const NLink&>;
+    { *std::end(x) } -> std::convertible_to<const NLink&>;
+};
+
+template<typename T>
+concept container_of_activations = requires(T x) {
+    { std::begin(x) } -> std::input_or_output_iterator;
+    { std::begin(x) } -> std::input_or_output_iterator;
+};
+
 /**
  * Template polymorphic network class
  * 
 */
-template <class LayerArray, class ActivationsArray, class LinksArray, class ResponseType>
+template <container_of_layers Layers, container_of_activations Activations, container_of_links NLinks, class ResponseType>
 class Net {  
   protected:
-    LayerArray layers; //< Mandatory presence of a field of layers stored by any structure                                                  
-    LinksArray links; //< Mandatory presence of a field of links stored by any structure                                            
-    ActivationsArray activations; //< Mandatory presence of a field of activations stored by any structure                 
+    Layers layers; //< Mandatory presence of a field of layers stored by any structure                                                  
+    NLinks links; //< Mandatory presence of a field of links stored by any structure                                            
+    Activations activations; //< Mandatory presence of a field of activations stored by any structure                 
   public:          
     /**
      * Requires a net size calculation method
@@ -148,10 +240,6 @@ class Net {
     */
     virtual ResponseType response() = 0;
     
-    /**
-     * Requires a method that implements weight updating (training)
-    */            
-    virtual void tng() = 0;  
 };
 
 #endif

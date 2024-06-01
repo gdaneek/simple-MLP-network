@@ -6,5 +6,6 @@ std::map<std::string, void(Console::*)(std::vector<std::string>)> Console::comma
     {"info", &Console::net_info},
     {"new", &Console::new_net},
     {"predict", &Console::predict},
-    {"add", &Console::add_layer}
+    {"add", &Console::add_layer},
+    {"make", &Console::make}
 };

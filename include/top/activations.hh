@@ -1,5 +1,6 @@
 #ifndef ACTIVATIONS_HH
 #define ACTIVATIONS_HH
+
 #include <string>
 #include <vector>
 #include <cmath>
@@ -114,37 +115,37 @@ namespace activations {
      * \param name name of activation function
      * \return calculated id
     */
-    size_t make_id(fname name);
+    size_t make_id(const fname name);
     /**
      * returns a pointer to the activation function whose identifier matches the one passed
      * \param id activation function id
      * \return pointer to the corresponding function
     */
-    fptr get_by_id(size_t id);
+    fptr get_by_id(const size_t id);
     /**
      * returns a pointer to the activation function whose name matches the one passed
      * \param name name of the function
      * \return pointer to the corresponding function
     */
-    fptr get_by_name(fname name);
+    fptr get_by_name(const fname name);
     /**
      * returns the name of the function whose identifier matches the one passed
      * \param id id of activation function
      * \return name of corresponding function
     */
-    fname name_by_id(size_t id);
+    fname name_by_id(const size_t id);
     /**
      * returns the name of the function to which the pointer points
      * \param ptr pointer to activation function
      * \return name of this function
     */
-    fname name_by_ptr(fptr ptr);
+    fname name_by_ptr(const fptr ptr);
     /**
      * returns the identifier of the function to which the pointer points
      * \param prt pointer to activation function
      * \return identifier of this fucntion
     */
-    size_t id_by_ptr(fptr ptr);
+    size_t id_by_ptr(const fptr ptr);
 };
 extern Table table; //< table of activation functions. Defined in activations_table.cc
   

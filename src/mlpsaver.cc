@@ -21,7 +21,7 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
     auto byte_writer{[](auto value, std::ofstream& f) {f.write((char*)&value, sizeof(value));}};
     auto weight_count{[](NetMLP &net) {
         size_t res{0};
-        for(size_t i{0};i < net.links.size();res+=net.links[i].size()*net.links[i][0].size(), i++);
+        for(size_t i{0};i < net.links.size();res+=net.links[i].size(), i++);
         return res;
     }};
     
@@ -34,13 +34,11 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
     }
 
     for(auto link : net.links) 
-        for(auto weights : link) 
-            for(auto weight : weights) 
-                byte_writer(weight, fout);
+        for(auto weight_v : link) 
+            byte_writer(weight_v, fout);
     for(auto layer : net.layers) 
         //for(auto neuron : layer)
         for(size_t i{0};i < layer.size();i++)
-            //byte_writer(neuron.shift, fout);
             byte_writer(static_cast<NeuronMLP>(layer[i]).shift, fout);
     byte_writer(net_info_label, fout);
     for(auto c : msg)
@@ -51,7 +49,7 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
 }
 
 
-NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, vector_neuronval& shifts) {
+NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, std::vector<neuron_t>& shifts) {
     NetMLP net(std::get<size_t>(*layers.begin()), std::get<activations::fptr>(*layers.begin()),
                std::get<size_t>(*--layers.end()), std::get<activations::fptr>(*--layers.end()));
 
@@ -66,8 +64,7 @@ NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>
     try {
         for(size_t i{0}, w_iter{0};i < net.links.size();i++) 
             for(size_t j{0};j < net.links[i].size();j++) 
-                for(size_t g{0};g < net.links[i][j].size();g++) 
-                    net.links[i][j][g] = weights[w_iter++];
+                    net.links[i].weights[j] = weights[w_iter++];
 
         for(size_t i{0}, s_iter{0};i < net.size();i++) 
             for(size_t j{0};j < net.layers[i].size();j++)
