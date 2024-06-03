@@ -30,7 +30,7 @@ size_t MLPLink::output_layer_size() const {
 };
 
 weight& MLPLink::get_weight(const int64_t i, const int64_t j) { // вес между i-тым нейроном текущего слоя и j-тым предыдущего
-    return weights[rows*j + i];
+    return weights[cols*j + i];
 }
 
  NLinkIteratorProxy MLPLink::begin() {

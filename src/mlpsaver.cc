@@ -25,23 +25,24 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
         return res;
     }};
     
-    for(size_t data : std::vector<size_t>{file_signature, net.size(), weight_count(net)})
+    for(uint64_t data : std::vector<uint64_t>{file_signature, net.size(), weight_count(net)})
         byte_writer(data, fout);
 
     for(size_t i{0};i < net.size();i++) {
-        byte_writer((size_t)net.layers[i].size(), fout);
-        byte_writer((size_t)activations::table.id_by_ptr(net.activations[i]), fout);
+        byte_writer((uint64_t)net.layers[i].size(), fout);
+        byte_writer((uint64_t)activations::table.id_by_ptr(net.activations[i]), fout);
     }
 
     for(auto link : net.links) 
         for(auto weight_v : link) 
             byte_writer(weight_v, fout);
+          
     for(auto layer : net.layers) 
         //for(auto neuron : layer)
-        for(size_t i{0};i < layer.size();i++)
+        for(size_t i{0};i < layer.size();i++) 
             byte_writer(static_cast<NeuronMLP>(layer[i]).shift, fout);
     byte_writer(net_info_label, fout);
-    for(auto c : msg)
+    for(char c : msg)
         byte_writer(c, fout);
     byte_writer('\0', fout);
     fout.close();
@@ -80,13 +81,14 @@ std::tuple<NetMLP, std::string> MLPModelSaver::upload_net_from_file(std::string 
     std::ifstream fin(path, std::ios::binary|std::ios::in);
     auto byte_reader{[](auto &value, std::ifstream& f){f.read((char*)&value, sizeof(value));return value;}};
     check_file_signature(fin);
-    size_t layers_num, weight_num, shifts_num{0};
-    for(auto data : std::vector<size_t*>{&layers_num, &weight_num})
+    uint64_t layers_num, weight_num, shifts_num{0};
+    for(auto data : std::vector<uint64_t*>{&layers_num, &weight_num})
         byte_reader(*data, fin);
+    
     std::vector<std::tuple<size_t, activations::fptr>> layers(layers_num); // число нейронов + активация
 
     for(size_t i{0};i < layers_num;shifts_num += std::get<size_t>(layers[i]), i++) {
-        size_t neurons_num, activation;
+        uint64_t neurons_num, activation;
         byte_reader(neurons_num, fin);
         byte_reader(activation, fin);
         try {
@@ -97,20 +99,27 @@ std::tuple<NetMLP, std::string> MLPModelSaver::upload_net_from_file(std::string 
             throw;
         }
     }
+
     weight_vector weights(weight_num);
     for(size_t i{0};i < weight_num;i++) 
         byte_reader(weights[i] , fin);
 
-    std::vector<double> shifts(shifts_num);
+    std::vector<neuron_t> shifts(shifts_num);
     for(size_t i{0};i < shifts_num;i++) 
         byte_reader(shifts[i], fin);
+    
 
-    size_t check_valid;
+    uint64_t check_valid;
     byte_reader(check_valid, fin);
     if(check_valid != net_info_label)
         throw std::runtime_error{"Model builder: This file was damaged or saved incorrectly"};
     std::string info{""};
-    for(char x;fin;info+=byte_reader(x, fin));
+    char x;
+    for(;;) {
+        x = byte_reader(x, fin);
+        if(x == '\0')break;
+        info += x;
+    }
 
     fin.close();
     return {netmaker(layers, weights, shifts), info};
