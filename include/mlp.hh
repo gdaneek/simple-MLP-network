@@ -37,7 +37,7 @@ class MLPLink : public NLink {
       * \param input_layer_size first layer size 
       * \param output_layer_size second layer size (must follow the first one!) 
     */
-    MLPLink(const size_t input_layer_size, const size_t output_layer_size);       
+    explicit  MLPLink(const size_t input_layer_size, const size_t output_layer_size);       
     size_t input_layer_size() const;
     size_t output_layer_size() const;
     size_t get_cols() const;
@@ -312,7 +312,7 @@ class MLPModelSaver : public ModelSaver<NetMLP> {
      * \param shifts shifts for each neuron
      * \return created mlp network
     */
-    NetMLP netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, std::vector<neuron_t>& shifts) override;
+    NetMLP netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, std::vector<neuron_t>& shifts);
     /**
      * loads network from file
      * \param path path to file with network

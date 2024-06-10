@@ -5,8 +5,10 @@
 #include "doctest.h"
 #include <stdexcept>
 #include <cmath>
+
+
 TEST_CASE("Test Empty") {
-    vector_neuronval values{1,2,3,4,5};
+    std::vector<neuron_t> values{1,2,3,4,5};
     LayerMLP layer(values);
     activations::Empty act;
     act(layer);
@@ -15,7 +17,7 @@ TEST_CASE("Test Empty") {
 }
 
 TEST_CASE("Test ReLU") {
-    vector_neuronval values{-1,-2,3,0,5};
+    std::vector<neuron_t> values{-1,-2,3,0,5};
     LayerMLP layer(values);
     activations::ReLU act;
     act(layer);
@@ -24,7 +26,7 @@ TEST_CASE("Test ReLU") {
 }
 
 TEST_CASE("Test Sigmoid") {
-    vector_neuronval values{-1,-2,3,0,5};
+    std::vector<neuron_t> values{-1,-2,3,0,5};
     LayerMLP layer(values);
     activations::Sigmoid act;
     act(layer);
@@ -33,7 +35,7 @@ TEST_CASE("Test Sigmoid") {
 }
 
 TEST_CASE("Test Tanh") {
-    vector_neuronval values{-1,-2,3,0,5};
+    std::vector<neuron_t> values{-1,-2,3,0,5};
     LayerMLP layer(values);
     activations::Tanh act;
     act(layer);
@@ -42,7 +44,7 @@ TEST_CASE("Test Tanh") {
 }
 
 TEST_CASE("Test Softmax") {
-    vector_neuronval values{-1,-2,3,0,5};
+    std::vector<neuron_t> values{-1,-2,3,0,5};
     LayerMLP layer(values);
     activations::Softmax act;
     act(layer);
@@ -59,6 +61,7 @@ TEST_CASE("Test Softmax") {
 }
 
 TEST_CASE("Test derivative") {
+    auto sigmoid_derivative{[](const neuron_t x){return x;}};
 
 
 }
@@ -69,8 +72,6 @@ TEST_CASE("Test table make id func") {
     activations::fname some_name{"name"};
     REQUIRE(table.make_id(some_name) != 0);
 }
-
-//CHECK_THROWS_AS(smart_sqrt(-1),std::runtime_error);
 
 
 TEST_CASE("Undefined activation name exception") {

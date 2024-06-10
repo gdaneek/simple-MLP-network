@@ -6,12 +6,12 @@
 #include <memory>
 #include<concepts>
 
-template<typename type>
-concept addable_and_multiplyable = requires(type a, type b) {
-    { a + b } -> std::convertible_to<type>;
-    { a * b } -> std::convertible_to<type>;
-    { a - b } -> std::convertible_to<type>;
-    { a / b } -> std::convertible_to<type>;
+template<typename T>
+concept addable_and_multiplyable = requires(T a, T b) { // поправить на проерку со стандартными конуептами
+    { a + b } -> std::convertible_to<T>;
+    { a * b } -> std::convertible_to<T>;
+    { a - b } -> std::convertible_to<T>;
+    { a / b } -> std::convertible_to<T>;
 };
 
 template<typename T>
@@ -195,28 +195,40 @@ public:
 
 
 template<typename T>
-concept container_of_layers = requires(T x) {
+concept iterable = requires(T t) {
+    { std::begin(t) } -> std::input_iterator;
+    { std::end(t) } -> std::input_iterator;
+};
+
+template<typename T>
+concept layers_cont = iterable<T> && requires(T x) {
     { *std::begin(x) } -> std::convertible_to<const Layer&>;
     { *std::end(x) } -> std::convertible_to<const Layer&>;
 };
 
 template<typename T>
-concept container_of_links = requires(T x) {
+concept links_cont = iterable<T> && requires(T x) {
     { *std::begin(x) } -> std::convertible_to<const NLink&>;
     { *std::end(x) } -> std::convertible_to<const NLink&>;
 };
 
+
 template<typename T>
-concept container_of_activations = requires(T x) {
-    { std::begin(x) } -> std::input_or_output_iterator;
-    { std::begin(x) } -> std::input_or_output_iterator;
+concept callable = requires(T t, Layer& arg) {
+    { (*t)(arg) } -> std::same_as<void>;
 };
+
+template<typename T>
+concept activations_cont = iterable<T> && callable<typename T::value_type>;
+
+template<typename T>
+concept not_void = !std::is_void_v<T>;
 
 /**
  * Template polymorphic network class
  * 
 */
-template <container_of_layers Layers, container_of_activations Activations, container_of_links NLinks, class ResponseType>
+template <layers_cont Layers, activations_cont Activations, links_cont NLinks, not_void ResponseType>
 class Net {  
   protected:
     Layers layers; //< Mandatory presence of a field of layers stored by any structure                                                  
