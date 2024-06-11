@@ -6,7 +6,7 @@ MLPLink::MLPLink(const size_t input_layer_size,const size_t output_layer_size) {
     rows = input_layer_size;
     cols = output_layer_size;
     weights = weight_vector(rows*cols);
-    for(size_t i{0};i < rows*cols;weights[i] = (weight)(rand())/RAND_MAX,i++);
+    for(size_t i{0};i < rows*cols;weights[i] = (weight)rand()/RAND_MAX,i++);
 }
 
 size_t MLPLink::size() const {
@@ -122,13 +122,13 @@ NeuronMLP::operator neuron_t() const {
 }
 LayerMLP::LayerMLP(const size_t size) {
     if(!size)
-        throw std::runtime_error{"Layer size cannot be zero"};
+        throw std::runtime_error{"Layer size cannot be 0"};
     neurons.resize(size, NeuronMLP(0));
 }
 
 LayerMLP::LayerMLP(std::vector<NeuronMLP> const& neurons) {
     if(!neurons.size())
-        throw std::runtime_error{"Layer size cannot be zero"};
+        throw std::runtime_error{"Layer size cannot be 0"};
     this->neurons = neurons;
 }
 
@@ -144,8 +144,16 @@ LayerMLP::LayerMLP(std::vector<neuron_t>&& neuron_values) {
 }          
 
 LayerMLP& LayerMLP::operator =(std::vector<neuron_t>&& values) {
-    (*this) = LayerMLP(values); 
+    return (*this)=values;
+}
+LayerMLP& LayerMLP::operator=(const std::vector<neuron_t>& values){
+    
+    if(values.size() != this->size())
+        throw std::runtime_error{"Neuron values ​​cannot be set. Layer size and number of values ​​do not match"};
+    for(size_t i{};i < this->size();++i)
+        neurons[i] = values[i];
     return *this;
+    
 }
 
 LayerMLP::LayerMLP(const LayerMLP& other) {
@@ -153,8 +161,9 @@ LayerMLP::LayerMLP(const LayerMLP& other) {
 }                                    
 
 void LayerMLP::apply_offsets() {
-    for(NeuronMLP& neuron : neurons)
+    for(NeuronMLP& neuron : neurons) {
         neuron += neuron.shift;
+    }
 }
 
 size_t LayerMLP::size() const {
@@ -172,8 +181,8 @@ LayerMLP& LayerMLP::operator=(LayerMLP&& other) {
 const NeuronMLP LayerMLP::get_neuron(int64_t i) const {return neurons[(i < 0)? neurons.size()+i : i];}
 LayerMLP& LayerMLP::operator=(const LayerMLP& other){
     if(other.size() != neurons.size())
-        throw std::runtime_error{"The size of the layer and the size of the other layer do not match"};
-    for(size_t i{0}; i < other.size();neurons[i] = (NeuronMLP)other.get_neuron(i), i++);
+        throw std::runtime_error{"The size of lhs layer and the size of the rhs layer do not match"};
+    for(size_t i{0}; i < other.size();neurons[i] = other.get_neuron(i).get_value(), i++);
     return *this;  
 }
 
@@ -207,11 +216,11 @@ Layer::iterator&LayerMLP::iterator::operator--(){
     return *this;
 
 }
-Neuron& LayerMLP::iterator::operator*() {
-    return *ptr;
+NeuronMLP& LayerMLP::iterator::operator*() {
+    return *static_cast<NeuronMLP*>(ptr);
 }
-Neuron* LayerMLP::iterator::operator->() {
-    return ptr;
+NeuronMLP* LayerMLP::iterator::operator->() {
+    return static_cast<NeuronMLP*>(ptr);
 }
 bool LayerMLP::iterator::operator==(Layer::iterator& other) {
     return ptr == other.ptr;
@@ -243,7 +252,7 @@ void NetMLP::make() {
             throw std::runtime_error{"Network creation error: several different layers have the same index"};
         else 
             indexes.insert(std::get<0>(row));
-        layers.push_back(std::get<1>(row));
+        layers.push_back(LayerMLP(std::get<1>(row)));
         activations.push_back(std::get<2>(row));
         if(prev_layer_size) 
             links.push_back(MLPLink(prev_layer_size, (*--layers.end()).size()));
@@ -262,6 +271,7 @@ NetMLP::NetMLP(NetMLP&& other) {
     links = other.links;
     activations = other.activations;
 }
+
 NetMLP::NetMLP(const NetMLP& other) {
     table.clear();
     layers = other.layers;

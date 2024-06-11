@@ -3,26 +3,22 @@
 std::vector<std::tuple<size_t, std::string>> lnmap_reader(std::string dpath) {
     std::vector<std::tuple<size_t, std::string>> result;
     std::ifstream fin(dpath+"setup.lnmap");
-    if(!fin.is_open())
-        return std::vector<std::tuple<size_t, std::string>>{};
+    if(!fin.is_open()) return {};
     uint8_t label_size = fin.get();
     uint8_t sep = fin.get();
     while(!fin.eof()) {
         size_t label = fin.get();
         if(fin.eof())break;
         std::string buff{""};
-        for(char x = fin.get();x != sep;x = fin.get())
-            buff += x;
+        for(char x = fin.get();x != sep;x = fin.get())buff += x;
         result.push_back({label, buff});
     }
     fin.close();
     return result;
 }
 
-
-
 void Console::print(std::string msg) {
-    std::cout << msg;
+    m_ostream << msg;
 }
 
 void Console::println(std::string msg) {
@@ -30,12 +26,14 @@ void Console::println(std::string msg) {
 }
 
 void Console::net_info(std::vector<std::string> args) {   //OK
-    if(currNet == nullptr)return println("No net loaded");
-    mds.show_model_info(*currNet);
+    if(currNet == nullptr)
+        return println("No net loaded");
+    mds.show_model_info(*currNet, loaded_msg, m_ostream);
 }
 
 void Console::save(std::vector<std::string> args) {      // OK
-    if(currNet == nullptr)return println("No net loaded");
+    if(currNet == nullptr)
+        return println("No net loaded");
     auto [fpath, msg] = std::tuple((args.size())? *args.begin() : "",
                                     (args.size() > 1)? *(args.begin()+1) : "");
     auto _fpath = mds.save_net_to_file(*currNet,fpath, msg);
@@ -48,7 +46,8 @@ void Console::new_net(std::vector<std::string> args) {    // OK
 }
 
 void Console::train(std::vector<std::string> args) {
-    if(!args.size())return println(std::string(__func__)+" command requires at least 1 argument");
+    if(!args.size())
+        return println(std::string(__func__)+" command requires at least 1 argument");
     std::string fpath = *args.begin();
     /* call train function... */
 }
@@ -65,8 +64,7 @@ void Console::add_layer(std::vector<std::string> args) {
         println("OK add layer");
     }
     catch(std::runtime_error& err) {
-        std::string reason = err.what();
-        println("Failed process command: "+reason);
+        println("Failed process command: "+std::string(err.what()));
     }
 }
 
@@ -92,7 +90,6 @@ void Console::predict(std::vector<std::string> args) {// Предсказыва�
     auto img_path = *args.begin();
     auto input = vectorize_image(img_path);
     try { 
-        //predict /home/danila/Documents/simple-MLP-network/src/dataset/train/shape_3_triangle.png /home/danila/Documents/simple-MLP-network/src/dataset/
         auto res = currNet->feedforward(input);
         auto lnmap = lnmap_reader((args.size() > 1)? *(args.begin()+1) : "");
         auto lbname = std::find_if(lnmap.begin(), lnmap.end(), [res](std::tuple<size_t, std::string> elem){
@@ -106,11 +103,19 @@ void Console::predict(std::vector<std::string> args) {// Предсказыва�
 }
 
 void Console::load(std::vector<std::string> args) { //OK
-    if(!args.size())return println(std::string(__func__)+" command requires at least 1 argument");
-    std::string msg;
+    if(!args.size())
+        return println(std::string(__func__)+" command requires at least 1 argument");
+   
+    try {
     auto uploaded = mds.upload_net_from_file(*args.begin());
     currNet = std::make_unique<NetMLP>(std::get<NetMLP>(uploaded));
-    
+    loaded_msg = std::get<std::string>(uploaded);
+    println("Net has been successfully loaded. Message from file: "+loaded_msg);
+
+    }
+    catch(std::runtime_error &e) {
+        println(e.what());
+    }    
 }   
 
 void(Console::*Console::get_command(std::string command))(std::vector<std::string>) {

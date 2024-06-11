@@ -58,8 +58,14 @@ bool process_script(Console& console, std::string path) {
 
 int main(int argc, char* argv[]) {
     std::srand(std::time(nullptr));
-    Console console;
+    Console console(std::cout);
 
+
+    // NetMLP net(729, activations::table.get_by_name("ReLU"), 8, activations::table.get_by_name("softmax"));
+    // net.add(10, activations::table.get_by_name("sigmoid"));
+    // net.make();
+    // train(net, "/home/danila/Documents/simple-MLP-network/src/dataset/train/");
+    //return 0;
     if((argc > 2) && ((std::string)argv[1] == "-S"))
         return process_script(console, argv[2]);
 

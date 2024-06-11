@@ -67,8 +67,8 @@ NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>
             for(size_t j{0};j < net.links[i].size();j++) 
                     net.links[i].weights[j] = weights[w_iter++];
 
-        for(size_t i{0}, s_iter{0};i < net.size();i++) 
-            for(size_t j{0};j < net.layers[i].size();j++)
+        for(size_t i{}, s_iter{};i < net.size();i++) 
+            for(size_t j{};j < net.layers[i].size();j++) 
                 net.layers[i][j].shift = shifts[s_iter++];
     }
     catch(...) {

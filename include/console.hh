@@ -28,14 +28,17 @@ std::vector<std::tuple<size_t, std::string>> lnmap_reader(std::string dpath);
 class Console {
   MLPModelSaver mds; //< model processing class object
   std::unique_ptr<NetMLP> currNet{nullptr}; //< a unique pointer to the current network being processed
+  std::string loaded_msg{};
+  std::ostream& m_ostream;
   static std::map<std::string, void(Console::*)(std::vector<std::string>)> commands; //< list of defined commands and pointers to the methods that implement them
   bool enable_colors{false}; //< turns on color console
 public:
+  Console(std::ostream& ostream) : m_ostream{ostream} {};
   /**
    * prints a message to the console
    * \param msg message that needs to be printed to the console
   */
-  void print(std::string msg) ;
+  void print(std::string msg);
   /**
    * prints a message to the console with a line feed
    * \param msg message that needs to be printed to the console

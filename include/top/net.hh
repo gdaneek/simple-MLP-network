@@ -7,7 +7,7 @@
 #include<concepts>
 
 template<typename T>
-concept addable_and_multiplyable = requires(T a, T b) { // поправить на проерку со стандартными конуептами
+concept AddableMultiplyable = requires(T a, T b) {
     { a + b } -> std::convertible_to<T>;
     { a * b } -> std::convertible_to<T>;
     { a - b } -> std::convertible_to<T>;
@@ -15,12 +15,12 @@ concept addable_and_multiplyable = requires(T a, T b) { // поправить н
 };
 
 template<typename T>
-struct check_neuron_value_type {
-    static_assert(addable_and_multiplyable<T>, "Type used for neuron value must support addition, multiplication, subtraction, and division.");
-    using type = T;
+struct CheckNeuronValueTypename {
+  static_assert(AddableMultiplyable<T>, "Type used for neuron value must support addition, multiplication, subtraction, and division.");
+  using type = T;
 };
 
-using neuron_t = check_neuron_value_type< double >::type;
+using neuron_t = CheckNeuronValueTypename< double >::type;
 
 /**
  * Polymorphic neuron class <br>
@@ -52,12 +52,12 @@ class Neuron {
      * Requires a cast to value
      * \return neuron_t value
     */  
-    explicit virtual operator neuron_t() const = 0; // оператор приведения типа. explicit запрещает неявное использование
+    explicit virtual operator neuron_t() const = 0;
     /**
      * Getter for neuron value
      * \return value of a neuron
     */
-    neuron_t get_value() const {return value;}
+    virtual neuron_t get_value() const {return value;}
 };                   
 
 /**
@@ -76,8 +76,8 @@ class Layer {
      * Requires a layer size calculation method
      * \return Layer size 
     */                         
-    virtual size_t size() const = 0;   
-    // virtual Neuron& operator [](const int64_t i) = 0;  // в новой версии не является обязательным
+    virtual inline size_t size() const = 0;   
+    // virtual Neuron& operator [](const int64_t i) = 0; 
 
     /**
      * Layer iterator interface
@@ -100,7 +100,7 @@ class Layer {
     */
     virtual LayerIteratorProxy begin() = 0;
 
-     /**
+    /**
      * requires a method that returns an iterator to the ending of the layer
      * \return iterator pointing to the memory area behind the last neuron
     */
@@ -108,7 +108,7 @@ class Layer {
 };        
 
 
-class LayerIteratorProxy {  // unique ptr использовать нельзя. Ошибка - used deleted funcs
+class LayerIteratorProxy { 
   std::shared_ptr<Layer::iterator> ptr; //< pointer to an object derived from the layer iterator class
 public:
   explicit operator Layer::iterator&() {
@@ -140,7 +140,7 @@ class NLinkIteratorProxy;
 class NLink {      
   public:                     
 
-    virtual size_t size() const = 0;   
+    virtual inline size_t size() const = 0;   
     /**
      * NLink iterator interface
     */
@@ -195,40 +195,38 @@ public:
 
 
 template<typename T>
-concept iterable = requires(T t) {
+concept Iterable = requires(T t) {
     { std::begin(t) } -> std::input_iterator;
     { std::end(t) } -> std::input_iterator;
 };
 
 template<typename T>
-concept layers_cont = iterable<T> && requires(T x) {
+concept LayersContainer = Iterable<T> && requires(T x) {
     { *std::begin(x) } -> std::convertible_to<const Layer&>;
-    { *std::end(x) } -> std::convertible_to<const Layer&>;
 };
 
 template<typename T>
-concept links_cont = iterable<T> && requires(T x) {
+concept LinksContainer = Iterable<T> && requires(T x) {
     { *std::begin(x) } -> std::convertible_to<const NLink&>;
-    { *std::end(x) } -> std::convertible_to<const NLink&>;
 };
 
 
 template<typename T>
-concept callable = requires(T t, Layer& arg) {
+concept IsActivation = requires(T t, Layer& arg) {
     { (*t)(arg) } -> std::same_as<void>;
 };
 
 template<typename T>
-concept activations_cont = iterable<T> && callable<typename T::value_type>;
+concept ActivationsContainer = Iterable<T> && IsActivation<typename T::value_type>;
 
 template<typename T>
-concept not_void = !std::is_void_v<T>;
+concept NoVoidType = !std::is_void_v<T>;
 
 /**
  * Template polymorphic network class
  * 
 */
-template <layers_cont Layers, activations_cont Activations, links_cont NLinks, not_void ResponseType>
+template <LayersContainer Layers, ActivationsContainer Activations, LinksContainer NLinks, NoVoidType ResponseType>
 class Net {  
   protected:
     Layers layers; //< Mandatory presence of a field of layers stored by any structure                                                  
@@ -239,7 +237,7 @@ class Net {
      * Requires a net size calculation method
      * \return net size 
     */          
-    virtual size_t size() const = 0;   
+    virtual inline size_t size() const = 0;   
 
     /**
      * Requires a method that implements direct propagation

@@ -121,25 +121,25 @@ public:
     * implements the creation of a vector of neurons with a specified size
     * \param size count of neurons
   */                                          
-  LayerMLP(const size_t size); 
+  explicit LayerMLP(const size_t size); 
   /**
     * Constructor <br>
     * Implements the creation of a layer from a vector of neurons
     * \param neurons neurons that need to be added
   */                     
-  LayerMLP(std::vector<NeuronMLP> const& neurons);  
+  explicit LayerMLP(std::vector<NeuronMLP> const& neurons);  
   /**
    * Constructor <br>
    * Implements the creation of a layer from a lvalue vector of neuron values
    * \param neuron_values vector of neuron's values
   */
-  LayerMLP(std::vector<neuron_t> const& neuron_values);  
+  explicit LayerMLP(std::vector<neuron_t> const& neuron_values);  
   /**
    * Constructor <br>
    * Implements the creation of a layer from a rvalue vector of neuron values
    * \param neuron_values vector of neuron's values
   */
-  LayerMLP(std::vector<neuron_t>&& neuron_values);  
+  explicit LayerMLP(std::vector<neuron_t>&& neuron_values);  
   /**
    * Constructor <br>
    * Implements the creation of a layer from another layer <br>
@@ -153,6 +153,7 @@ public:
    * \param values neuron's values
   */                                 
   LayerMLP& operator=(std::vector<neuron_t>&& values);
+  LayerMLP& operator=(const std::vector<neuron_t>& values);
   /**
    * Implements changing the values ​​of layer neurons <br>
    * The size of the layer and the size of the rvalue layer ​​must match <br>
@@ -188,8 +189,8 @@ public:
     Layer::iterator& operator--(int) override; 
     Layer::iterator& operator++() override; 
     Layer::iterator& operator--() override; 
-    Neuron& operator*() override;
-    Neuron* operator->() override;
+    NeuronMLP& operator*() override;
+    NeuronMLP* operator->() override;
     bool operator==(Layer::iterator& other) override;
     bool operator!=(Layer::iterator& other) override;  
   };
@@ -269,6 +270,16 @@ class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>,
      * implements backpropagation algorithm
     */ 
     void backprop(const std::vector<double>& target, double learning_rate);  
+
+    void show_shifts() {
+      std::cout << "net show shifts:\n";
+      for(auto& layer : layers ) {
+        for(size_t i{};i < layer.size();i++) {
+          std::cout << layer[i].shift << " ";
+        }
+      }
+      std::cout << std::endl;
+    }
    
 };
 

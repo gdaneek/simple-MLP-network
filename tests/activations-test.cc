@@ -12,6 +12,7 @@ TEST_CASE("Test Empty") {
     LayerMLP layer(values);
     activations::Empty act;
     act(layer);
+    
     for(size_t i{0};i < layer.size();i++)
         CHECK(layer[i].get_value() == values[i]);
 }
@@ -31,7 +32,7 @@ TEST_CASE("Test Sigmoid") {
     activations::Sigmoid act;
     act(layer);
     for(size_t i{0};i < layer.size();i++)
-        CHECK(layer[i].get_value() == 1.0/(1+std::exp(-1.0*values[i])));    // не очень хорошо сравнивать double через ==
+        CHECK(layer[i].get_value() == 1.0/(1+std::exp(-1.0*values[i])));   
 }
 
 TEST_CASE("Test Tanh") {
@@ -61,9 +62,14 @@ TEST_CASE("Test Softmax") {
 }
 
 TEST_CASE("Test derivative") {
-    auto sigmoid_derivative{[](const neuron_t x){return x;}};
+    auto sigmoid_derivative{[](const neuron_t x)
+    {return (1.0/(1.0+std::exp(-x)))*(1.0-(1.0/(1.0+std::exp(-x))));}};
+    activations::Sigmoid sigmoid;
+    neuron_t val{5};
+    NeuronMLP neuron(val);
+    double accuracy{1e-6};
 
-
+    CHECK(abs(activations::derivative(neuron, sigmoid, accuracy) - sigmoid_derivative(val)) <= accuracy);
 }
 
 using activations::table;
