@@ -151,41 +151,40 @@ struct Generator {
             // trapeze.setPoint(3, sf::Vector2f(0, height));
 
             int start = std::rand()%(img_width/2);
-            int startb = std::rand()%(img_width-b+2)+b+1;
+            int startb = std::rand()%(img_width-b)+b;
             trapeze.setPoint(0, sf::Vector2f(start, 0));
             trapeze.setPoint(1, sf::Vector2f(start + a, 0));
             trapeze.setPoint(2, sf::Vector2f(startb, height));
             trapeze.setPoint(3, sf::Vector2f(startb - b, height));
 
-
-            // trapeze.setPoint(4, sf::Vector2f(5, 5));
-
-            trapeze.move(std::rand()%(img_height - std::max(a, b)), std::rand()%(img_width - height));
+            // trapeze.move(std::rand()%(img_height - std::max(a, b)), std::rand()%(img_width - height));
 
             save_shape_to_file(trapeze, ((is_train)? path.train : path.test)+"/shape_"+std::to_string(i)+"_"+name+".png");
             save_label_to_file(lable, ((is_train)? path.train : path.test)+"/label_"+std::to_string(i)+"_"+name+".label");
         }
-
     }
+
+
+    void make_all_figures(size_t count, bool is_train) {
+        std::vector<std::string> shapes{"triangle", "circle", "pentagon"};
+        for (auto x: shapes) {
+            make_shape(count, x, is_train);
+        }
+        shapes = {"line", "rectangle", "rhombus"};
+        for (auto x: shapes) {
+            make_rect(count, x, is_train);
+        }
+        make_trapeze(count, "trapeze", is_train);
+    }
+
 
 };
 // Пример использования 
 int main() {
     std::srand(std::time(nullptr));
     Generator gen(27,27);
-    // std::vector<std::string> shapes{"triangle", "circle", "pentagon"};
-    // std::vector<std::string> shapes{"line", "rectangle", "rhombus", "trapeze"};
-    std::vector<std::string> shapes{"trapeze"};
-    for(auto x : shapes)
-        // gen.make_shape(30, x);
-        // gen.make_rect(10, x);
-        gen.make_trapeze(10, x);
-
-    for(auto x : shapes)
-        // gen.make_shape(5, x, false);
-        // gen.make_rect(10, x, false);
-        gen.make_trapeze(10, x, false);
-    return 0;
+    gen.make_all_figures(10, false);    // for test
+    gen.make_all_figures(10, true);     // for train
 }
 
 
