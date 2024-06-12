@@ -1,5 +1,5 @@
-#include "../include/mlp.hh"
-#include "../include/top/activations.hh"
+#include "mlp.hh"
+#include "activations.hh"
 
 const std::string MLPModelSaver::make_filename(NetMLP& net) {
     std::string filename{"model"};
@@ -50,7 +50,7 @@ std::string MLPModelSaver::save_net_to_file(NetMLP &net, std::string path, std::
 }
 
 
-NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, std::vector<neuron_t>& shifts) {
+NetMLP MLPModelSaver::netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, std::vector<weight>& weights, std::vector<neuron_t>& shifts) {
     NetMLP net(std::get<size_t>(*layers.begin()), std::get<activations::fptr>(*layers.begin()),
                std::get<size_t>(*--layers.end()), std::get<activations::fptr>(*--layers.end()));
 
@@ -100,7 +100,7 @@ std::tuple<NetMLP, std::string> MLPModelSaver::upload_net_from_file(std::string 
         }
     }
 
-    weight_vector weights(weight_num);
+    std::vector<weight> weights(weight_num);
     for(size_t i{0};i < weight_num;i++) 
         byte_reader(weights[i] , fin);
 

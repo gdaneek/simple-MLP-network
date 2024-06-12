@@ -1,4 +1,4 @@
-#include "../include/console.hh"
+#include "console.hh"
 
 std::map<std::string, void(Console::*)(std::vector<std::string>)> Console::commands {
     {"save", &Console::save},

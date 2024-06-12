@@ -1,7 +1,5 @@
-#include "../include/top/activations.hh"
+#include "activations.hh"
 
-#include <iostream>
-#include <stdexcept>
 double activations::derivative(Neuron& neuron, activations::ActivationFunc& f, double accuracy) {
     neuron += accuracy;
     f(neuron);

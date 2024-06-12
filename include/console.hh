@@ -2,14 +2,10 @@
 #define CONSOLE_HH
 
 #include "mlp.hh"
-#include "top/activations.hh"
 #include "learning.hh"
-#include "top/net_ms.hh"
-#include "../dependencies/SFML/include/Graphics.hpp"
 
-#include <memory>
 #include <map>
-#include <ctime>
+
 #include <iostream>
 #include <fstream>
 #include <filesystem>

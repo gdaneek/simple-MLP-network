@@ -2,8 +2,6 @@
 #define NET_MODEL_SAVER
 
 #include "net.hh"
-#include "activations.hh"
-#include <concepts>
 #include <type_traits>
 
 template<template<typename, typename, typename, typename> class Base, typename Derived>

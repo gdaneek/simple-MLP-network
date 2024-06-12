@@ -7,19 +7,17 @@
 #ifndef MLP_HH
 #define MLP_HH
 
-#include <stdexcept>
-#include <vector>
-#include <cmath>
-#include <memory>
-#include <set>
-#include <cstdlib>
-#include <ctime>
-#include <iostream>
-#include <fstream>
-#include <unordered_set>
+#include "net.hh"
+#include "activations.hh"
+#include "net_ms.hh"
 
-#include "top/activations.hh"
-#include "top/net_ms.hh"
+#include <ctime>
+
+#include <iostream>
+#include <fstream> // cstdlib
+
+#include <vector>
+#include <set>
 
 /**
  * A structure that implements neural connections between two successive layers <br>
@@ -28,20 +26,19 @@
  */                                   
 class MLPLink : public NLink {
   size_t cols, rows;
-  weight_vector weights;  //< implements a weight matrix
+  std::vector<weight> weights;  //< implements a weight matrix
   friend class MLPModelSaver; //< must be friend to access protected fields
-
-  public:                                                   
+public:                                                   
     /**
       * Neural connection builder
       * \param input_layer_size first layer size 
       * \param output_layer_size second layer size (must follow the first one!) 
     */
-    explicit  MLPLink(const size_t input_layer_size, const size_t output_layer_size);       
+    explicit MLPLink(const size_t input_layer_size, const size_t output_layer_size);       
     size_t input_layer_size() const;
     size_t output_layer_size() const;
-    size_t get_cols() const;
-    size_t get_rows() const;
+    size_t get_cols() const {return cols;}
+    size_t get_rows() const {return rows;}
     weight& get_weight(const int64_t i, const int64_t j);
     struct iterator : public NLink::iterator {
       explicit iterator(weight* _ptr)  {ptr = _ptr;};
@@ -78,7 +75,7 @@ class NeuronMLP : public Neuron {
      * Constructor <br>
      * \param _value the initial value that will be assigned to the neuron
     */
-    NeuronMLP(const neuron_t _value);
+    explicit NeuronMLP(const neuron_t _value);
     /**
      * Constructor <br>
      * implements setting default field values
@@ -89,19 +86,19 @@ class NeuronMLP : public Neuron {
      * implements the movement of another rvalue neuron
      * \param other rvalue neuron
     */
-    NeuronMLP(NeuronMLP&& other);
+    NeuronMLP(NeuronMLP&& other) = default;
     /**
      * Constructor <br>
      * implements the copy of another rvalue neuron
      * \param other lvalue neuron
     */
-    NeuronMLP(NeuronMLP const& other);
+    NeuronMLP(NeuronMLP const& other) = default;
     /**
      * Assignment operator <br>
      * Copies the shift and value fields of another neuron <br>
      * \param other lvalue neuron
     */
-    const NeuronMLP& operator=(const NeuronMLP&  other);
+    constexpr NeuronMLP& operator=(const NeuronMLP&  other) = default;
     Neuron& operator =(const neuron_t value) override;              
     Neuron& operator +=(const neuron_t value) override;   // не могут быть virtual и constexpr одновременно
     Neuron& operator *=(const neuron_t value) override; 
@@ -140,13 +137,7 @@ public:
    * \param neuron_values vector of neuron's values
   */
   explicit LayerMLP(std::vector<neuron_t>&& neuron_values);  
-  /**
-   * Constructor <br>
-   * Implements the creation of a layer from another layer <br>
-   * \param other MLP layer
-   * 
-  */
-  LayerMLP(const LayerMLP& other);       
+      
   /**
    * Implements changing the values ​​of layer neurons <br>
    * The size of the layer and the size of the vector of values ​​must match <br>
@@ -154,23 +145,12 @@ public:
   */                                 
   LayerMLP& operator=(std::vector<neuron_t>&& values);
   LayerMLP& operator=(const std::vector<neuron_t>& values);
-  /**
-   * Implements changing the values ​​of layer neurons <br>
-   * The size of the layer and the size of the rvalue layer ​​must match <br>
-   * \param layer rvalue MLP layer
-  */                            
-  LayerMLP& operator=(LayerMLP&& layer);
-  /**
-   * Implements changing the values ​​of layer neurons <br>
-   * The size of the layer and the size of the lvalue layer ​​must match <br>
-   * \param other lvalue MLP layer
-  */         
-  LayerMLP& operator=(const LayerMLP& other);
+  
   /**
    * Shifts the values ​​of all neurons by the amount shift before activation
   */
   void apply_offsets();             
-  const NeuronMLP get_neuron(int64_t i) const;
+  const std::vector<neuron_t> neuron_values() const;
   size_t size() const override;    
   /**
    * implements layer indexing <br>
@@ -211,7 +191,7 @@ class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>,
      * Sets the values ​​on the input layer 
      * \param values values ​​to be set
     */
-    void set_input(weight_vector& values);    
+    void set_input(std::vector<weight>& values);    
     /**
      * calculates the values ​​of output neurons
     */       
@@ -223,16 +203,7 @@ class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>,
     std::tuple<size_t, neuron_t> response() override;     
   public:
     NetMLP() = default;
-    /**
-     * allows you to assemble a neural network from another
-     * \param other other lvalue MLP net
-    */
-    NetMLP(const NetMLP& other);
-    /**
-     * allows you to assemble a neural network from another
-     * \param other other rvalue MLP net
-    */
-    NetMLP(NetMLP&& other); 
+  
     /**
      * Fills out the layer table for subsequent assembly
      * \param neuron_count number of neurons in the added layer
@@ -259,7 +230,7 @@ class NetMLP : public Net<std::vector<LayerMLP>, std::vector<activations::fptr>,
      * Disables auto-assembly of the network <br>
      * Before using the network, you need to call make so that it is built from the table
     */
-    void disable_automake();
+    void disable_automake() {enable_automake = false;}
     /**
      * Implements forward propagation and returns the network response
      * \param input_values values ​​that need to be set on the input layer
@@ -323,7 +294,7 @@ class MLPModelSaver : public ModelSaver<NetMLP> {
      * \param shifts shifts for each neuron
      * \return created mlp network
     */
-    NetMLP netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, weight_vector& weights, std::vector<neuron_t>& shifts);
+    NetMLP netmaker(std::vector<std::tuple<size_t, activations::fptr>>& layers, std::vector<weight>& weights, std::vector<neuron_t>& shifts);
     /**
      * loads network from file
      * \param path path to file with network

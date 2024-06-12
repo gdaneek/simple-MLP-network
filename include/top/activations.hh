@@ -1,10 +1,11 @@
 #ifndef ACTIVATIONS_HH
 #define ACTIVATIONS_HH
 
+#include "net.hh"
+
 #include <string>
 #include <vector>
 #include <cmath>
-#include "net.hh"
 
 /**
  * a group of classes and functions related to activations

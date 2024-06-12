@@ -1,10 +1,11 @@
 #include <iostream>
 
-#include "include/mlp.hh"
-#include "include/top/activations.hh"
-#include "include/learning.hh"
-#include "include/top/net_ms.hh"
-#include "include/console.hh"
+#include "mlp.hh"
+#include "activations.hh"
+#include "learning.hh"
+#include "net_ms.hh"
+#include "console.hh"
+
 #include "stdarg.h"
 #include <set>
 #include <unordered_set>
@@ -13,7 +14,7 @@
 #include <map>
 #include <ctime>
 #include <iostream>
-#include "dependencies/SFML/include/Graphics.hpp"
+#include "Graphics.hpp"
 #include <filesystem>       // ВЕРСИЯ CPP не ниже 17
 
 std::vector<std::string> split(const std::string& str, const std::string& delimiter) {
@@ -60,12 +61,6 @@ int main(int argc, char* argv[]) {
     std::srand(std::time(nullptr));
     Console console(std::cout);
 
-
-    // NetMLP net(729, activations::table.get_by_name("ReLU"), 8, activations::table.get_by_name("softmax"));
-    // net.add(10, activations::table.get_by_name("sigmoid"));
-    // net.make();
-    // train(net, "/home/danila/Documents/simple-MLP-network/src/dataset/train/");
-    //return 0;
     if((argc > 2) && ((std::string)argv[1] == "-S"))
         return process_script(console, argv[2]);
 

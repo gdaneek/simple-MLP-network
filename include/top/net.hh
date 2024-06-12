@@ -1,10 +1,10 @@
 #ifndef NET_HH
 #define NET_HH
 
-#include <vector>
 #include <cstdint>
 #include <memory>
-#include<concepts>
+#include <concepts>
+#include <stdexcept>
 
 template<typename T>
 concept AddableMultiplyable = requires(T a, T b) {
@@ -117,14 +117,14 @@ public:
   LayerIteratorProxy(Layer::iterator *_ptr) : ptr{std::move(_ptr)} {};
   
   bool operator!=(LayerIteratorProxy other) {
-    return (*(ptr.get())) != (*(other.ptr.get())); 
+    return *ptr.get() != *other.ptr.get(); 
   }
   Layer::iterator& operator++() {
-    return (*(ptr.get()))++;
+    return (*ptr.get())++;
   }
 
   Layer::iterator& operator--() {
-    return (*(ptr.get()))--;
+    return (*ptr.get())--;
   }
 
   Neuron& operator*() {
@@ -133,7 +133,6 @@ public:
 };
 
 using weight = double;
-using weight_vector = std::vector<weight> ;
 
 
 class NLinkIteratorProxy;
@@ -178,18 +177,18 @@ public:
   NLinkIteratorProxy(NLink::iterator *_ptr) : ptr{std::move(_ptr)} {};
   
   bool operator!=(NLinkIteratorProxy other) {
-    return (*(ptr.get())) != (*(other.ptr.get())); 
+    return *ptr.get() != *other.ptr.get(); 
   }
   NLink::iterator& operator++() {
-    return (*(ptr.get()))++;
+    return (*ptr.get())++;
   }
 
   NLink::iterator& operator--() {
-    return (*(ptr.get()))--;
+    return (*ptr.get())--;
   }
 
   weight& operator*() {
-    return *(*(ptr.get()));
+    return *(*ptr.get());
   }
 };
 
