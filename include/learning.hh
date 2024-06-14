@@ -2,12 +2,12 @@
 #ifndef LEARNING_HH
 #define LEARNING_HH
 
-#include "Graphics.hpp"
-#include "include/mlp.hh"
+#include "SFML/Graphics.hpp"
+#include "mlp.hh"
 #include "top/activations.hh"
 #include "top/net_ms.hh"
 #include "stdarg.h"
-
+#include <filesystem>
 namespace fs = std::filesystem;
 std::vector<neuron_t> vectorize_image(std::string fpath);
 

@@ -1,4 +1,4 @@
-#include "Graphics.hpp"
+#include "SFML/Graphics.hpp"
 #include "console.hh"
 #include "learning.hh"
 #include "mlp.hh"
