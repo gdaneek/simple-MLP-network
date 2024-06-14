@@ -1,0 +1,181 @@
+\hypertarget{classNeuronMLP}{}\doxysection{Neuron\+MLP Class Reference}
+\label{classNeuronMLP}\index{NeuronMLP@{NeuronMLP}}
+
+
+{\ttfamily \#include $<$mlp.\+hh$>$}
+
+
+
+Inheritance diagram for Neuron\+MLP\+:
+% FIG 0
+
+
+Collaboration diagram for Neuron\+MLP\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classNeuronMLP_a691f1ec20e28868ad5a3371c03a68145}{Neuron\+MLP}} (const neuron\+\_\+t \+\_\+value)
+\item 
+\mbox{\hyperlink{classNeuronMLP_aebcf68d04458ab0a9082f84efcc66b62}{Neuron\+MLP}} ()
+\item 
+\mbox{\hyperlink{classNeuronMLP_a50b704d241e9245d8424057ffb0cdf7d}{Neuron\+MLP}} (\mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \&\&other)=default
+\item 
+\mbox{\hyperlink{classNeuronMLP_acf45e6f869bcc1e8f982d4a3d3e50d63}{Neuron\+MLP}} (\mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} const \&other)=default
+\item 
+constexpr \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \& \mbox{\hyperlink{classNeuronMLP_ada0c0a2bd3f3e92b284743ffb49e2971}{operator=}} (const \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \&other)=default
+\item 
+\mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuronMLP_af25a177ba8080b9e174652909caac9db}{operator=}} (const neuron\+\_\+t value) override
+\item 
+\mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuronMLP_afd316907568558d0064ebd419d54d0be}{operator+=}} (const neuron\+\_\+t value) override
+\item 
+\mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuronMLP_a9273504deebbceeedb12ac02c7163f04}{operator$\ast$=}} (const neuron\+\_\+t value) override
+\item 
+\mbox{\hyperlink{classNeuronMLP_a244c23bef8593fb89161c80a963eee19}{operator neuron\+\_\+t}} () const override
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNeuronMLP_a238ea7b810f09eacf85fb508e6dfd619}\label{classNeuronMLP_a238ea7b810f09eacf85fb508e6dfd619}} 
+neuron\+\_\+t {\bfseries shift}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+Structure implementing a MLP neuron ~\newline
+ Adds a shift field containing the amount of shift of the accumulated value before activation ~\newline
+ Shift is a trainable parameter 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNeuronMLP_a691f1ec20e28868ad5a3371c03a68145}\label{classNeuronMLP_a691f1ec20e28868ad5a3371c03a68145}} 
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{NeuronMLP()}{NeuronMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Neuron\+MLP\+::\+Neuron\+MLP (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{\+\_\+value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor ~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em \+\_\+value} & the initial value that will be assigned to the neuron \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNeuronMLP_aebcf68d04458ab0a9082f84efcc66b62}\label{classNeuronMLP_aebcf68d04458ab0a9082f84efcc66b62}} 
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{NeuronMLP()}{NeuronMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Neuron\+MLP\+::\+Neuron\+MLP (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Constructor ~\newline
+ implements setting default field values \mbox{\Hypertarget{classNeuronMLP_a50b704d241e9245d8424057ffb0cdf7d}\label{classNeuronMLP_a50b704d241e9245d8424057ffb0cdf7d}} 
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{NeuronMLP()}{NeuronMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Neuron\+MLP\+::\+Neuron\+MLP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Constructor ~\newline
+ implements the movement of another rvalue neuron 
+\begin{DoxyParams}{Parameters}
+{\em other} & rvalue neuron \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNeuronMLP_acf45e6f869bcc1e8f982d4a3d3e50d63}\label{classNeuronMLP_acf45e6f869bcc1e8f982d4a3d3e50d63}} 
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\index{NeuronMLP@{NeuronMLP}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{NeuronMLP()}{NeuronMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Neuron\+MLP\+::\+Neuron\+MLP (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} const \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [default]}}
+
+Constructor ~\newline
+ implements the copy of another rvalue neuron 
+\begin{DoxyParams}{Parameters}
+{\em other} & lvalue neuron \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classNeuronMLP_a244c23bef8593fb89161c80a963eee19}\label{classNeuronMLP_a244c23bef8593fb89161c80a963eee19}} 
+\index{NeuronMLP@{NeuronMLP}!operator neuron\_t@{operator neuron\_t}}
+\index{operator neuron\_t@{operator neuron\_t}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{operator neuron\_t()}{operator neuron\_t()}}
+{\footnotesize\ttfamily Neuron\+MLP\+::operator neuron\+\_\+t (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Requires a cast to value \begin{DoxyReturn}{Returns}
+neuron\+\_\+t value 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNeuron_a108ffdf8ce640023d1f01a628fe347d4}{Neuron}}.
+
+\mbox{\Hypertarget{classNeuronMLP_a9273504deebbceeedb12ac02c7163f04}\label{classNeuronMLP_a9273504deebbceeedb12ac02c7163f04}} 
+\index{NeuronMLP@{NeuronMLP}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+MLP\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Requires $\ast$= operator 
+\begin{DoxyParams}{Parameters}
+{\em value} & to multiply by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNeuron_a7ad62641c268cda230720a7a78730652}{Neuron}}.
+
+\mbox{\Hypertarget{classNeuronMLP_afd316907568558d0064ebd419d54d0be}\label{classNeuronMLP_afd316907568558d0064ebd419d54d0be}} 
+\index{NeuronMLP@{NeuronMLP}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+MLP\+::operator+= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Requires += operator 
+\begin{DoxyParams}{Parameters}
+{\em value} & to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNeuron_a47b40730b695135b9c58be98a46b8b93}{Neuron}}.
+
+\mbox{\Hypertarget{classNeuronMLP_af25a177ba8080b9e174652909caac9db}\label{classNeuronMLP_af25a177ba8080b9e174652909caac9db}} 
+\index{NeuronMLP@{NeuronMLP}!operator=@{operator=}}
+\index{operator=@{operator=}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+MLP\+::operator= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+allows to assign a neuron the new value 
+\begin{DoxyParams}{Parameters}
+{\em value} & new value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNeuron_af48f20b3a9870066dce694ab885e2e97}{Neuron}}.
+
+\mbox{\Hypertarget{classNeuronMLP_ada0c0a2bd3f3e92b284743ffb49e2971}\label{classNeuronMLP_ada0c0a2bd3f3e92b284743ffb49e2971}} 
+\index{NeuronMLP@{NeuronMLP}!operator=@{operator=}}
+\index{operator=@{operator=}!NeuronMLP@{NeuronMLP}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily constexpr \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \& Neuron\+MLP\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [constexpr]}, {\ttfamily [default]}}
+
+Assignment operator ~\newline
+ Copies the shift and value fields of another neuron ~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em other} & lvalue neuron \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}\end{DoxyCompactItemize}

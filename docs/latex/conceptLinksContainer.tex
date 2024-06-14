@@ -1,0 +1,20 @@
+\hypertarget{conceptLinksContainer}{}\doxysection{Links\+Container Concept Reference}
+\label{conceptLinksContainer}\index{LinksContainer@{LinksContainer}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptLinksContainer}{LinksContainer}} = }
+\DoxyCodeLine{    \mbox{\hyperlink{conceptIterable}{Iterable<T>}} \&\& \textcolor{keyword}{requires}(T x) \{}
+\DoxyCodeLine{                     \{ *std::begin(x) \} -\/> std::convertible\_to<const NLink\&>;}
+\DoxyCodeLine{                   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Requires the passed type to be a link container 

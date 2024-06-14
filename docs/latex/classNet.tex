@@ -1,0 +1,80 @@
+\hypertarget{classNet}{}\doxysection{Net\texorpdfstring{$<$}{<} Layers, Activations, NLinks, Response\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classNet}\index{Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+
+
+Collaboration diagram for Net\texorpdfstring{$<$}{<} Layers, Activations, NLinks, Response\+Type \texorpdfstring{$>$}{>}\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classNet_aa882fe60c748b0d44b4bb73b38240178}{size}} () const =0
+\item 
+virtual void \mbox{\hyperlink{classNet_a9f05cbc81074c590400ed15d60aa2bdb}{feedforward}} ()=0
+\item 
+virtual Response\+Type \mbox{\hyperlink{classNet_ad9bc118c501f75c64f1d17a31bf6236f}{response}} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNet_a269ec3636acfb0818ffaa6bb4bb7c90a}\label{classNet_a269ec3636acfb0818ffaa6bb4bb7c90a}} 
+Layers {\bfseries layers}
+\item 
+\mbox{\Hypertarget{classNet_a8c94fca71d1162db10432bdd865bda58}\label{classNet_a8c94fca71d1162db10432bdd865bda58}} 
+NLinks {\bfseries links}
+\item 
+\mbox{\Hypertarget{classNet_a8399903bd4f9a34f211cd079e6f4e164}\label{classNet_a8399903bd4f9a34f211cd079e6f4e164}} 
+Activations {\bfseries activations}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$\mbox{\hyperlink{conceptLayersContainer}{Layers\+Container}} Layers, \mbox{\hyperlink{conceptActivationsContainer}{Activations\+Container}} Activations, \mbox{\hyperlink{conceptLinksContainer}{Links\+Container}} NLinks, \mbox{\hyperlink{conceptNoVoidType}{No\+Void\+Type}} Response\+Type$>$\newline
+class Net$<$ Layers, Activations, NLinks, Response\+Type $>$}
+Template polymorphic network class ~\newline
+ Requires three containers\+: layers, activations and neural connections and direct distribution method. 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classNet_a9f05cbc81074c590400ed15d60aa2bdb}\label{classNet_a9f05cbc81074c590400ed15d60aa2bdb}} 
+\index{Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}!feedforward@{feedforward}}
+\index{feedforward@{feedforward}!Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}}
+\doxysubsubsection{\texorpdfstring{feedforward()}{feedforward()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptLayersContainer}{Layers\+Container}} Layers, \mbox{\hyperlink{conceptActivationsContainer}{Activations\+Container}} Activations, \mbox{\hyperlink{conceptLinksContainer}{Links\+Container}} NLinks, \mbox{\hyperlink{conceptNoVoidType}{No\+Void\+Type}} Response\+Type$>$ \\
+virtual void \mbox{\hyperlink{classNet}{Net}}$<$ Layers, Activations, NLinks, Response\+Type $>$\+::feedforward (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Requires a method that implements direct propagation 
+
+Implemented in \mbox{\hyperlink{classNetMLP_aa9f2f9f54eeedb268e91a0a36e0868ae}{Net\+MLP}}.
+
+\mbox{\Hypertarget{classNet_ad9bc118c501f75c64f1d17a31bf6236f}\label{classNet_ad9bc118c501f75c64f1d17a31bf6236f}} 
+\index{Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}!response@{response}}
+\index{response@{response}!Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}}
+\doxysubsubsection{\texorpdfstring{response()}{response()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptLayersContainer}{Layers\+Container}} Layers, \mbox{\hyperlink{conceptActivationsContainer}{Activations\+Container}} Activations, \mbox{\hyperlink{conceptLinksContainer}{Links\+Container}} NLinks, \mbox{\hyperlink{conceptNoVoidType}{No\+Void\+Type}} Response\+Type$>$ \\
+virtual Response\+Type \mbox{\hyperlink{classNet}{Net}}$<$ Layers, Activations, NLinks, Response\+Type $>$\+::response (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Requires a method that returns a network response \begin{DoxyReturn}{Returns}
+Response\+Type\textquotesingle{}s value 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNet_aa882fe60c748b0d44b4bb73b38240178}\label{classNet_aa882fe60c748b0d44b4bb73b38240178}} 
+\index{Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}!size@{size}}
+\index{size@{size}!Net$<$ Layers, Activations, NLinks, ResponseType $>$@{Net$<$ Layers, Activations, NLinks, ResponseType $>$}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily template$<$\mbox{\hyperlink{conceptLayersContainer}{Layers\+Container}} Layers, \mbox{\hyperlink{conceptActivationsContainer}{Activations\+Container}} Activations, \mbox{\hyperlink{conceptLinksContainer}{Links\+Container}} NLinks, \mbox{\hyperlink{conceptNoVoidType}{No\+Void\+Type}} Response\+Type$>$ \\
+virtual size\+\_\+t \mbox{\hyperlink{classNet}{Net}}$<$ Layers, Activations, NLinks, Response\+Type $>$\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [pure virtual]}}
+
+Requires a net size calculation method \begin{DoxyReturn}{Returns}
+net size 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classNetMLP_a973cf694e68ecd76e869b48d01da7ad0}{Net\+MLP}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{net_8hh}{net.\+hh}}\end{DoxyCompactItemize}

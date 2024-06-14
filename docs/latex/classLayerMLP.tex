@@ -1,0 +1,186 @@
+\hypertarget{classLayerMLP}{}\doxysection{Layer\+MLP Class Reference}
+\label{classLayerMLP}\index{LayerMLP@{LayerMLP}}
+
+
+{\ttfamily \#include $<$mlp.\+hh$>$}
+
+
+
+Inheritance diagram for Layer\+MLP\+:
+% FIG 0
+
+
+Collaboration diagram for Layer\+MLP\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structLayerMLP_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLayerMLP_a10d9227798819ae21fff74423543c69e}{Layer\+MLP}} (const size\+\_\+t \mbox{\hyperlink{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}{size}})
+\item 
+\mbox{\hyperlink{classLayerMLP_a876a41d0df9eb5b72134a8476412b77e}{Layer\+MLP}} (std\+::vector$<$ \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} $>$ const \&neurons)
+\item 
+\mbox{\hyperlink{classLayerMLP_a1fcfc4adfa672484992d691a909a56be}{Layer\+MLP}} (std\+::vector$<$ neuron\+\_\+t $>$ const \&neuron\+\_\+values)
+\item 
+\mbox{\hyperlink{classLayerMLP_aea97f9157c09c22c4c3fe75407c42b2e}{Layer\+MLP}} (std\+::vector$<$ neuron\+\_\+t $>$ \&\&neuron\+\_\+values)
+\item 
+\mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \& \mbox{\hyperlink{classLayerMLP_a2e0a96037b7816f4aa062909a351068b}{operator=}} (std\+::vector$<$ neuron\+\_\+t $>$ \&\&values)
+\item 
+\mbox{\Hypertarget{classLayerMLP_af6e70a07de9e847e635af5e261faeb87}\label{classLayerMLP_af6e70a07de9e847e635af5e261faeb87}} 
+\mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \& {\bfseries operator=} (const std\+::vector$<$ neuron\+\_\+t $>$ \&values)
+\item 
+\mbox{\Hypertarget{classLayerMLP_a8723c698459d7cfce27e937bb54017e1}\label{classLayerMLP_a8723c698459d7cfce27e937bb54017e1}} 
+const std\+::vector$<$ neuron\+\_\+t $>$ {\bfseries neuron\+\_\+values} () const
+\item 
+size\+\_\+t \mbox{\hyperlink{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}{size}} () const override
+\item 
+\mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \& \mbox{\hyperlink{classLayerMLP_a90087a7c15947605b375898ae728bde3}{operator\mbox{[}$\,$\mbox{]}}} (int64\+\_\+t i)
+\item 
+void \mbox{\hyperlink{classLayerMLP_ac96fc9ea08207f676d4a0db707018084}{apply\+\_\+offsets}} ()
+\item 
+\mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+::\+Layer\+Iterator\+Proxy}} \mbox{\hyperlink{classLayerMLP_a5e0e2959978254d69f1d599893b46ca7}{begin}} () override
+\item 
+\mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+::\+Layer\+Iterator\+Proxy}} \mbox{\hyperlink{classLayerMLP_afd0f8ed0366c40fa9e97ede6d061a7a3}{end}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Structure implementing a MLP layer of neurons ~\newline
+ Neurons are collected in a dynamic array using vector ~\newline
+ After creating a layer, the number of neurons cannot be changed ~\newline
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLayerMLP_a10d9227798819ae21fff74423543c69e}\label{classLayerMLP_a10d9227798819ae21fff74423543c69e}} 
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{LayerMLP()}{LayerMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily Layer\+MLP\+::\+Layer\+MLP (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor ~\newline
+ implements the creation of a vector of neurons with a specified size 
+\begin{DoxyParams}{Parameters}
+{\em size} & count of neurons \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLayerMLP_a876a41d0df9eb5b72134a8476412b77e}\label{classLayerMLP_a876a41d0df9eb5b72134a8476412b77e}} 
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{LayerMLP()}{LayerMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily Layer\+MLP\+::\+Layer\+MLP (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} $>$ const \&}]{neurons }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor ~\newline
+ Implements the creation of a layer from a vector of neurons 
+\begin{DoxyParams}{Parameters}
+{\em neurons} & neurons that need to be added \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLayerMLP_a1fcfc4adfa672484992d691a909a56be}\label{classLayerMLP_a1fcfc4adfa672484992d691a909a56be}} 
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{LayerMLP()}{LayerMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily Layer\+MLP\+::\+Layer\+MLP (\begin{DoxyParamCaption}\item[{std\+::vector$<$ neuron\+\_\+t $>$ const \&}]{neuron\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor ~\newline
+ Implements the creation of a layer from a lvalue vector of neuron values 
+\begin{DoxyParams}{Parameters}
+{\em neuron\+\_\+values} & vector of neuron\textquotesingle{}s values \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLayerMLP_aea97f9157c09c22c4c3fe75407c42b2e}\label{classLayerMLP_aea97f9157c09c22c4c3fe75407c42b2e}} 
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\index{LayerMLP@{LayerMLP}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{LayerMLP()}{LayerMLP()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily Layer\+MLP\+::\+Layer\+MLP (\begin{DoxyParamCaption}\item[{std\+::vector$<$ neuron\+\_\+t $>$ \&\&}]{neuron\+\_\+values }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Constructor ~\newline
+ Implements the creation of a layer from a rvalue vector of neuron values 
+\begin{DoxyParams}{Parameters}
+{\em neuron\+\_\+values} & vector of neuron\textquotesingle{}s values \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLayerMLP_ac96fc9ea08207f676d4a0db707018084}\label{classLayerMLP_ac96fc9ea08207f676d4a0db707018084}} 
+\index{LayerMLP@{LayerMLP}!apply\_offsets@{apply\_offsets}}
+\index{apply\_offsets@{apply\_offsets}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{apply\_offsets()}{apply\_offsets()}}
+{\footnotesize\ttfamily void Layer\+MLP\+::apply\+\_\+offsets (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Shifts the values ​​of all neurons by the amount shift before activation \mbox{\Hypertarget{classLayerMLP_a5e0e2959978254d69f1d599893b46ca7}\label{classLayerMLP_a5e0e2959978254d69f1d599893b46ca7}} 
+\index{LayerMLP@{LayerMLP}!begin@{begin}}
+\index{begin@{begin}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+::\+Layer\+Iterator\+Proxy}} Layer\+MLP\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires a method that returns an iterator to the beginning of the layer \begin{DoxyReturn}{Returns}
+iterator pointing to the first neuron 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classLayer_a3375d9eaf1e104cdbe0b4815d55cbac3}{Layer}}.
+
+\mbox{\Hypertarget{classLayerMLP_afd0f8ed0366c40fa9e97ede6d061a7a3}\label{classLayerMLP_afd0f8ed0366c40fa9e97ede6d061a7a3}} 
+\index{LayerMLP@{LayerMLP}!end@{end}}
+\index{end@{end}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+::\+Layer\+Iterator\+Proxy}} Layer\+MLP\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires a method that returns an iterator to the ending of the layer \begin{DoxyReturn}{Returns}
+iterator pointing to the memory area behind the last neuron 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classLayer_ae8e2d23344e9a6f17d6c51594f7bba32}{Layer}}.
+
+\mbox{\Hypertarget{classLayerMLP_a2e0a96037b7816f4aa062909a351068b}\label{classLayerMLP_a2e0a96037b7816f4aa062909a351068b}} 
+\index{LayerMLP@{LayerMLP}!operator=@{operator=}}
+\index{operator=@{operator=}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \& Layer\+MLP\+::operator= (\begin{DoxyParamCaption}\item[{std\+::vector$<$ neuron\+\_\+t $>$ \&\&}]{values }\end{DoxyParamCaption})}
+
+Implements changing the values ​​of layer neurons ~\newline
+ The size of the layer and the size of the vector of values ​​must match ~\newline
+
+\begin{DoxyParams}{Parameters}
+{\em values} & neuron\textquotesingle{}s values \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classLayerMLP_a90087a7c15947605b375898ae728bde3}\label{classLayerMLP_a90087a7c15947605b375898ae728bde3}} 
+\index{LayerMLP@{LayerMLP}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}} \& Layer\+MLP\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int64\+\_\+t}]{i }\end{DoxyParamCaption})}
+
+implements layer indexing ~\newline
+ supports negative indexing 
+\begin{DoxyParams}{Parameters}
+{\em i} & neuron index \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classNeuron}{Neuron}} from the vector neurons with the corresponding index 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}\label{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}} 
+\index{LayerMLP@{LayerMLP}!size@{size}}
+\index{size@{size}!LayerMLP@{LayerMLP}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t Layer\+MLP\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Requires a layer size calculation method \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classLayer}{Layer}} size 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classLayer_a971ed34fe3d54987e76a52b3ab9bf046}{Layer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}\end{DoxyCompactItemize}

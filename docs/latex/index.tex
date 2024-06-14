@@ -1,0 +1,305 @@
+\label{index_md_README}%
+\Hypertarget{index_md_README}%
+ Полносвязная нейронная сеть (MLP) для классификации геометрических фигур.
+
+Сеть работает с картинками произвольного размера.
+
+В качестве примера используется обработка сгенерированных изображений размера {\itshape 27x27} следующих геометрических фигур\+:
+
+
+\begin{DoxyItemize}
+\item Простая линия
+\item Треугольник
+\item Прямоугольник
+\item Трапеция
+\item Пятиугольник
+\item Круг
+\item Ромб
+\end{DoxyItemize}
+
+\begin{quote}
+Сгенерировать датасеты можно с помощью запуска программы {\itshape dataset-\/gen} \end{quote}
+Главное приложение ({\itshape app.\+exe}) позволяет работать с сетями из консоли (см. $\ast$\char`\"{}Использование проекта\char`\"{}$\ast$).
+
+\uline{Задача сети} -\/ отнесение изображения к одному из указанных выше классов (геометрических фигур).
+
+{\itshape Ответом сети} является название класса, к которому относится переданное изображение фигуры, и процент уверенности в полученном результате.\hypertarget{index_autotoc_md1}{}\doxysection{Структура проекта}\label{index_autotoc_md1}
+ \begin{center}{\bfseries{Схема включений заголовочных файлов}}\end{center} \hypertarget{index_autotoc_md2}{}\doxysubsubsection{Разделение на уровни}\label{index_autotoc_md2}
+Проект состоит из трёх уровней\+: {\itshape top, mlp и console}. Описание каждого уровня приведено ниже.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Уровень   }&\cellcolor{\tableheadbgcolor}\textbf{ \begin{center}Описание\end{center}    }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Файлы    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Уровень   }&\cellcolor{\tableheadbgcolor}\textbf{ \begin{center}Описание\end{center}    }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Файлы    }\\\cline{1-3}
+\endhead
+\PBS\centering {\itshape Top ~\newline
+~\newline
+(Архитектуры)}   &Заголовочные файлы, определяющие устройство нейронных сетей и их элементов. ~\newline
+Содержит полиморфные классы\+:~\newline
+1. Нейрон~\newline
+2. Слой~\newline
+3. Нейронная связь~\newline
+4. Функция активации~\newline
+5. Нейронная сеть~\newline
+6. Обработчик файлов моделей ~\newline
+и ограничения (concepts) для применяемых типов данных.   &\PBS\centering include/top/$\ast$.hh    \\\cline{1-3}
+\PBS\centering {\itshape MLP ~\newline
+~\newline
+(Реализации)}~\newline
+\&nbsp   &Реализация полносвязной нейронной сети и её структурных элементов на основе файлов {\itshape top-\/уровня}.   &\PBS\centering include/mlp$\ast$.hh,~\newline
+src/mlp$\ast$.cc    \\\cline{1-3}
+\PBS\centering {\itshape \mbox{\hyperlink{classConsole}{Console}} ~\newline
+ (Пользователя)}~\newline
+\&nbsp   &Реализация функций управления моделями полносвязных нейронных сетей с помощью текстовых команд   &\PBS\centering \mbox{\hyperlink{console_8hh}{include/console.\+hh}},~\newline
+src/console.\+cc, ~\newline
+mainfile.\+cc   \\\cline{1-3}
+\end{longtabu}
+\hypertarget{index_autotoc_md3}{}\doxysubsubsection{Нейроны}\label{index_autotoc_md3}
+Классы с обязательным полем {\itshape value} произвольного типа, поддерживающего базовые математические операции. Поле содержит текущее значение нейрона.
+
+\begin{quote}
+Для каждого нейрона обязан быть определён оператор приведения класса к типу поля value \end{quote}
+Нейроны полносвязной сети дополнительно содержат поле {\bfseries{shift}}, содержащее значение смещения поля {\itshape value}.\hypertarget{index_autotoc_md4}{}\doxysubsubsection{Слои}\label{index_autotoc_md4}
+Класс слоя не требует наличия каких-\/либо полей. Слой обязан быть итерируемым контейнером, состоящим из нейронов и реализующим метод вычисления размера.
+
+\begin{quote}
+Требования к реализации хранения нейронов отсутствуют \end{quote}
+Слои полносвязной сети являются надстройкой над {\itshape std\+::vector}, поэтому поддерживают индексацию нейронов.
+
+\begin{quote}
+Индесация может быть отрицательной. {\itshape i-\/тый} нейрон с конца имеет индекс {\itshape -\/1$\ast$(i+1)} \end{quote}
+Метод {\itshape apply\+\_\+offsets} применяет смещение значение каждого нейрона. Вызывается каждый раз после вычисления значений нейронов.
+
+Метод {\itshape neuron\+\_\+values} используется в случае, если необходимо изменить {\itshape только значения} нейронов слоя, а не все поля каждого нейрона.\hypertarget{index_autotoc_md5}{}\doxysubsubsection{Нейронные связи}\label{index_autotoc_md5}
+Класс нейронной связи также не требует начилия каких-\/либо полей. Нейронная связь обязана быть итерируемым контейнером, позволяющим получить последовательный доступ к каждому весу.
+
+\begin{quote}
+Нейронная связь содержит веса узлов, связывающих два слоя \end{quote}
+Нейронная связь в полносвязной сети представлена надстройкой над {\itshape std\+::vector}, реализующей доступ к вектору чисел как к матрице размера {\itshape NxM}, где N и M -\/ размеры входного и выходного слоёв соответственно.
+
+Началом нейронной связи считается весовой коэффициент между первыми нейронами каждого слоя. Далее весовые коэффициенты расположены в порядке возрастания индекса нейрона в выходном слое для каждого индекса нейрона в входном слое.
+
+\begin{quote}
+Получить вес между {\itshape i-\/тым нейроном} входного слоя и {\itshape j-\/тым} нейроном выходного слоя можно с помощью метода {\itshape get\+\_\+weight( j , i)} \end{quote}
+\hypertarget{index_autotoc_md6}{}\doxysubsubsection{Функции активации}\label{index_autotoc_md6}
+Группа классов в пространстве имен {\itshape activations}.
+
+Каждая функция активации обязана определять метод применения к слою нейронов.
+
+Так, например, функция Re\+LU может применяться к отдельному слою нейрона, однако существуют фунции, применяющиеся только к слою в целом (Argmax, Softmax). Следовательно, требование наличия метода применения к слою является более важным.
+
+\begin{quote}
+Классы функций активаций имеют дружественную функцию {\itshape derivative}, вычисляющую производную в точке для любой функции активации с указанной точностью \end{quote}
+Каждая функция обязана иметь уникальное имя, доступное с помощью метода {\itshape name()}, необходимое для того, чтобы различать обобщённые обьекты функций активации во время загрузки модели из файла или выгрузки в файл.\hypertarget{index_autotoc_md7}{}\doxysubsubsection{Нейронная сеть}\label{index_autotoc_md7}
+Класс, включающий в себя контейнеры слоёв, функций активации и нейронных связей. Обязательно наличие реализации прямого и обратного распространения, метода вычисления размера.
+
+Полносвязная сеть дополнительно включает в себя таблицу слоёв для сборки. Так, при применении метода {\itshape add()} слои и активации попадают сначала в данную таблицу. До вызова метода {\itshape make()} архитектуру сети можно изменять любым способом. После вызова {\itshape make()} произойдёт генерация нейронных связей и заполнение всех контейнеров, сеть будет готова к работе.
+
+\begin{quote}
+По умолчанию метод {\itshape make()} будет выполнен методом прямого или обратного распространения, если таблица слоёв окажется непустой. Используйте {\itshape disable\+\_\+automake()}, чтобы отключить автосборку. \end{quote}
+Ответом сети для данного изображения является результат выполнения метода {\itshape feedforward()}. Это кортеж из двух значений типов {\itshape size\+\_\+t} и {\itshape neuron\+\_\+t} -\/ наиболее вероятный класс изображения и процент уверенности соответственно.\hypertarget{index_autotoc_md8}{}\doxysubsubsection{Обработчик моделей. Формат файлов}\label{index_autotoc_md8}
+Класс, управляющий моделями сетей. Обязательно наличие методов загрузки из файла, выгрузки в файл.
+
+Обработчик моделей полносвязной сети реализует формат mlp. Описание файлов данного формата приведено в таблице ниже.
+
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Поле   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Описание   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Размер (байт)    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Поле   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Описание   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Размер (байт)    }\\\cline{1-3}
+\endhead
+\PBS\centering {\itshape Сигнатура файла}   &\PBS\centering Последовательность байт $\ast$(MLPFILE)$\ast$, ~\newline
+определяющая файл формата .mlp   &\PBS\centering 8    \\\cline{1-3}
+\PBS\centering {\itshape Количество слоёв}   &\PBS\centering Неотрицательное число в десятичной системе счисления   &\PBS\centering 8    \\\cline{1-3}
+\PBS\centering {\itshape Количество весов}   &\PBS\centering Неотрицательное число\+: cумма количеств весов всех нейронных связей сети   &\PBS\centering 8    \\\cline{1-3}
+\PBS\centering {\itshape Характеристика слоя}   &\PBS\centering Два неотрицательных числа\+: количество нейронов в слое и идентификатор функции активации   &\PBS\centering 2 × 8 × L,~\newline
+ L -\/ число слоёв    \\\cline{1-3}
+\PBS\centering {\itshape Значение веса}   &\PBS\centering Число с плавающей точкой   &\PBS\centering 8 × W, ~\newline
+W -\/ число весов    \\\cline{1-3}
+\PBS\centering {\itshape Значение смещения}   &\PBS\centering Число с плавающей точкой. ~\newline
+Поле {\itshape shift} каждого нейрона~\newline
+   &\PBS\centering 8 × N, ~\newline
+N -\/ число нейронов    \\\cline{1-3}
+\PBS\centering {\itshape Конец данных модели}   &\PBS\centering Последовательность байт, ~\newline
+определяющая конец модели. ~\newline
+Используется для контроля целостности модели   &\PBS\centering 8    \\\cline{1-3}
+\PBS\centering {\itshape Сообщение}   &\PBS\centering Произвольная последовательность байт. ~\newline
+Обрабатывается как UTF-\/8 строка   &\PBS\centering 8×R, ~\newline
+R ≥ 0   \\\cline{1-3}
+\end{longtabu}
+
+
+\begin{quote}
+Используйте метод {\itshape show\+\_\+model\+\_\+info()}, чтобы получить информацию о любой сети \end{quote}
+\hypertarget{index_autotoc_md9}{}\doxysubsubsection{Глобальные переменные}\label{index_autotoc_md9}
+В каждой программе существует глобальная таблица функций активации {\itshape activations\+::table}, позволяющая получить указатель на любую реализованную функцию активации.
+
+Необходимо это для того, чтобы существовал хотя бы один объект каждого класса функций активации. В противном случае создать нейронную сеть на основе модели из файла, не зная заранее используемых активаций, не получится.
+
+\begin{quote}
+Доступные функции активации указываются в файле {\itshape activations\+\_\+table.\+cc} \end{quote}
+\hypertarget{index_autotoc_md10}{}\doxysubsubsection{Расширения файлов}\label{index_autotoc_md10}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{2}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Расширение   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Описание    }\\\cline{1-2}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Расширение   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Описание    }\\\cline{1-2}
+\endhead
+\PBS\centering {\itshape mlp}   &\PBS\centering Модели MLP-\/сетей. ~\newline
+Обработчик\+: \mbox{\hyperlink{classMLPModelSaver}{MLPModel\+Saver}}    \\\cline{1-2}
+\PBS\centering {\itshape mlps}   &\PBS\centering Скрипты для нейронной сети ~\newline
+Обработчик\+: process\+\_\+script (mainfile.\+cc)    \\\cline{1-2}
+\PBS\centering {\itshape lb}   &\PBS\centering Метки изображений. ~\newline
+Метка определяет ожидаемый ответ сети    \\\cline{1-2}
+\PBS\centering {\itshape lnm}   &\PBS\centering Карта имён меток. ~\newline
+Каждой метке задано текстовое имя   \\\cline{1-2}
+\end{longtabu}
+\hypertarget{index_autotoc_md11}{}\doxysection{Использование проекта}\label{index_autotoc_md11}
+\hypertarget{index_autotoc_md12}{}\doxysubsection{Разработка кода с MLP библиотекой}\label{index_autotoc_md12}
+Заголовочный файл {\itshape \mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}} содержит все необходимые для работы с полносвязными сетями классы.
+
+Создайте обьект класса \mbox{\hyperlink{classNetMLP}{Net\+MLP}} и добавьте нужное количество слоев с указанием размера и функции активации. Для получения функции активации используется как создание обьекта нужной функции, так и получение из глобальной таблицы по имени.
+
+Далее используйте {\itshape make()}, чтобы собрать сконфирурированную сеть. Если автосборка разрешена, данный шаг не требуется.
+
+\begin{quote}
+По умолчанию автосборка разрешена. Сборка сети происходит всегда, когда таблица слоёв непустая. Используйте метод {\itshape disable\+\_\+automake()}, чтобы отключить. \end{quote}
+Сеть готова к работе. Метод {\itshape feedforward(arg)} реализует прямое распространение и принимает входной вектор-\/изображение.
+
+\begin{quote}
+Размер вектора изображения обязан совпадать с размером первого слоя сети, иначе часть нейронов будет незаполнена или изображение не загрузится полностью. Чтобы избежать ошибки, производится проверка данного требования \end{quote}
+Для обновления весов используйте метод {\itshape bacprop(arg)}.
+
+{\bfseries{Пример кода\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include <iostream>}
+\DoxyCodeLine{\#include "{}mlp.hh"{}}
+\DoxyCodeLine{using namespace activations;}
+\DoxyCodeLine{int main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    NetMLP net;}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    size\_t input\_size\{27 * 27\};}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    // Настраиваем сеть}
+\DoxyCodeLine{    net.add(input\_size, table.get\_by\_name("{}sigmoid"{}));}
+\DoxyCodeLine{    net.add(15, table.get\_by\_name("{}ReLU"{}));}
+\DoxyCodeLine{    net.add(15, table.get\_by\_name("{}tanh"{}));}
+\DoxyCodeLine{    net.add(5, table.get\_by\_name("{}softmax"{}));}
+\DoxyCodeLine{}
+\DoxyCodeLine{    // net.make();  /*  По умолчанию не требуется   */}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    std::vector<neuron\_t> target(input\_size);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    // Ваш метод загрузки и препроцессинга изображения}
+\DoxyCodeLine{    //  target = get\_image();  }
+\DoxyCodeLine{    }
+\DoxyCodeLine{    auto result = net.feedforward(target);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    // Выводит номер класса с наибольшим результатом}
+\DoxyCodeLine{    // и результат (процент) уверенности}
+\DoxyCodeLine{    std::cout << std::get<size\_t>(result) << "{} "{} << std::get<neuron\_t>(result);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    return 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Для работы с моделями сетей используйте \mbox{\hyperlink{classMLPModelSaver}{MLPModel\+Saver}}. Методы {\itshape save\+\_\+net\+\_\+to\+\_\+file(net, fpath, msg)} и {\itshape upload\+\_\+net\+\_\+from\+\_\+file(fpath)} позволяют сохранить и загрузить сеть соответственно. Для вывода информации о сети вызывайте метод {\itshape show\+\_\+model\+\_\+info(net)}
+
+\begin{quote}
+Сеть можно сохранить с дополнительным текстовым сообщением \end{quote}
+{\bfseries{Пример кода\+:}} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\#include <iostream>}
+\DoxyCodeLine{\#include "{}mlp.hh"{}}
+\DoxyCodeLine{using namespace activations;}
+\DoxyCodeLine{int main()}
+\DoxyCodeLine{\{}
+\DoxyCodeLine{    MLPModelSaver mds;}
+\DoxyCodeLine{    auto loaded = mds.upload\_net\_from\_file("{}model.mlp"{});}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    NetMLP net = std::get<NetMLP>(loaded); }
+\DoxyCodeLine{    std::string message = std::get<std::string>(loaded);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    mds.show\_model\_info(net);}
+\DoxyCodeLine{    }
+\DoxyCodeLine{    return 0;}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{index_autotoc_md13}{}\doxysubsection{Взаимодействие с консолью}\label{index_autotoc_md13}
+Запустите исполняемый файл {\bfseries{app}} программы. После появления приглашения ко вводу используйте указанные ниже команды.
+
+\begin{quote}
+Одна строка может содержать только одну команду \end{quote}
+\hypertarget{index_autotoc_md14}{}\doxysubsubsection{Команды}\label{index_autotoc_md14}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Название   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Действие   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Аргументы    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Название   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Действие   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Аргументы    }\\\cline{1-3}
+\endhead
+\PBS\centering {\itshape new}   &\PBS\centering Создаёт новую MLP-\/сеть   &\PBS\centering -\/    \\\cline{1-3}
+\PBS\centering {\itshape save}   &\PBS\centering Сохраняет сеть в файл   &\PBS\centering Имя файла, сообщение    \\\cline{1-3}
+\PBS\centering {\itshape load}   &\PBS\centering Загружает сеть с файла   &\PBS\centering Путь к файлу модели    \\\cline{1-3}
+\PBS\centering {\itshape info}   &\PBS\centering Выводит информацию о сети   &\PBS\centering -\/    \\\cline{1-3}
+\PBS\centering {\itshape add}   &\PBS\centering Добавляет слой в сеть   &\PBS\centering Число нейронов, активация    \\\cline{1-3}
+\PBS\centering {\itshape make}   &\PBS\centering Собирает сеть   &\PBS\centering -\/    \\\cline{1-3}
+\PBS\centering {\itshape train}   &\PBS\centering Обучает сеть   &\PBS\centering Папка обучающего датасета    \\\cline{1-3}
+\PBS\centering {\itshape test}   &\PBS\centering Тестирует сеть   &\PBS\centering Папка тестирующего датасета    \\\cline{1-3}
+\PBS\centering {\itshape predict}   &\PBS\centering Предсказание сети ~\newline
+для изображения   &\PBS\centering Название изображения,~\newline
+папка с картой имён меток   \\\cline{1-3}
+\end{longtabu}
+
+
+{\bfseries{Пример работы\+:}}
+
+\hypertarget{index_autotoc_md15}{}\doxysubsubsection{Создание скриптов}\label{index_autotoc_md15}
+Скрипт представляет собой последовательность команд, записанных в mlps-\/файле.
+
+\begin{quote}
+Запустите программу с ключом -\/S и передайте путь к файлу скриптов \end{quote}
+{\bfseries{Пример скрипта\+:}}
+
+{\itshape example.\+mlps} 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{new}
+\DoxyCodeLine{add 729 ReLU}
+\DoxyCodeLine{add 11 tanh}
+\DoxyCodeLine{add 5 softmax}
+\DoxyCodeLine{make}
+\DoxyCodeLine{save example-\/model.mlp Test net model saving message}
+\DoxyCodeLine{load example-\/model.mlp}
+\DoxyCodeLine{predict ../src/dataset/train/shape\_3\_triangle.png ../src/dataset/}
+\DoxyCodeLine{predict ../src/dataset/train/shape\_6\_circle.png ../src/dataset/}
+\DoxyCodeLine{info}
+\DoxyCodeLine{exit}
+
+\end{DoxyCode}
+
+
+\texorpdfstring{$>$}{>}В примере создаётся нейросеть с тремя слоями. \texorpdfstring{$>$}{>}Входной слой предназначен для загрузки изображения 27x27 \texorpdfstring{$>$}{>}Выходной слой состоит из пяти нейронов, следовательно, сеть различает 5 классов изображений \texorpdfstring{$>$}{>}Папка ./src/dataset/ содержит карту названий меток
+
+{\itshape Результат работы скрипта\+:}
+
+ 

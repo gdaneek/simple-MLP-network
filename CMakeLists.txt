@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.20)
-project(MLP net)
+project(MLPnet)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-set(CMAKE_BUILD_TYPE Debug)
-add_compile_options(-fconcepts-diagnostics-depth=2)
+#set(CMAKE_BUILD_TYPE Debug)
+#add_compile_options(-fconcepts-diagnostics-depth=2)
 
 file(GLOB CC_SOURCES "./src/*.cc")
 set(TESTS_DIR ../tests)
@@ -15,7 +15,12 @@ include_directories(./include ./include/top ./dependencies/SFML/include)
 add_executable(app ../mainfile.cc ${CC_SOURCES})
 link_directories(../dependencies/SFML/src)
 
+
 target_link_libraries(app sfml-window sfml-system sfml-graphics)
+
+add_executable(dataset-gen ./src/dataset-gen/dgen.cc)
+
+target_link_libraries(dataset-gen sfml-window sfml-system sfml-graphics)
 
 enable_testing()
 

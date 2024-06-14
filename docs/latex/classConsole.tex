@@ -1,0 +1,188 @@
+\hypertarget{classConsole}{}\doxysection{Console Class Reference}
+\label{classConsole}\index{Console@{Console}}
+
+
+{\ttfamily \#include $<$console.\+hh$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classConsole_ab034a37eaa4a9561f875638b7f467343}\label{classConsole_ab034a37eaa4a9561f875638b7f467343}} 
+{\bfseries Console} (std\+::ostream \&ostream)
+\item 
+void \mbox{\hyperlink{classConsole_a2c60b8c376742060d661779af6990973}{print}} (std\+::string msg)
+\item 
+void \mbox{\hyperlink{classConsole_af5f698650746757146482735af4392e2}{println}} (std\+::string msg)
+\item 
+void \mbox{\hyperlink{classConsole_ab93a9ba4ae161fad46d2ab60d81a2b45}{net\+\_\+info}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_afe68fa2ff09d290d0300bb98b9d17fc3}{save}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_a50c42144136fa778d560bf38e86d6a60}{new\+\_\+net}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_ac37a848d09c4735541297f7866d2b246}{net\+\_\+train}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_a38f2e74ddf76b4a746423613101d1af2}{add\+\_\+layer}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_aecabd31019877b0d3f7ab545b7d620f3}{net\+\_\+test}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_a6daf4da3aa70db4b1a6309805b19ec37}{predict}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+void \mbox{\hyperlink{classConsole_af50ba27ba69909d73af6800be15fbf8e}{load}} (std\+::vector$<$ std\+::string $>$ args)
+\item 
+\mbox{\Hypertarget{classConsole_a9fe0650eb4ce7248ade45ffd363f5f82}\label{classConsole_a9fe0650eb4ce7248ade45ffd363f5f82}} 
+void {\bfseries make} (std\+::vector$<$ std\+::string $>$ args)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+void(Console\+::$\ast$)(std\+::vector$<$ std\+::string $>$) \mbox{\hyperlink{classConsole_a63cc132506055484eaf0677047ec92b9}{get\+\_\+command}} (std\+::string command)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The class implements a console for user interaction with mlp networks structs 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classConsole_a38f2e74ddf76b4a746423613101d1af2}\label{classConsole_a38f2e74ddf76b4a746423613101d1af2}} 
+\index{Console@{Console}!add\_layer@{add\_layer}}
+\index{add\_layer@{add\_layer}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{add\_layer()}{add\_layer()}}
+{\footnotesize\ttfamily void Console\+::add\+\_\+layer (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+adds a layer to the network ~\newline
+ calls the corresponding network mlp method necessarily the number of neurons and activation. Optionally passed index for insertion
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_af50ba27ba69909d73af6800be15fbf8e}\label{classConsole_af50ba27ba69909d73af6800be15fbf8e}} 
+\index{Console@{Console}!load@{load}}
+\index{load@{load}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{load()}{load()}}
+{\footnotesize\ttfamily void Console\+::load (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+loads the network from a file ~\newline
+ calls the corresponding model processing method ~\newline
+ requires one parameter -\/ file path 
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_ab93a9ba4ae161fad46d2ab60d81a2b45}\label{classConsole_ab93a9ba4ae161fad46d2ab60d81a2b45}} 
+\index{Console@{Console}!net\_info@{net\_info}}
+\index{net\_info@{net\_info}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{net\_info()}{net\_info()}}
+{\footnotesize\ttfamily void Console\+::net\+\_\+info (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+prints information about the current network ~\newline
+ calls the corresponding model handler method ~\newline
+ requires no arguments 
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_aecabd31019877b0d3f7ab545b7d620f3}\label{classConsole_aecabd31019877b0d3f7ab545b7d620f3}} 
+\index{Console@{Console}!net\_test@{net\_test}}
+\index{net\_test@{net\_test}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{net\_test()}{net\_test()}}
+{\footnotesize\ttfamily void Console\+::net\+\_\+test (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+calls the test function with the passed parameters takes the same arguments as the test() function in learning.\+cc file 
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_ac37a848d09c4735541297f7866d2b246}\label{classConsole_ac37a848d09c4735541297f7866d2b246}} 
+\index{Console@{Console}!net\_train@{net\_train}}
+\index{net\_train@{net\_train}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{net\_train()}{net\_train()}}
+{\footnotesize\ttfamily void Console\+::net\+\_\+train (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+Calls the network training function with the passed parameters ~\newline
+ takes the same arguments as the train() function in learning.\+cc file 
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_a50c42144136fa778d560bf38e86d6a60}\label{classConsole_a50c42144136fa778d560bf38e86d6a60}} 
+\index{Console@{Console}!new\_net@{new\_net}}
+\index{new\_net@{new\_net}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{new\_net()}{new\_net()}}
+{\footnotesize\ttfamily void Console\+::new\+\_\+net (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+Moves the pointer to a new network with deleting the old one ~\newline
+ requires no arguments 
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_a6daf4da3aa70db4b1a6309805b19ec37}\label{classConsole_a6daf4da3aa70db4b1a6309805b19ec37}} 
+\index{Console@{Console}!predict@{predict}}
+\index{predict@{predict}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}}
+{\footnotesize\ttfamily void Console\+::predict (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+Classifies the transmitted image using the current network ~\newline
+ necessarily requires the path to the image in .png format for which you need to make a prediction
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_a2c60b8c376742060d661779af6990973}\label{classConsole_a2c60b8c376742060d661779af6990973}} 
+\index{Console@{Console}!print@{print}}
+\index{print@{print}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{print()}{print()}}
+{\footnotesize\ttfamily void Console\+::print (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+prints a message to the console 
+\begin{DoxyParams}{Parameters}
+{\em msg} & message that needs to be printed to the console \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_af5f698650746757146482735af4392e2}\label{classConsole_af5f698650746757146482735af4392e2}} 
+\index{Console@{Console}!println@{println}}
+\index{println@{println}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{println()}{println()}}
+{\footnotesize\ttfamily void Console\+::println (\begin{DoxyParamCaption}\item[{std\+::string}]{msg }\end{DoxyParamCaption})}
+
+prints a message to the console with a line feed 
+\begin{DoxyParams}{Parameters}
+{\em msg} & message that needs to be printed to the console \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classConsole_afe68fa2ff09d290d0300bb98b9d17fc3}\label{classConsole_afe68fa2ff09d290d0300bb98b9d17fc3}} 
+\index{Console@{Console}!save@{save}}
+\index{save@{save}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{save()}{save()}}
+{\footnotesize\ttfamily void Console\+::save (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::string $>$}]{args }\end{DoxyParamCaption})}
+
+Saves the network to a file ~\newline
+ calls the corresponding model handler method ~\newline
+ optionally accepts the name of the output file and a message to write to the file
+\begin{DoxyParams}{Parameters}
+{\em args} & arguments passed to the command \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classConsole_a63cc132506055484eaf0677047ec92b9}\label{classConsole_a63cc132506055484eaf0677047ec92b9}} 
+\index{Console@{Console}!get\_command@{get\_command}}
+\index{get\_command@{get\_command}!Console@{Console}}
+\doxysubsubsection{\texorpdfstring{get\_command}{get\_command}}
+{\footnotesize\ttfamily void(Console\+::$\ast$)(std\+::vector$<$ std\+::string $>$) Console\+::get\+\_\+command(std\+::string command)}
+
+Returns a pointer to the corresponding method given the command name 
+\begin{DoxyParams}{Parameters}
+{\em command} & command for which you need to find a method \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the corresponding method 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{console_8hh}{console.\+hh}}\end{DoxyCompactItemize}

@@ -1,0 +1,18 @@
+\hypertarget{conceptActivationsContainer}{}\doxysection{Activations\+Container Concept Reference}
+\label{conceptActivationsContainer}\index{ActivationsContainer@{ActivationsContainer}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptActivationsContainer}{ActivationsContainer}} = }
+\DoxyCodeLine{    \mbox{\hyperlink{conceptIterable}{Iterable<T>}} \&\& \mbox{\hyperlink{conceptIsActivation}{IsActivation<typename T::value\_type>}}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Requires the passed type to be a activation container 

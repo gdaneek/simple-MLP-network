@@ -1,0 +1,79 @@
+\hypertarget{classModelSaver}{}\doxysection{Model\+Saver\texorpdfstring{$<$}{<} Net\+Type \texorpdfstring{$>$}{>} Class Template Reference}
+\label{classModelSaver}\index{ModelSaver$<$ NetType $>$@{ModelSaver$<$ NetType $>$}}
+
+
+{\ttfamily \#include $<$net\+\_\+ms.\+hh$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::string \mbox{\hyperlink{classModelSaver_a057733d77932fdf24e6f3b6356f23abd}{save\+\_\+net\+\_\+to\+\_\+file}} (Net\+Type \&net, const std\+::string path=\char`\"{}\char`\"{}, const std\+::string msg=\char`\"{}\char`\"{})=0
+\item 
+virtual std\+::tuple$<$ Net\+Type, std\+::string $>$ \mbox{\hyperlink{classModelSaver_ad4f01a3fec4a84559430616499b185b4}{upload\+\_\+net\+\_\+from\+\_\+file}} (std\+::string path)=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classModelSaver_a73e8f211c6ba31491aa1948accc43149}\label{classModelSaver_a73e8f211c6ba31491aa1948accc43149}} 
+static const uint64\+\_\+t {\bfseries file\+\_\+signature} \{0x10454c4946504c4d\}
+\item 
+\mbox{\Hypertarget{classModelSaver_afb5c42b2be3e7f1f66b565209adc9fae}\label{classModelSaver_afb5c42b2be3e7f1f66b565209adc9fae}} 
+static const uint64\+\_\+t {\bfseries model\+\_\+end\+\_\+lb} \{0x104f464e4954454e\}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\subsubsection*{template$<$typename Net\+Type$>$\newline
+requires Derived\+From\+Net$<$\mbox{\hyperlink{classNet}{Net}}, Net\+Type$>$\newline
+class Model\+Saver$<$ Net\+Type $>$}
+template class that implements a network model handler ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classModelSaver_a057733d77932fdf24e6f3b6356f23abd}\label{classModelSaver_a057733d77932fdf24e6f3b6356f23abd}} 
+\index{ModelSaver$<$ NetType $>$@{ModelSaver$<$ NetType $>$}!save\_net\_to\_file@{save\_net\_to\_file}}
+\index{save\_net\_to\_file@{save\_net\_to\_file}!ModelSaver$<$ NetType $>$@{ModelSaver$<$ NetType $>$}}
+\doxysubsubsection{\texorpdfstring{save\_net\_to\_file()}{save\_net\_to\_file()}}
+{\footnotesize\ttfamily template$<$typename Net\+Type $>$ \\
+virtual std\+::string \mbox{\hyperlink{classModelSaver}{Model\+Saver}}$<$ Net\+Type $>$\+::save\+\_\+net\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{Net\+Type \&}]{net,  }\item[{const std\+::string}]{path = {\ttfamily \char`\"{}\char`\"{}},  }\item[{const std\+::string}]{msg = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Method for saving the network to an mlp file 
+\begin{DoxyParams}{Parameters}
+{\em net} & net to save \\
+\hline
+{\em path} & file name to save \\
+\hline
+{\em msg} & any message \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+path to the file where the network is saved 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classMLPModelSaver_a70aa14a1ab854b6acf6b0addade35634}{MLPModel\+Saver}}.
+
+\mbox{\Hypertarget{classModelSaver_ad4f01a3fec4a84559430616499b185b4}\label{classModelSaver_ad4f01a3fec4a84559430616499b185b4}} 
+\index{ModelSaver$<$ NetType $>$@{ModelSaver$<$ NetType $>$}!upload\_net\_from\_file@{upload\_net\_from\_file}}
+\index{upload\_net\_from\_file@{upload\_net\_from\_file}!ModelSaver$<$ NetType $>$@{ModelSaver$<$ NetType $>$}}
+\doxysubsubsection{\texorpdfstring{upload\_net\_from\_file()}{upload\_net\_from\_file()}}
+{\footnotesize\ttfamily template$<$typename Net\+Type $>$ \\
+virtual std\+::tuple$<$ Net\+Type, std\+::string $>$ \mbox{\hyperlink{classModelSaver}{Model\+Saver}}$<$ Net\+Type $>$\+::upload\+\_\+net\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+loads network from file 
+\begin{DoxyParams}{Parameters}
+{\em path} & mlp file with network \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+received network and message 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classMLPModelSaver_ab8540e7c3b89463cfd31ff1c85e5a5d5}{MLPModel\+Saver}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{net__ms_8hh}{net\+\_\+ms.\+hh}}\end{DoxyCompactItemize}

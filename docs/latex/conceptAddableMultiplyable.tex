@@ -1,0 +1,22 @@
+\hypertarget{conceptAddableMultiplyable}{}\doxysection{Addable\+Multiplyable Concept Reference}
+\label{conceptAddableMultiplyable}\index{AddableMultiplyable@{AddableMultiplyable}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptAddableMultiplyable}{AddableMultiplyable}} =  \textcolor{keyword}{requires}(T a, T b) \{}
+\DoxyCodeLine{                                \{ a + b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{                                \{ a* b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{                                \{ a -\/ b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{                                \{ a / b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{                              \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+requires support by a type of basic mathematical operators 

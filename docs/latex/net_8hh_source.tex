@@ -1,0 +1,161 @@
+\hypertarget{net_8hh_source}{}\doxysection{net.\+hh}
+\label{net_8hh_source}\index{include/top/net.hh@{include/top/net.hh}}
+\mbox{\hyperlink{net_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#ifndef NET\_HH}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#define NET\_HH}}
+\DoxyCodeLine{11 }
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <concepts>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <cstdint>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include <stdexcept>}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{21 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{22 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptAddableMultiplyable}{AddableMultiplyable}} = \textcolor{keyword}{requires}(T a, T b) \{}
+\DoxyCodeLine{23                                 \{ a + b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{24                                 \{ a* b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{25                                 \{ a -\/ b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{26                                 \{ a / b \} -\/> std::convertible\_to<T>;}
+\DoxyCodeLine{27                               \};}
+\DoxyCodeLine{28 }
+\DoxyCodeLine{29 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{30 \textcolor{keyword}{struct }\mbox{\hyperlink{structCheckNeuronValueTypename}{CheckNeuronValueTypename}} \{}
+\DoxyCodeLine{31   \textcolor{keyword}{static\_assert}(\mbox{\hyperlink{conceptAddableMultiplyable}{AddableMultiplyable<T>}},}
+\DoxyCodeLine{32                 \textcolor{stringliteral}{"{}Type used for neuron value must support addition, "{}}}
+\DoxyCodeLine{33                 \textcolor{stringliteral}{"{}multiplication, subtraction, and division."{}});}
+\DoxyCodeLine{34   \textcolor{keyword}{using }type = T;}
+\DoxyCodeLine{35 \};}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{37 \textcolor{keyword}{using }neuron\_t = \mbox{\hyperlink{structCheckNeuronValueTypename}{CheckNeuronValueTypename<double>::type}};}
+\DoxyCodeLine{38 }
+\DoxyCodeLine{43 \textcolor{keyword}{class }\mbox{\hyperlink{classNeuron}{Neuron}} \{}
+\DoxyCodeLine{44  \textcolor{keyword}{protected}:}
+\DoxyCodeLine{45   neuron\_t value;  \textcolor{comment}{//< current neuron value}}
+\DoxyCodeLine{46  \textcolor{keyword}{public}:}
+\DoxyCodeLine{52   \textcolor{keyword}{virtual} \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuron_af48f20b3a9870066dce694ab885e2e97}{operator=}}(\textcolor{keyword}{const} neuron\_t value) = 0;}
+\DoxyCodeLine{58   \textcolor{keyword}{virtual} \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuron_a47b40730b695135b9c58be98a46b8b93}{operator+=}}(\textcolor{keyword}{const} neuron\_t value) = 0;}
+\DoxyCodeLine{64   \textcolor{keyword}{virtual} \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuron_a7ad62641c268cda230720a7a78730652}{operator*=}}(\textcolor{keyword}{const} neuron\_t value) = 0;}
+\DoxyCodeLine{69   \textcolor{keyword}{explicit} \textcolor{keyword}{virtual} \textcolor{keyword}{operator} neuron\_t() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{74   \textcolor{keyword}{virtual} neuron\_t \mbox{\hyperlink{classNeuron_ac13ad83655474723eefb96f67ebb93ab}{get\_value}}()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} value; \}}
+\DoxyCodeLine{75 \};}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77 }
+\DoxyCodeLine{78 }
+\DoxyCodeLine{83 \textcolor{keyword}{class }\mbox{\hyperlink{classLayer}{Layer}} \{}
+\DoxyCodeLine{84  \textcolor{keyword}{public}:}
+\DoxyCodeLine{89   \textcolor{keyword}{virtual} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classLayer_a971ed34fe3d54987e76a52b3ab9bf046}{size}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{90   \textcolor{comment}{// virtual Neuron\& operator [](const int64\_t i) = 0;}}
+\DoxyCodeLine{91 }
+\DoxyCodeLine{96   \textcolor{keyword}{struct }\mbox{\hyperlink{structLayer_1_1iterator}{iterator}} \{}
+\DoxyCodeLine{97     \mbox{\hyperlink{classNeuron}{Neuron}}* ptr;}
+\DoxyCodeLine{98     \textcolor{keyword}{virtual} \mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& operator++(\textcolor{keywordtype}{int}) = 0;}
+\DoxyCodeLine{99     \textcolor{keyword}{virtual} \mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& operator-\/-\/(\textcolor{keywordtype}{int}) = 0;}
+\DoxyCodeLine{100     \textcolor{keyword}{virtual} \mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& operator++() = 0;}
+\DoxyCodeLine{101     \textcolor{keyword}{virtual} \mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& operator-\/-\/() = 0;}
+\DoxyCodeLine{102     \textcolor{keyword}{virtual} \mbox{\hyperlink{classNeuron}{Neuron}}\& operator*() = 0;}
+\DoxyCodeLine{103     \textcolor{keyword}{virtual} \mbox{\hyperlink{classNeuron}{Neuron}}* operator-\/>() = 0;}
+\DoxyCodeLine{104     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} operator==(\mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& other) = 0;}
+\DoxyCodeLine{105     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} operator!=(\mbox{\hyperlink{structLayer_1_1iterator}{iterator}}\& other) = 0;}
+\DoxyCodeLine{106   \};}
+\DoxyCodeLine{107 }
+\DoxyCodeLine{114   \textcolor{keyword}{class }\mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{LayerIteratorProxy}} \{}
+\DoxyCodeLine{115     std::shared\_ptr<Layer::iterator> ptr;  \textcolor{comment}{//< pointer to an object derived from the layer iterator class}}
+\DoxyCodeLine{116    \textcolor{keyword}{public}:}
+\DoxyCodeLine{117     \textcolor{keyword}{explicit} \textcolor{keyword}{operator} \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\&() \{ \textcolor{keywordflow}{return} *(ptr.get()); \}}
+\DoxyCodeLine{118     \textcolor{keyword}{explicit} \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{LayerIteratorProxy}}(\mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}* \_ptr) : ptr\{std::move(\_ptr)\} \{\};}
+\DoxyCodeLine{119     \textcolor{keywordtype}{bool} operator!=(\mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{LayerIteratorProxy}}\& other) \{ \textcolor{keywordflow}{return} *ptr.get() != *other.ptr.get(); \}}
+\DoxyCodeLine{120     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator++() \{ \textcolor{keywordflow}{return} (*ptr.get())++; \}}
+\DoxyCodeLine{121     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator-\/-\/() \{ \textcolor{keywordflow}{return} (*ptr.get())-\/-\/; \}}
+\DoxyCodeLine{122     \mbox{\hyperlink{classNeuron}{Neuron}}\& operator*() \{ \textcolor{keywordflow}{return} *(*(ptr.get())); \}}
+\DoxyCodeLine{123   \};}
+\DoxyCodeLine{124 }
+\DoxyCodeLine{129   \textcolor{keyword}{virtual} \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{LayerIteratorProxy}} \mbox{\hyperlink{classLayer_a3375d9eaf1e104cdbe0b4815d55cbac3}{begin}}() = 0;}
+\DoxyCodeLine{130 }
+\DoxyCodeLine{135   \textcolor{keyword}{virtual} \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{LayerIteratorProxy}} \mbox{\hyperlink{classLayer_ae8e2d23344e9a6f17d6c51594f7bba32}{end}}() = 0;}
+\DoxyCodeLine{136 \};}
+\DoxyCodeLine{137 }
+\DoxyCodeLine{138 }
+\DoxyCodeLine{139 \textcolor{keyword}{using }weight = double;}
+\DoxyCodeLine{140 }
+\DoxyCodeLine{141 \textcolor{keyword}{class }\mbox{\hyperlink{classNLink}{NLink}} \{}
+\DoxyCodeLine{142  \textcolor{keyword}{public}:}
+\DoxyCodeLine{143   \textcolor{keyword}{virtual} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} size() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{148   \textcolor{keyword}{struct }\mbox{\hyperlink{structNLink_1_1iterator}{iterator}} \{}
+\DoxyCodeLine{149     weight* ptr;}
+\DoxyCodeLine{150     \textcolor{keyword}{virtual} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& operator++(\textcolor{keywordtype}{int}) = 0;}
+\DoxyCodeLine{151     \textcolor{keyword}{virtual} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& operator-\/-\/(\textcolor{keywordtype}{int}) = 0;}
+\DoxyCodeLine{152     \textcolor{keyword}{virtual} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& operator++() = 0;}
+\DoxyCodeLine{153     \textcolor{keyword}{virtual} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& operator-\/-\/() = 0;}
+\DoxyCodeLine{154     \textcolor{keyword}{virtual} weight\& operator*() = 0;}
+\DoxyCodeLine{155     \textcolor{keyword}{virtual} weight* operator-\/>() = 0;}
+\DoxyCodeLine{156     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& other) = 0;}
+\DoxyCodeLine{157     \textcolor{keyword}{virtual} \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{structNLink_1_1iterator}{iterator}}\& other) = 0;}
+\DoxyCodeLine{158   \};}
+\DoxyCodeLine{159 }
+\DoxyCodeLine{166   \textcolor{keyword}{class }\mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLinkIteratorProxy}} \{}
+\DoxyCodeLine{167     std::shared\_ptr<NLink::iterator> ptr;}
+\DoxyCodeLine{168    \textcolor{keyword}{public}:}
+\DoxyCodeLine{169     \textcolor{keyword}{explicit} \textcolor{keyword}{operator} \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\&() \{ \textcolor{keywordflow}{return} *(ptr.get()); \}}
+\DoxyCodeLine{170     \textcolor{keyword}{explicit} \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLinkIteratorProxy}}(\mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}* \_ptr) : ptr\{std::move(\_ptr)\} \{\};}
+\DoxyCodeLine{171     \textcolor{keywordtype}{bool} operator!=(\mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLinkIteratorProxy}} other) \{ \textcolor{keywordflow}{return} *ptr.get() != *other.ptr.get(); \}}
+\DoxyCodeLine{172     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator++() \{ \textcolor{keywordflow}{return} (*ptr.get())++; \}}
+\DoxyCodeLine{173     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator-\/-\/() \{ \textcolor{keywordflow}{return} (*ptr.get())-\/-\/; \}}
+\DoxyCodeLine{174     weight\& operator*() \{ \textcolor{keywordflow}{return} *(*ptr.get()); \}}
+\DoxyCodeLine{175   \};}
+\DoxyCodeLine{176 }
+\DoxyCodeLine{181   \textcolor{keyword}{virtual} \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLinkIteratorProxy}} \mbox{\hyperlink{classNLink_a8d6ff263f0cd8064e1d80c7956913234}{begin}}() = 0;}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{187   \textcolor{keyword}{virtual} \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLinkIteratorProxy}} \mbox{\hyperlink{classNLink_a3d8caec37cb042ef0ba13a8c6ed79a52}{end}}() = 0;}
+\DoxyCodeLine{188 \};}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190 }
+\DoxyCodeLine{194 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{195 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptIterable}{Iterable}} = \textcolor{keyword}{requires}(T t) \{}
+\DoxyCodeLine{196                      \{ std::begin(t) \} -\/> std::input\_iterator;}
+\DoxyCodeLine{197                      \{ std::end(t) \} -\/> std::input\_iterator;}
+\DoxyCodeLine{198                    \};}
+\DoxyCodeLine{199 }
+\DoxyCodeLine{203 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{204 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptLayersContainer}{LayersContainer}} =}
+\DoxyCodeLine{205     \mbox{\hyperlink{conceptIterable}{Iterable<T>}} \&\& \textcolor{keyword}{requires}(T x) \{}
+\DoxyCodeLine{206                      \{ *std::begin(x) \} -\/> std::convertible\_to<const Layer\&>;}
+\DoxyCodeLine{207                    \};}
+\DoxyCodeLine{208 }
+\DoxyCodeLine{212 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{213 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptLinksContainer}{LinksContainer}} =}
+\DoxyCodeLine{214     \mbox{\hyperlink{conceptIterable}{Iterable<T>}} \&\& \textcolor{keyword}{requires}(T x) \{}
+\DoxyCodeLine{215                      \{ *std::begin(x) \} -\/> std::convertible\_to<const NLink\&>;}
+\DoxyCodeLine{216                    \};}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{221 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{222 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptIsActivation}{IsActivation}} = \textcolor{keyword}{requires}(T t, \mbox{\hyperlink{classLayer}{Layer}}\& arg) \{}
+\DoxyCodeLine{223                          \{ (*t)(arg) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{224                        \};}
+\DoxyCodeLine{225 }
+\DoxyCodeLine{229 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{230 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptActivationsContainer}{ActivationsContainer}} =}
+\DoxyCodeLine{231     \mbox{\hyperlink{conceptIterable}{Iterable<T>}} \&\& \mbox{\hyperlink{conceptIsActivation}{IsActivation<typename T::value\_type>}};}
+\DoxyCodeLine{232 }
+\DoxyCodeLine{236 \textcolor{keyword}{template} <\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{237 \textcolor{keyword}{concept }\mbox{\hyperlink{conceptNoVoidType}{NoVoidType}} = !std::is\_void\_v<T>;}
+\DoxyCodeLine{238 }
+\DoxyCodeLine{244 \textcolor{keyword}{template} <\mbox{\hyperlink{conceptLayersContainer}{LayersContainer}} Layers, \mbox{\hyperlink{conceptActivationsContainer}{ActivationsContainer}} Activations,}
+\DoxyCodeLine{245           \mbox{\hyperlink{conceptLinksContainer}{LinksContainer}} NLinks, \mbox{\hyperlink{conceptNoVoidType}{NoVoidType}} ResponseType>}
+\DoxyCodeLine{246 \textcolor{keyword}{class }\mbox{\hyperlink{classNet}{Net}} \{}
+\DoxyCodeLine{247  \textcolor{keyword}{protected}:}
+\DoxyCodeLine{248   Layers layers;  \textcolor{comment}{//< presence of a field of layers stored by any structure}}
+\DoxyCodeLine{249   NLinks}
+\DoxyCodeLine{250       links;  \textcolor{comment}{//< presence of a field of links stored by any structure}}
+\DoxyCodeLine{251   Activations \mbox{\hyperlink{namespaceactivations}{activations}};  \textcolor{comment}{//< presence of a field of activations stored by any structure}}
+\DoxyCodeLine{252  \textcolor{keyword}{public}:}
+\DoxyCodeLine{257   \textcolor{keyword}{virtual} \textcolor{keyword}{inline} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classNet_aa882fe60c748b0d44b4bb73b38240178}{size}}() \textcolor{keyword}{const} = 0;}
+\DoxyCodeLine{258 }
+\DoxyCodeLine{262   \textcolor{keyword}{virtual} \textcolor{keywordtype}{void} \mbox{\hyperlink{classNet_a9f05cbc81074c590400ed15d60aa2bdb}{feedforward}}() = 0;}
+\DoxyCodeLine{263 }
+\DoxyCodeLine{268   \textcolor{keyword}{virtual} ResponseType \mbox{\hyperlink{classNet_ad9bc118c501f75c64f1d17a31bf6236f}{response}}() = 0;}
+\DoxyCodeLine{269 \};}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// NET\_HH}}
+
+\end{DoxyCode}

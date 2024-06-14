@@ -1,0 +1,34 @@
+\hypertarget{learning_8hh_source}{}\doxysection{learning.\+hh}
+\label{learning_8hh_source}\index{include/learning.hh@{include/learning.hh}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{2 \textcolor{preprocessor}{\#ifndef LEARNING\_HH}}
+\DoxyCodeLine{3 \textcolor{preprocessor}{\#define LEARNING\_HH}}
+\DoxyCodeLine{4 }
+\DoxyCodeLine{5 \textcolor{preprocessor}{\#include <ctime>}}
+\DoxyCodeLine{6 \textcolor{preprocessor}{\#include <filesystem>}  \textcolor{comment}{// ВЕРСИЯ CPP не ниже 17}}
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#include <initializer\_list>}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{9 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <memory>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <unordered\_set>}}
+\DoxyCodeLine{13 }
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include "{}../dependencies/SFML/include/Graphics.hpp"{}}}
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}../include/mlp.hh"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}../include/top/activations.hh"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}../include/top/net\_ms.hh"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}stdarg.h"{}}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{20 \textcolor{keyword}{namespace }fs = std::filesystem;}
+\DoxyCodeLine{21 std::vector<neuron\_t> vectorize\_image(std::string fpath);}
+\DoxyCodeLine{22 }
+\DoxyCodeLine{23 \textcolor{keyword}{template} <\textcolor{keyword}{typename} LabelType>}
+\DoxyCodeLine{24 std::vector<neuron\_t> vectorize\_label(LabelType\& label);}
+\DoxyCodeLine{25 \textcolor{keywordtype}{void} train(\mbox{\hyperlink{classNetMLP}{NetMLP}}\& net, std::string dir);}
+\DoxyCodeLine{26 std::tuple<size\_t, size\_t> test(\mbox{\hyperlink{classNetMLP}{NetMLP}}\& net, std::string dir);}
+\DoxyCodeLine{27 }
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

@@ -1,0 +1,66 @@
+\hypertarget{namespaceactivations}{}\doxysection{activations Namespace Reference}
+\label{namespaceactivations}\index{activations@{activations}}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Empty}{Empty}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1ReLU}{Re\+LU}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Sigmoid}{Sigmoid}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Softmax}{Softmax}}
+\item 
+struct \mbox{\hyperlink{structactivations_1_1Table}{Table}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Tanh}{Tanh}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceactivations_a854d044e7d558ff0df43617dce730ee5}\label{namespaceactivations_a854d044e7d558ff0df43617dce730ee5}} 
+using {\bfseries fname} = std\+::string
+\item 
+\mbox{\Hypertarget{namespaceactivations_a518ae264bce527908a8cae1af72505dd}\label{namespaceactivations_a518ae264bce527908a8cae1af72505dd}} 
+using {\bfseries fptr} = \mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} $\ast$
+\item 
+\mbox{\Hypertarget{namespaceactivations_a154a0891558937487de4831f9b4ae4cc}\label{namespaceactivations_a154a0891558937487de4831f9b4ae4cc}} 
+using {\bfseries flink} = \mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} \&
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{namespaceactivations_a83284c7618440885f58e33ce516aeaa0}{derivative}} (\mbox{\hyperlink{classNeuron}{Neuron}} \&neuron, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} \&f, double accuracy)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceactivations_ac3be6124ac01daa32e9184e49edd911a}\label{namespaceactivations_ac3be6124ac01daa32e9184e49edd911a}} 
+\mbox{\hyperlink{structactivations_1_1Table}{Table}} {\bfseries table}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+a group of classes and functions related to activations 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{namespaceactivations_a83284c7618440885f58e33ce516aeaa0}\label{namespaceactivations_a83284c7618440885f58e33ce516aeaa0}} 
+\index{activations@{activations}!derivative@{derivative}}
+\index{derivative@{derivative}!activations@{activations}}
+\doxysubsubsection{\texorpdfstring{derivative()}{derivative()}}
+{\footnotesize\ttfamily double activations\+::derivative (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNeuron}{Neuron}} \&}]{neuron,  }\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} \&}]{f,  }\item[{double}]{accuracy }\end{DoxyParamCaption})}
+
+calculates the first derivative for the passed activation function with a certain accuracy
+\begin{DoxyParams}{Parameters}
+{\em neuron} & the point at which it is necessary to calculate the derivative\\
+\hline
+{\em f} & activation function for which the derivative is calculated\\
+\hline
+{\em accuracy} & the accuracy with which you need to find the derivative \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+derivative value at a point neuron.\+get\+\_\+value() 
+\end{DoxyReturn}

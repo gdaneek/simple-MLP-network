@@ -1,0 +1,41 @@
+\hypertarget{console_8hh}{}\doxysection{include/console.hh File Reference}
+\label{console_8hh}\index{include/console.hh@{include/console.hh}}
+{\ttfamily \#include $<$filesystem$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include \char`\"{}learning.\+hh\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}mlp.\+hh\char`\"{}}\newline
+Include dependency graph for console.\+hh\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classConsole}{Console}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ std\+::tuple$<$ size\+\_\+t, std\+::string $>$ $>$ \mbox{\hyperlink{console_8hh_aba7c4ce911d4030fe4cb116793b94749}{lnm\+\_\+reader}} (std\+::string dpath)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classConsole}{Console}} class for controlling a neural network using text commands from the terminal 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{console_8hh_aba7c4ce911d4030fe4cb116793b94749}\label{console_8hh_aba7c4ce911d4030fe4cb116793b94749}} 
+\index{console.hh@{console.hh}!lnm\_reader@{lnm\_reader}}
+\index{lnm\_reader@{lnm\_reader}!console.hh@{console.hh}}
+\doxysubsubsection{\texorpdfstring{lnm\_reader()}{lnm\_reader()}}
+{\footnotesize\ttfamily std\+::vector$<$ std\+::tuple$<$ size\+\_\+t, std\+::string $>$ $>$ lnm\+\_\+reader (\begin{DoxyParamCaption}\item[{std\+::string}]{dpath }\end{DoxyParamCaption})}
+
+Function of obtaining the names of each tag during classification ~\newline
+ 
+\begin{DoxyParams}{Parameters}
+{\em dpath} & path to the .lnmap file with markup \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+vector of pairs of labels and their string names 
+\end{DoxyReturn}

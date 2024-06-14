@@ -1,0 +1,61 @@
+\hypertarget{classactivations_1_1Tanh}{}\doxysection{activations\+::Tanh Class Reference}
+\label{classactivations_1_1Tanh}\index{activations::Tanh@{activations::Tanh}}
+
+
+{\ttfamily \#include $<$activations.\+hh$>$}
+
+
+
+Inheritance diagram for activations\+::Tanh\+:
+% FIG 0
+
+
+Collaboration diagram for activations\+::Tanh\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classactivations_1_1Tanh_a4b6dce2574b25eb9b65cd5e6f32f4b86}{operator()}} (\mbox{\hyperlink{classLayer}{Layer}} \&layer) override
+\item 
+fname \mbox{\hyperlink{classactivations_1_1Tanh_a0d65c11b722d8be53a0ae2c576e9f5a9}{name}} () override
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+hyperbolic tangent function class ~\newline
+ Calculates the hyperbolic tangent value for each neuron in the layer 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classactivations_1_1Tanh_a0d65c11b722d8be53a0ae2c576e9f5a9}\label{classactivations_1_1Tanh_a0d65c11b722d8be53a0ae2c576e9f5a9}} 
+\index{activations::Tanh@{activations::Tanh}!name@{name}}
+\index{name@{name}!activations::Tanh@{activations::Tanh}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily fname activations\+::\+Tanh\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires each function to have a name \begin{DoxyReturn}{Returns}
+name of the function 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classactivations_1_1ActivationFunc_a5c7e706fab453e9ce3a2a75c991e7390}{activations\+::\+Activation\+Func}}.
+
+\mbox{\Hypertarget{classactivations_1_1Tanh_a4b6dce2574b25eb9b65cd5e6f32f4b86}\label{classactivations_1_1Tanh_a4b6dce2574b25eb9b65cd5e6f32f4b86}} 
+\index{activations::Tanh@{activations::Tanh}!operator()@{operator()}}
+\index{operator()@{operator()}!activations::Tanh@{activations::Tanh}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily void activations\+::\+Tanh\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLayer}{Layer}} \&}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires defining the application of a function to a layer of neurons 
+\begin{DoxyParams}{Parameters}
+{\em layer} & layer to which you want to apply the function \\
+\hline
+\end{DoxyParams}
+
+
+Implements \mbox{\hyperlink{classactivations_1_1ActivationFunc_a9c7041174564605e1e939274edc4d13a}{activations\+::\+Activation\+Func}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{activations_8hh}{activations.\+hh}}\end{DoxyCompactItemize}

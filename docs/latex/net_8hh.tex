@@ -1,0 +1,61 @@
+\hypertarget{net_8hh}{}\doxysection{include/top/net.hh File Reference}
+\label{net_8hh}\index{include/top/net.hh@{include/top/net.hh}}
+{\ttfamily \#include $<$concepts$>$}\newline
+{\ttfamily \#include $<$cstdint$>$}\newline
+{\ttfamily \#include $<$memory$>$}\newline
+{\ttfamily \#include $<$stdexcept$>$}\newline
+Include dependency graph for net.\+hh\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structCheckNeuronValueTypename}{Check\+Neuron\+Value\+Typename$<$ T $>$}}
+\item 
+class \mbox{\hyperlink{classNeuron}{Neuron}}
+\item 
+class \mbox{\hyperlink{classLayer}{Layer}}
+\item 
+struct \mbox{\hyperlink{structLayer_1_1iterator}{Layer\+::iterator}}
+\item 
+class \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+::\+Layer\+Iterator\+Proxy}}
+\item 
+class \mbox{\hyperlink{classNLink}{NLink}}
+\item 
+struct \mbox{\hyperlink{structNLink_1_1iterator}{NLink\+::iterator}}
+\item 
+class \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink\+::\+NLink\+Iterator\+Proxy}}
+\item 
+class \mbox{\hyperlink{classNet}{Net$<$ Layers, Activations, NLinks, Response\+Type $>$}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Concepts}
+\begin{DoxyCompactItemize}
+\item 
+concept \mbox{\hyperlink{conceptAddableMultiplyable}{Addable\+Multiplyable}}
+\item 
+concept \mbox{\hyperlink{conceptIterable}{Iterable}}
+\item 
+concept \mbox{\hyperlink{conceptLayersContainer}{Layers\+Container}}
+\item 
+concept \mbox{\hyperlink{conceptLinksContainer}{Links\+Container}}
+\item 
+concept \mbox{\hyperlink{conceptIsActivation}{Is\+Activation}}
+\item 
+concept \mbox{\hyperlink{conceptActivationsContainer}{Activations\+Container}}
+\item 
+concept \mbox{\hyperlink{conceptNoVoidType}{No\+Void\+Type}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{net_8hh_aba2b377665413766879ce2c49e1ad5d4}\label{net_8hh_aba2b377665413766879ce2c49e1ad5d4}} 
+using {\bfseries neuron\+\_\+t} = \mbox{\hyperlink{structCheckNeuronValueTypename}{Check\+Neuron\+Value\+Typename}}$<$ double $>$\+::type
+\item 
+\mbox{\Hypertarget{net_8hh_a423721c03caea9048210a47379a23f19}\label{net_8hh_a423721c03caea9048210a47379a23f19}} 
+using {\bfseries weight} = double
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+The file contains polymorphic classes of the neural network and its structural elements. The interface of the neuron, layer, neural connection and the network itself are described 

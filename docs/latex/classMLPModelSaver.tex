@@ -1,0 +1,125 @@
+\hypertarget{classMLPModelSaver}{}\doxysection{MLPModel\+Saver Class Reference}
+\label{classMLPModelSaver}\index{MLPModelSaver@{MLPModelSaver}}
+
+
+{\ttfamily \#include $<$mlp.\+hh$>$}
+
+
+
+Inheritance diagram for MLPModel\+Saver\+:
+% FIG 0
+
+
+Collaboration diagram for MLPModel\+Saver\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+std\+::string \mbox{\hyperlink{classMLPModelSaver_a70aa14a1ab854b6acf6b0addade35634}{save\+\_\+net\+\_\+to\+\_\+file}} (\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&net, const std\+::string path=\char`\"{}\char`\"{}, const std\+::string msg=\char`\"{}\char`\"{}) override
+\item 
+\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \mbox{\hyperlink{classMLPModelSaver_a9dc396ee55c840691777344d43e4900a}{netmaker}} (std\+::vector$<$ std\+::tuple$<$ size\+\_\+t, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} $>$ $>$ \&layers, std\+::vector$<$ weight $>$ \&weights, std\+::vector$<$ neuron\+\_\+t $>$ \&shifts)
+\item 
+std\+::tuple$<$ \mbox{\hyperlink{classNetMLP}{Net\+MLP}}, std\+::string $>$ \mbox{\hyperlink{classMLPModelSaver_ab8540e7c3b89463cfd31ff1c85e5a5d5}{upload\+\_\+net\+\_\+from\+\_\+file}} (std\+::string path) override
+\item 
+void \mbox{\hyperlink{classMLPModelSaver_a985ca9fe5f404e363dad9d706fb0b345}{show\+\_\+model\+\_\+info}} (\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&net, std\+::string msg=\char`\"{}\char`\"{}, std\+::ostream \&osteram=std\+::cout) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static const std\+::string \mbox{\hyperlink{classMLPModelSaver_a1d5d245fb75969fca02648c999cdaa11}{make\+\_\+filename}} (\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&net)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+MLP model processor class ~\newline
+ Implements saving mlp to a file, ~\newline
+ reading from a file ~\newline
+ and assembling networks from several vectors 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMLPModelSaver_a1d5d245fb75969fca02648c999cdaa11}\label{classMLPModelSaver_a1d5d245fb75969fca02648c999cdaa11}} 
+\index{MLPModelSaver@{MLPModelSaver}!make\_filename@{make\_filename}}
+\index{make\_filename@{make\_filename}!MLPModelSaver@{MLPModelSaver}}
+\doxysubsubsection{\texorpdfstring{make\_filename()}{make\_filename()}}
+{\footnotesize\ttfamily static const std\+::string MLPModel\+Saver\+::make\+\_\+filename (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&}]{net }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+Collects the filename for the network if one was not specified ~\newline
+ the number of neurons on each layer is used to assemble the name \mbox{\Hypertarget{classMLPModelSaver_a9dc396ee55c840691777344d43e4900a}\label{classMLPModelSaver_a9dc396ee55c840691777344d43e4900a}} 
+\index{MLPModelSaver@{MLPModelSaver}!netmaker@{netmaker}}
+\index{netmaker@{netmaker}!MLPModelSaver@{MLPModelSaver}}
+\doxysubsubsection{\texorpdfstring{netmaker()}{netmaker()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNetMLP}{Net\+MLP}} MLPModel\+Saver\+::netmaker (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::tuple$<$ size\+\_\+t, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} $>$ $>$ \&}]{layers,  }\item[{std\+::vector$<$ weight $>$ \&}]{weights,  }\item[{std\+::vector$<$ neuron\+\_\+t $>$ \&}]{shifts }\end{DoxyParamCaption})}
+
+assembles a network of input vectors 
+\begin{DoxyParams}{Parameters}
+{\em layers} & number of neurons in a layer and activation to them \\
+\hline
+{\em weights} & vector of weights with which to fill neural connections \\
+\hline
+{\em shifts} & shifts for each neuron \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+created mlp network 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classMLPModelSaver_a70aa14a1ab854b6acf6b0addade35634}\label{classMLPModelSaver_a70aa14a1ab854b6acf6b0addade35634}} 
+\index{MLPModelSaver@{MLPModelSaver}!save\_net\_to\_file@{save\_net\_to\_file}}
+\index{save\_net\_to\_file@{save\_net\_to\_file}!MLPModelSaver@{MLPModelSaver}}
+\doxysubsubsection{\texorpdfstring{save\_net\_to\_file()}{save\_net\_to\_file()}}
+{\footnotesize\ttfamily std\+::string MLPModel\+Saver\+::save\+\_\+net\+\_\+to\+\_\+file (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&}]{net,  }\item[{const std\+::string}]{path = {\ttfamily \char`\"{}\char`\"{}},  }\item[{const std\+::string}]{msg = {\ttfamily \char`\"{}\char`\"{}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Saves the network to a file 
+\begin{DoxyParams}{Parameters}
+{\em net} & network that needs to be saved \\
+\hline
+{\em path} & file name where the network is saved \\
+\hline
+{\em msg} & message of any content \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+path where the network was saved if it was not specified 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classModelSaver_a057733d77932fdf24e6f3b6356f23abd}{Model\+Saver$<$ Net\+MLP $>$}}.
+
+\mbox{\Hypertarget{classMLPModelSaver_a985ca9fe5f404e363dad9d706fb0b345}\label{classMLPModelSaver_a985ca9fe5f404e363dad9d706fb0b345}} 
+\index{MLPModelSaver@{MLPModelSaver}!show\_model\_info@{show\_model\_info}}
+\index{show\_model\_info@{show\_model\_info}!MLPModelSaver@{MLPModelSaver}}
+\doxysubsubsection{\texorpdfstring{show\_model\_info()}{show\_model\_info()}}
+{\footnotesize\ttfamily void MLPModel\+Saver\+::show\+\_\+model\+\_\+info (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNetMLP}{Net\+MLP}} \&}]{net,  }\item[{std\+::string}]{msg = {\ttfamily \char`\"{}\char`\"{}},  }\item[{std\+::ostream \&}]{osteram = {\ttfamily std\+:\+:cout} }\end{DoxyParamCaption}) const}
+
+prints network information 
+\begin{DoxyParams}{Parameters}
+{\em net} & network information about which needs to be displayed \\
+\hline
+{\em msg} & accompanying message \\
+\hline
+{\em osteram} & output stream \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classMLPModelSaver_ab8540e7c3b89463cfd31ff1c85e5a5d5}\label{classMLPModelSaver_ab8540e7c3b89463cfd31ff1c85e5a5d5}} 
+\index{MLPModelSaver@{MLPModelSaver}!upload\_net\_from\_file@{upload\_net\_from\_file}}
+\index{upload\_net\_from\_file@{upload\_net\_from\_file}!MLPModelSaver@{MLPModelSaver}}
+\doxysubsubsection{\texorpdfstring{upload\_net\_from\_file()}{upload\_net\_from\_file()}}
+{\footnotesize\ttfamily std\+::tuple$<$ \mbox{\hyperlink{classNetMLP}{Net\+MLP}}, std\+::string $>$ MLPModel\+Saver\+::upload\+\_\+net\+\_\+from\+\_\+file (\begin{DoxyParamCaption}\item[{std\+::string}]{path }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+loads network from file 
+\begin{DoxyParams}{Parameters}
+{\em path} & path to file with network \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+network and accompanying message 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classModelSaver_ad4f01a3fec4a84559430616499b185b4}{Model\+Saver$<$ Net\+MLP $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}\end{DoxyCompactItemize}

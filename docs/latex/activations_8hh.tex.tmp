@@ -1,0 +1,62 @@
+\hypertarget{activations_8hh}{}\doxysection{include/top/activations.hh File Reference}
+\label{activations_8hh}\index{include/top/activations.hh@{include/top/activations.hh}}
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$cmath$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}top/net.\+hh\char`\"{}}\newline
+Include dependency graph for activations.\+hh\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::\+Activation\+Func}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Empty}{activations\+::\+Empty}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1ReLU}{activations\+::\+Re\+LU}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Tanh}{activations\+::\+Tanh}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Sigmoid}{activations\+::\+Sigmoid}}
+\item 
+class \mbox{\hyperlink{classactivations_1_1Softmax}{activations\+::\+Softmax}}
+\item 
+struct \mbox{\hyperlink{structactivations_1_1Table}{activations\+::\+Table}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Namespaces}
+\begin{DoxyCompactItemize}
+\item 
+namespace \mbox{\hyperlink{namespaceactivations}{activations}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceactivations_a854d044e7d558ff0df43617dce730ee5}\label{namespaceactivations_a854d044e7d558ff0df43617dce730ee5}} 
+using {\bfseries activations\+::fname} = std\+::string
+\item 
+\mbox{\Hypertarget{namespaceactivations_a518ae264bce527908a8cae1af72505dd}\label{namespaceactivations_a518ae264bce527908a8cae1af72505dd}} 
+using {\bfseries activations\+::fptr} = Activation\+Func $\ast$
+\item 
+\mbox{\Hypertarget{namespaceactivations_a154a0891558937487de4831f9b4ae4cc}\label{namespaceactivations_a154a0891558937487de4831f9b4ae4cc}} 
+using {\bfseries activations\+::flink} = Activation\+Func \&
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{namespaceactivations_a83284c7618440885f58e33ce516aeaa0}{activations\+::derivative}} (\mbox{\hyperlink{classNeuron}{Neuron}} \&neuron, Activation\+Func \&f, double accuracy)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{namespaceactivations_ac3be6124ac01daa32e9184e49edd911a}\label{namespaceactivations_ac3be6124ac01daa32e9184e49edd911a}} 
+Table {\bfseries activations\+::table}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Contains all activation functions and auxiliary functions (such as derivative). ~\newline
+ Contains a global table of functions. ~\newline
+ The contents of the table represent the objects of each activation function, which can be retrieved by name. Defined in file activations\+\_\+table.\+cc 

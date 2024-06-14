@@ -1,0 +1,77 @@
+\hypertarget{classLayer}{}\doxysection{Layer Class Reference}
+\label{classLayer}\index{Layer@{Layer}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+
+
+Inheritance diagram for Layer\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structLayer_1_1iterator}{iterator}}
+\item 
+class \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+Iterator\+Proxy}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual size\+\_\+t \mbox{\hyperlink{classLayer_a971ed34fe3d54987e76a52b3ab9bf046}{size}} () const =0
+\item 
+virtual \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+Iterator\+Proxy}} \mbox{\hyperlink{classLayer_a3375d9eaf1e104cdbe0b4815d55cbac3}{begin}} ()=0
+\item 
+virtual \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+Iterator\+Proxy}} \mbox{\hyperlink{classLayer_ae8e2d23344e9a6f17d6c51594f7bba32}{end}} ()=0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\mbox{\hyperlink{classLayer}{Layer}} interface ~\newline
+ 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLayer_a3375d9eaf1e104cdbe0b4815d55cbac3}\label{classLayer_a3375d9eaf1e104cdbe0b4815d55cbac3}} 
+\index{Layer@{Layer}!begin@{begin}}
+\index{begin@{begin}!Layer@{Layer}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+Iterator\+Proxy}} Layer\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+requires a method that returns an iterator to the beginning of the layer \begin{DoxyReturn}{Returns}
+iterator pointing to the first neuron 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classLayerMLP_a5e0e2959978254d69f1d599893b46ca7}{Layer\+MLP}}.
+
+\mbox{\Hypertarget{classLayer_ae8e2d23344e9a6f17d6c51594f7bba32}\label{classLayer_ae8e2d23344e9a6f17d6c51594f7bba32}} 
+\index{Layer@{Layer}!end@{end}}
+\index{end@{end}!Layer@{Layer}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer\+Iterator\+Proxy}} Layer\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+requires a method that returns an iterator to the ending of the layer \begin{DoxyReturn}{Returns}
+iterator pointing to the memory area behind the last neuron 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classLayerMLP_afd0f8ed0366c40fa9e97ede6d061a7a3}{Layer\+MLP}}.
+
+\mbox{\Hypertarget{classLayer_a971ed34fe3d54987e76a52b3ab9bf046}\label{classLayer_a971ed34fe3d54987e76a52b3ab9bf046}} 
+\index{Layer@{Layer}!size@{size}}
+\index{size@{size}!Layer@{Layer}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily virtual size\+\_\+t Layer\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [pure virtual]}}
+
+Requires a layer size calculation method \begin{DoxyReturn}{Returns}
+\mbox{\hyperlink{classLayer}{Layer}} size 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}{Layer\+MLP}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{net_8hh}{net.\+hh}}\end{DoxyCompactItemize}

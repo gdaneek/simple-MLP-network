@@ -1,0 +1,121 @@
+\hypertarget{classNeuron}{}\doxysection{Neuron Class Reference}
+\label{classNeuron}\index{Neuron@{Neuron}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+
+
+Inheritance diagram for Neuron\+:
+% FIG 0
+
+
+Collaboration diagram for Neuron\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuron_af48f20b3a9870066dce694ab885e2e97}{operator=}} (const neuron\+\_\+t value)=0
+\item 
+virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuron_a47b40730b695135b9c58be98a46b8b93}{operator+=}} (const neuron\+\_\+t value)=0
+\item 
+virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& \mbox{\hyperlink{classNeuron_a7ad62641c268cda230720a7a78730652}{operator$\ast$=}} (const neuron\+\_\+t value)=0
+\item 
+virtual \mbox{\hyperlink{classNeuron_a108ffdf8ce640023d1f01a628fe347d4}{operator neuron\+\_\+t}} () const =0
+\item 
+virtual neuron\+\_\+t \mbox{\hyperlink{classNeuron_ac13ad83655474723eefb96f67ebb93ab}{get\+\_\+value}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNeuron_a26d9f747a4db2452275a156387447548}\label{classNeuron_a26d9f747a4db2452275a156387447548}} 
+neuron\+\_\+t {\bfseries value}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Polymorphic neuron class ~\newline
+ Defines the main methods and fields that each derived neuron class must have 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classNeuron_ac13ad83655474723eefb96f67ebb93ab}\label{classNeuron_ac13ad83655474723eefb96f67ebb93ab}} 
+\index{Neuron@{Neuron}!get\_value@{get\_value}}
+\index{get\_value@{get\_value}!Neuron@{Neuron}}
+\doxysubsubsection{\texorpdfstring{get\_value()}{get\_value()}}
+{\footnotesize\ttfamily virtual neuron\+\_\+t Neuron\+::get\+\_\+value (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}
+
+Getter for neuron value \begin{DoxyReturn}{Returns}
+value of a neuron 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNeuron_a108ffdf8ce640023d1f01a628fe347d4}\label{classNeuron_a108ffdf8ce640023d1f01a628fe347d4}} 
+\index{Neuron@{Neuron}!operator neuron\_t@{operator neuron\_t}}
+\index{operator neuron\_t@{operator neuron\_t}!Neuron@{Neuron}}
+\doxysubsubsection{\texorpdfstring{operator neuron\_t()}{operator neuron\_t()}}
+{\footnotesize\ttfamily virtual Neuron\+::operator neuron\+\_\+t (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [explicit]}, {\ttfamily [pure virtual]}}
+
+Requires a cast to value \begin{DoxyReturn}{Returns}
+neuron\+\_\+t value 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classNeuronMLP_a244c23bef8593fb89161c80a963eee19}{Neuron\+MLP}}.
+
+\mbox{\Hypertarget{classNeuron_a7ad62641c268cda230720a7a78730652}\label{classNeuron_a7ad62641c268cda230720a7a78730652}} 
+\index{Neuron@{Neuron}!operator$\ast$=@{operator$\ast$=}}
+\index{operator$\ast$=@{operator$\ast$=}!Neuron@{Neuron}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$=()}{operator*=()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+::operator$\ast$= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Requires $\ast$= operator 
+\begin{DoxyParams}{Parameters}
+{\em value} & to multiply by \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classNeuronMLP_a9273504deebbceeedb12ac02c7163f04}{Neuron\+MLP}}.
+
+\mbox{\Hypertarget{classNeuron_a47b40730b695135b9c58be98a46b8b93}\label{classNeuron_a47b40730b695135b9c58be98a46b8b93}} 
+\index{Neuron@{Neuron}!operator+=@{operator+=}}
+\index{operator+=@{operator+=}!Neuron@{Neuron}}
+\doxysubsubsection{\texorpdfstring{operator+=()}{operator+=()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+::operator+= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+Requires += operator 
+\begin{DoxyParams}{Parameters}
+{\em value} & to be added \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classNeuronMLP_afd316907568558d0064ebd419d54d0be}{Neuron\+MLP}}.
+
+\mbox{\Hypertarget{classNeuron_af48f20b3a9870066dce694ab885e2e97}\label{classNeuron_af48f20b3a9870066dce694ab885e2e97}} 
+\index{Neuron@{Neuron}!operator=@{operator=}}
+\index{operator=@{operator=}!Neuron@{Neuron}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily virtual \mbox{\hyperlink{classNeuron}{Neuron}} \& Neuron\+::operator= (\begin{DoxyParamCaption}\item[{const neuron\+\_\+t}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+allows to assign a neuron the new value 
+\begin{DoxyParams}{Parameters}
+{\em value} & new value \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+this 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classNeuronMLP_af25a177ba8080b9e174652909caac9db}{Neuron\+MLP}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{net_8hh}{net.\+hh}}\end{DoxyCompactItemize}

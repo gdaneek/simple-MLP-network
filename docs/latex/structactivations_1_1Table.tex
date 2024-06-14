@@ -1,0 +1,136 @@
+\hypertarget{structactivations_1_1Table}{}\doxysection{activations\+::Table Struct Reference}
+\label{structactivations_1_1Table}\index{activations::Table@{activations::Table}}
+
+
+{\ttfamily \#include $<$activations.\+hh$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structactivations_1_1Table_a08026f09dc16d51d66f1d8cae0b5774f}{Table}} (std\+::vector$<$ \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} $>$ table\+\_\+)
+\item 
+size\+\_\+t \mbox{\hyperlink{structactivations_1_1Table_aa7af4113e6428988dc536e4795bf7239}{make\+\_\+id}} (const fname name)
+\item 
+\mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} \mbox{\hyperlink{structactivations_1_1Table_a372365872b2d94f244dfdb9e56734ef5}{get\+\_\+by\+\_\+id}} (const size\+\_\+t id)
+\item 
+\mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} \mbox{\hyperlink{structactivations_1_1Table_aac993d3058b426240915bc4463fb5d42}{get\+\_\+by\+\_\+name}} (const fname name)
+\item 
+fname \mbox{\hyperlink{structactivations_1_1Table_a4c264006b0d2f9679524b66bfdf494ff}{name\+\_\+by\+\_\+id}} (const size\+\_\+t id)
+\item 
+fname \mbox{\hyperlink{structactivations_1_1Table_a8079811318f777513d7038dc6ea7bdfb}{name\+\_\+by\+\_\+ptr}} (const \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} ptr)
+\item 
+size\+\_\+t \mbox{\hyperlink{structactivations_1_1Table_a8aaafa809b5449654a747751a80af6f7}{id\+\_\+by\+\_\+ptr}} (const \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} ptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structactivations_1_1Table_a99c41c6f9a689541d4e8d998f9966485}\label{structactivations_1_1Table_a99c41c6f9a689541d4e8d998f9966485}} 
+std\+::vector$<$ \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} $>$ {\bfseries table}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+implements an activation function table and several methods above it ~\newline
+ Each function must exist in at least one instance to be used by the model processor ~\newline
+ therefore the existence of this table is necessary 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structactivations_1_1Table_a08026f09dc16d51d66f1d8cae0b5774f}\label{structactivations_1_1Table_a08026f09dc16d51d66f1d8cae0b5774f}} 
+\index{activations::Table@{activations::Table}!Table@{Table}}
+\index{Table@{Table}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{Table()}{Table()}}
+{\footnotesize\ttfamily activations\+::\+Table\+::\+Table (\begin{DoxyParamCaption}\item[{std\+::vector$<$ \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} $>$}]{table\+\_\+ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+constructor ~\newline
+ initializes the pointer table with values 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structactivations_1_1Table_a372365872b2d94f244dfdb9e56734ef5}\label{structactivations_1_1Table_a372365872b2d94f244dfdb9e56734ef5}} 
+\index{activations::Table@{activations::Table}!get\_by\_id@{get\_by\_id}}
+\index{get\_by\_id@{get\_by\_id}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{get\_by\_id()}{get\_by\_id()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} activations\+::\+Table\+::get\+\_\+by\+\_\+id (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+returns a pointer to the activation function whose identifier matches the one passed
+\begin{DoxyParams}{Parameters}
+{\em id} & activation function id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the corresponding function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structactivations_1_1Table_aac993d3058b426240915bc4463fb5d42}\label{structactivations_1_1Table_aac993d3058b426240915bc4463fb5d42}} 
+\index{activations::Table@{activations::Table}!get\_by\_name@{get\_by\_name}}
+\index{get\_by\_name@{get\_by\_name}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{get\_by\_name()}{get\_by\_name()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}} activations\+::\+Table\+::get\+\_\+by\+\_\+name (\begin{DoxyParamCaption}\item[{const fname}]{name }\end{DoxyParamCaption})}
+
+returns a pointer to the activation function whose name matches the one passed
+\begin{DoxyParams}{Parameters}
+{\em name} & name of the function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+pointer to the corresponding function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structactivations_1_1Table_a8aaafa809b5449654a747751a80af6f7}\label{structactivations_1_1Table_a8aaafa809b5449654a747751a80af6f7}} 
+\index{activations::Table@{activations::Table}!id\_by\_ptr@{id\_by\_ptr}}
+\index{id\_by\_ptr@{id\_by\_ptr}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{id\_by\_ptr()}{id\_by\_ptr()}}
+{\footnotesize\ttfamily size\+\_\+t activations\+::\+Table\+::id\+\_\+by\+\_\+ptr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}}}]{ptr }\end{DoxyParamCaption})}
+
+returns the identifier of the function to which the pointer points 
+\begin{DoxyParams}{Parameters}
+{\em prt} & pointer to activation function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+identifier of this fucntion 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structactivations_1_1Table_aa7af4113e6428988dc536e4795bf7239}\label{structactivations_1_1Table_aa7af4113e6428988dc536e4795bf7239}} 
+\index{activations::Table@{activations::Table}!make\_id@{make\_id}}
+\index{make\_id@{make\_id}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{make\_id()}{make\_id()}}
+{\footnotesize\ttfamily size\+\_\+t activations\+::\+Table\+::make\+\_\+id (\begin{DoxyParamCaption}\item[{const fname}]{name }\end{DoxyParamCaption})}
+
+function that calculates the identifier of the activation function by name 
+\begin{DoxyParams}{Parameters}
+{\em name} & name of activation function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+calculated id 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structactivations_1_1Table_a4c264006b0d2f9679524b66bfdf494ff}\label{structactivations_1_1Table_a4c264006b0d2f9679524b66bfdf494ff}} 
+\index{activations::Table@{activations::Table}!name\_by\_id@{name\_by\_id}}
+\index{name\_by\_id@{name\_by\_id}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{name\_by\_id()}{name\_by\_id()}}
+{\footnotesize\ttfamily fname activations\+::\+Table\+::name\+\_\+by\+\_\+id (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{id }\end{DoxyParamCaption})}
+
+returns the name of the function whose identifier matches the one passed 
+\begin{DoxyParams}{Parameters}
+{\em id} & id of activation function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+name of corresponding function 
+\end{DoxyReturn}
+\mbox{\Hypertarget{structactivations_1_1Table_a8079811318f777513d7038dc6ea7bdfb}\label{structactivations_1_1Table_a8079811318f777513d7038dc6ea7bdfb}} 
+\index{activations::Table@{activations::Table}!name\_by\_ptr@{name\_by\_ptr}}
+\index{name\_by\_ptr@{name\_by\_ptr}!activations::Table@{activations::Table}}
+\doxysubsubsection{\texorpdfstring{name\_by\_ptr()}{name\_by\_ptr()}}
+{\footnotesize\ttfamily fname activations\+::\+Table\+::name\+\_\+by\+\_\+ptr (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classactivations_1_1ActivationFunc}{fptr}}}]{ptr }\end{DoxyParamCaption})}
+
+returns the name of the function to which the pointer points 
+\begin{DoxyParams}{Parameters}
+{\em ptr} & pointer to activation function \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+name of this function 
+\end{DoxyReturn}
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{activations_8hh}{activations.\+hh}}\end{DoxyCompactItemize}

@@ -1,0 +1,19 @@
+\hypertarget{conceptIsActivation}{}\doxysection{Is\+Activation Concept Reference}
+\label{conceptIsActivation}\index{IsActivation@{IsActivation}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptIsActivation}{IsActivation}} =  \textcolor{keyword}{requires}(T t, \mbox{\hyperlink{classLayer}{Layer}}\& arg) \{}
+\DoxyCodeLine{                         \{ (*t)(arg) \} -\/> std::same\_as<void>;}
+\DoxyCodeLine{                       \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Requires that the passed type be an activation function 

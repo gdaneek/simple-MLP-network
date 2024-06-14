@@ -1,0 +1,51 @@
+\hypertarget{console_8hh_source}{}\doxysection{console.\+hh}
+\label{console_8hh_source}\index{include/console.hh@{include/console.hh}}
+\mbox{\hyperlink{console_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#ifndef CONSOLE\_HH}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#define CONSOLE\_HH}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <filesystem>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <map>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}learning.hh"{}}}
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{mlp_8hh}{mlp.hh}}"{}}}
+\DoxyCodeLine{17 }
+\DoxyCodeLine{18 \textcolor{keyword}{namespace }fs = std::filesystem;}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{25 std::vector<std::tuple<size\_t, std::string>> \mbox{\hyperlink{console_8hh_aba7c4ce911d4030fe4cb116793b94749}{lnm\_reader}}(std::string dpath);}
+\DoxyCodeLine{26 }
+\DoxyCodeLine{30 \textcolor{keyword}{class }\mbox{\hyperlink{classConsole}{Console}} \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{classMLPModelSaver}{MLPModelSaver}} mds;  \textcolor{comment}{//< model processing class object}}
+\DoxyCodeLine{32   std::unique\_ptr<NetMLP> currNet\{}
+\DoxyCodeLine{33       \textcolor{keyword}{nullptr}\};  \textcolor{comment}{//< a unique pointer to the current network being processed}}
+\DoxyCodeLine{34   std::string loaded\_msg\{\};}
+\DoxyCodeLine{35   std::ostream\& m\_ostream;}
+\DoxyCodeLine{36   \textcolor{keyword}{static} std::map<std::string, void (\mbox{\hyperlink{classConsole}{Console}}::*)(std::vector<std::string>)>}
+\DoxyCodeLine{37       commands;  \textcolor{comment}{//< list of defined commands and pointers to the methods that}}
+\DoxyCodeLine{38                  \textcolor{comment}{//implement them}}
+\DoxyCodeLine{39   \textcolor{keywordtype}{bool} enable\_colors\{\textcolor{keyword}{false}\};  \textcolor{comment}{//< turns on color console}}
+\DoxyCodeLine{40  \textcolor{keyword}{public}:}
+\DoxyCodeLine{41   \textcolor{keyword}{explicit} \mbox{\hyperlink{classConsole}{Console}}(std::ostream\& ostream) : m\_ostream\{ostream\} \{\};}
+\DoxyCodeLine{46   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_a2c60b8c376742060d661779af6990973}{print}}(std::string msg);}
+\DoxyCodeLine{51   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_af5f698650746757146482735af4392e2}{println}}(std::string msg);  \textcolor{comment}{// нужна команда make}}
+\DoxyCodeLine{58 \textcolor{comment}{}  \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_ab93a9ba4ae161fad46d2ab60d81a2b45}{net\_info}}(std::vector<std::string> args);  \textcolor{comment}{// help}}
+\DoxyCodeLine{65 \textcolor{comment}{}  \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_afe68fa2ff09d290d0300bb98b9d17fc3}{save}}(std::vector<std::string> args);}
+\DoxyCodeLine{71   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_a50c42144136fa778d560bf38e86d6a60}{new\_net}}(std::vector<std::string> args);}
+\DoxyCodeLine{77   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_ac37a848d09c4735541297f7866d2b246}{net\_train}}(std::vector<std::string> args);}
+\DoxyCodeLine{84   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_a38f2e74ddf76b4a746423613101d1af2}{add\_layer}}(std::vector<std::string> args);}
+\DoxyCodeLine{90   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_aecabd31019877b0d3f7ab545b7d620f3}{net\_test}}(std::vector<std::string> args);}
+\DoxyCodeLine{96   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_a6daf4da3aa70db4b1a6309805b19ec37}{predict}}(std::vector<std::string> args);}
+\DoxyCodeLine{103   \textcolor{keywordtype}{void} \mbox{\hyperlink{classConsole_af50ba27ba69909d73af6800be15fbf8e}{load}}(std::vector<std::string> args);}
+\DoxyCodeLine{104 }
+\DoxyCodeLine{105   \textcolor{keywordtype}{void} make(std::vector<std::string> args);}
+\DoxyCodeLine{106 }
+\DoxyCodeLine{112   void (\mbox{\hyperlink{classConsole}{Console}}::*\mbox{\hyperlink{classConsole_a63cc132506055484eaf0677047ec92b9}{get\_command}}(std::string command))(std::vector<std::string>);}
+\DoxyCodeLine{113 \};}
+\DoxyCodeLine{114 }
+\DoxyCodeLine{115 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// CONSOLE\_HH}}
+
+\end{DoxyCode}

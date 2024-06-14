@@ -1,0 +1,59 @@
+\hypertarget{mlp_8hh}{}\doxysection{include/mlp.hh File Reference}
+\label{mlp_8hh}\index{include/mlp.hh@{include/mlp.hh}}
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$fstream$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$set$>$}\newline
+{\ttfamily \#include $<$vector$>$}\newline
+{\ttfamily \#include \char`\"{}top/activations.\+hh\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}top/net.\+hh\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}top/net\+\_\+ms.\+hh\char`\"{}}\newline
+Include dependency graph for mlp.\+hh\+:
+% FIG 0
+This graph shows which files directly or indirectly include this file\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMLPLink}{MLPLink}}
+\item 
+struct \mbox{\hyperlink{structMLPLink_1_1iterator}{MLPLink\+::iterator}}
+\item 
+class \mbox{\hyperlink{classNeuronMLP}{Neuron\+MLP}}
+\item 
+class \mbox{\hyperlink{classLayerMLP}{Layer\+MLP}}
+\item 
+struct \mbox{\hyperlink{structLayerMLP_1_1iterator}{Layer\+MLP\+::iterator}}
+\item 
+class \mbox{\hyperlink{classNetMLP}{Net\+MLP}}
+\item 
+class \mbox{\hyperlink{classMLPModelSaver}{MLPModel\+Saver}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \mbox{\hyperlink{mlp_8hh_a4e64aafe6984704b9103a754d622c7be}{operator$\ast$}} (\mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \&layer, \mbox{\hyperlink{classMLPLink}{MLPLink}} \&links)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Multilayer perceptron implementation header file ~\newline
+ 
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{mlp_8hh_a4e64aafe6984704b9103a754d622c7be}\label{mlp_8hh_a4e64aafe6984704b9103a754d622c7be}} 
+\index{mlp.hh@{mlp.hh}!operator$\ast$@{operator$\ast$}}
+\index{operator$\ast$@{operator$\ast$}!mlp.hh@{mlp.hh}}
+\doxysubsubsection{\texorpdfstring{operator$\ast$()}{operator*()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} operator$\ast$ (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLayerMLP}{Layer\+MLP}} \&}]{layer,  }\item[{\mbox{\hyperlink{classMLPLink}{MLPLink}} \&}]{links }\end{DoxyParamCaption})}
+
+A function that implements multiplication of a layer by a mitrice of weights 
+\begin{DoxyParams}{Parameters}
+{\em layer} & layer to be multiplied \\
+\hline
+{\em links} & weight matrix \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+new layer which is the result of multiplication 
+\end{DoxyReturn}

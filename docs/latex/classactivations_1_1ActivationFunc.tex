@@ -1,0 +1,82 @@
+\hypertarget{classactivations_1_1ActivationFunc}{}\doxysection{activations\+::Activation\+Func Class Reference}
+\label{classactivations_1_1ActivationFunc}\index{activations::ActivationFunc@{activations::ActivationFunc}}
+
+
+{\ttfamily \#include $<$activations.\+hh$>$}
+
+
+
+Inheritance diagram for activations\+::Activation\+Func\+:
+% FIG 0
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classactivations_1_1ActivationFunc_a9c7041174564605e1e939274edc4d13a}{operator()}} (\mbox{\hyperlink{classLayer}{Layer}} \&layer)=0
+\item 
+virtual fname \mbox{\hyperlink{classactivations_1_1ActivationFunc_a5c7e706fab453e9ce3a2a75c991e7390}{name}} ()=0
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+double \mbox{\hyperlink{classactivations_1_1ActivationFunc_a2c1ab84112c52387460a1cfbea9ceef4}{derivative}} (\mbox{\hyperlink{classNeuron}{Neuron}} \&neuron, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} \&f, double accuracy)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Activation function interface 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classactivations_1_1ActivationFunc_a5c7e706fab453e9ce3a2a75c991e7390}\label{classactivations_1_1ActivationFunc_a5c7e706fab453e9ce3a2a75c991e7390}} 
+\index{activations::ActivationFunc@{activations::ActivationFunc}!name@{name}}
+\index{name@{name}!activations::ActivationFunc@{activations::ActivationFunc}}
+\doxysubsubsection{\texorpdfstring{name()}{name()}}
+{\footnotesize\ttfamily virtual fname activations\+::\+Activation\+Func\+::name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+requires each function to have a name \begin{DoxyReturn}{Returns}
+name of the function 
+\end{DoxyReturn}
+
+
+Implemented in \mbox{\hyperlink{classactivations_1_1Empty_ae59fa507ecbd165d5818f273f70a1d83}{activations\+::\+Empty}}, \mbox{\hyperlink{classactivations_1_1ReLU_a97a77e613b9b5877ae7c7ed9d3d8821a}{activations\+::\+Re\+LU}}, \mbox{\hyperlink{classactivations_1_1Tanh_a0d65c11b722d8be53a0ae2c576e9f5a9}{activations\+::\+Tanh}}, \mbox{\hyperlink{classactivations_1_1Sigmoid_a39b741c20e80e09e0e5d8721d89252e2}{activations\+::\+Sigmoid}}, and \mbox{\hyperlink{classactivations_1_1Softmax_a2ec1b97fd33c9cceac89def618301bb7}{activations\+::\+Softmax}}.
+
+\mbox{\Hypertarget{classactivations_1_1ActivationFunc_a9c7041174564605e1e939274edc4d13a}\label{classactivations_1_1ActivationFunc_a9c7041174564605e1e939274edc4d13a}} 
+\index{activations::ActivationFunc@{activations::ActivationFunc}!operator()@{operator()}}
+\index{operator()@{operator()}!activations::ActivationFunc@{activations::ActivationFunc}}
+\doxysubsubsection{\texorpdfstring{operator()()}{operator()()}}
+{\footnotesize\ttfamily virtual void activations\+::\+Activation\+Func\+::operator() (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classLayer}{Layer}} \&}]{layer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+requires defining the application of a function to a layer of neurons 
+\begin{DoxyParams}{Parameters}
+{\em layer} & layer to which you want to apply the function \\
+\hline
+\end{DoxyParams}
+
+
+Implemented in \mbox{\hyperlink{classactivations_1_1Empty_ab1e4e0a4714619e2709a7622af403763}{activations\+::\+Empty}}, \mbox{\hyperlink{classactivations_1_1ReLU_a96d06522a9a82bf22c7422d0eb6b1c58}{activations\+::\+Re\+LU}}, \mbox{\hyperlink{classactivations_1_1Tanh_a4b6dce2574b25eb9b65cd5e6f32f4b86}{activations\+::\+Tanh}}, \mbox{\hyperlink{classactivations_1_1Sigmoid_a9dd7d695c4cfd4ef428c22c946062734}{activations\+::\+Sigmoid}}, and \mbox{\hyperlink{classactivations_1_1Softmax_ae045a463200c313252f2dffb9573caa0}{activations\+::\+Softmax}}.
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classactivations_1_1ActivationFunc_a2c1ab84112c52387460a1cfbea9ceef4}\label{classactivations_1_1ActivationFunc_a2c1ab84112c52387460a1cfbea9ceef4}} 
+\index{activations::ActivationFunc@{activations::ActivationFunc}!derivative@{derivative}}
+\index{derivative@{derivative}!activations::ActivationFunc@{activations::ActivationFunc}}
+\doxysubsubsection{\texorpdfstring{derivative}{derivative}}
+{\footnotesize\ttfamily double derivative (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classNeuron}{Neuron}} \&}]{neuron,  }\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{Activation\+Func}} \&}]{f,  }\item[{double}]{accuracy }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [friend]}}
+
+calculates the first derivative for the passed activation function with a certain accuracy
+\begin{DoxyParams}{Parameters}
+{\em neuron} & the point at which it is necessary to calculate the derivative\\
+\hline
+{\em f} & activation function for which the derivative is calculated\\
+\hline
+{\em accuracy} & the accuracy with which you need to find the derivative \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+derivative value at a point neuron.\+get\+\_\+value() 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/top/\mbox{\hyperlink{activations_8hh}{activations.\+hh}}\end{DoxyCompactItemize}

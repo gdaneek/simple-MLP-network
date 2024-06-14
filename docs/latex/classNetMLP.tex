@@ -1,0 +1,147 @@
+\hypertarget{classNetMLP}{}\doxysection{Net\+MLP Class Reference}
+\label{classNetMLP}\index{NetMLP@{NetMLP}}
+
+
+{\ttfamily \#include $<$mlp.\+hh$>$}
+
+
+
+Inheritance diagram for Net\+MLP\+:
+% FIG 0
+
+
+Collaboration diagram for Net\+MLP\+:
+% FIG 1
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classNetMLP_a8de6ee9df5c3a80379c24179f076932e}{add}} (size\+\_\+t neuron\+\_\+count, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} activation, size\+\_\+t layer\+\_\+index=0)
+\item 
+\mbox{\hyperlink{classNetMLP_ae7eb340f38c04e197b2bbd36d329a507}{Net\+MLP}} (size\+\_\+t in\+\_\+sz, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} in, size\+\_\+t out\+\_\+sz, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} out)
+\item 
+void \mbox{\hyperlink{classNetMLP_ae5d590f1182207018c47d9daee70dc2e}{make}} ()
+\item 
+void \mbox{\hyperlink{classNetMLP_ad2c093ba95c153a8f1618da6faf389f7}{change\+\_\+activation}} (\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}} newf, size\+\_\+t layer\+\_\+index)
+\item 
+size\+\_\+t \mbox{\hyperlink{classNetMLP_a973cf694e68ecd76e869b48d01da7ad0}{size}} () const override
+\item 
+void \mbox{\hyperlink{classNetMLP_aa9f2f9f54eeedb268e91a0a36e0868ae}{feedforward}} () override
+\item 
+void \mbox{\hyperlink{classNetMLP_afef1413398bb0a6b2f144f21c734c709}{disable\+\_\+automake}} ()
+\item 
+std\+::tuple$<$ size\+\_\+t, neuron\+\_\+t $>$ \mbox{\hyperlink{classNetMLP_a2123db1df8076b6bdd67ec363285e76a}{feedforward}} (std\+::vector$<$ neuron\+\_\+t $>$ \&input\+\_\+values)
+\item 
+void \mbox{\hyperlink{classNetMLP_a15bd7cfe36346883c4fb3b5221f1790b}{backprop}} (const std\+::vector$<$ double $>$ \&target, double learning\+\_\+rate)
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNetMLP_a3f423d7c762e6ee5c65ecfbabdec8f4b}\label{classNetMLP_a3f423d7c762e6ee5c65ecfbabdec8f4b}} 
+class {\bfseries MLPModel\+Saver}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+MLP network class 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classNetMLP_ae7eb340f38c04e197b2bbd36d329a507}\label{classNetMLP_ae7eb340f38c04e197b2bbd36d329a507}} 
+\index{NetMLP@{NetMLP}!NetMLP@{NetMLP}}
+\index{NetMLP@{NetMLP}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{NetMLP()}{NetMLP()}}
+{\footnotesize\ttfamily Net\+MLP\+::\+Net\+MLP (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{in\+\_\+sz,  }\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}}}]{in,  }\item[{size\+\_\+t}]{out\+\_\+sz,  }\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}}}]{out }\end{DoxyParamCaption})}
+
+Constructor ~\newline
+ Creates a network with at least two layers 
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classNetMLP_a8de6ee9df5c3a80379c24179f076932e}\label{classNetMLP_a8de6ee9df5c3a80379c24179f076932e}} 
+\index{NetMLP@{NetMLP}!add@{add}}
+\index{add@{add}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{add()}{add()}}
+{\footnotesize\ttfamily void Net\+MLP\+::add (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{neuron\+\_\+count,  }\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}}}]{activation,  }\item[{size\+\_\+t}]{layer\+\_\+index = {\ttfamily 0} }\end{DoxyParamCaption})}
+
+Fills out the layer table for subsequent assembly 
+\begin{DoxyParams}{Parameters}
+{\em neuron\+\_\+count} & number of neurons in the added layer \\
+\hline
+{\em activation} & pointer to the activation function to be applied \\
+\hline
+{\em layer\+\_\+index} & indicates where the layer should be inserted \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetMLP_a15bd7cfe36346883c4fb3b5221f1790b}\label{classNetMLP_a15bd7cfe36346883c4fb3b5221f1790b}} 
+\index{NetMLP@{NetMLP}!backprop@{backprop}}
+\index{backprop@{backprop}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{backprop()}{backprop()}}
+{\footnotesize\ttfamily void Net\+MLP\+::backprop (\begin{DoxyParamCaption}\item[{const std\+::vector$<$ double $>$ \&}]{target,  }\item[{double}]{learning\+\_\+rate }\end{DoxyParamCaption})}
+
+implements backpropagation algorithm \mbox{\Hypertarget{classNetMLP_ad2c093ba95c153a8f1618da6faf389f7}\label{classNetMLP_ad2c093ba95c153a8f1618da6faf389f7}} 
+\index{NetMLP@{NetMLP}!change\_activation@{change\_activation}}
+\index{change\_activation@{change\_activation}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{change\_activation()}{change\_activation()}}
+{\footnotesize\ttfamily void Net\+MLP\+::change\+\_\+activation (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations\+::fptr}}}]{newf,  }\item[{size\+\_\+t}]{layer\+\_\+index }\end{DoxyParamCaption})}
+
+allows you to replace one activation with another without rebuilding 
+\begin{DoxyParams}{Parameters}
+{\em newf} & pointer to new activation function \\
+\hline
+{\em layer\+\_\+index} & activation index for replacement \\
+\hline
+\end{DoxyParams}
+\mbox{\Hypertarget{classNetMLP_afef1413398bb0a6b2f144f21c734c709}\label{classNetMLP_afef1413398bb0a6b2f144f21c734c709}} 
+\index{NetMLP@{NetMLP}!disable\_automake@{disable\_automake}}
+\index{disable\_automake@{disable\_automake}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{disable\_automake()}{disable\_automake()}}
+{\footnotesize\ttfamily void Net\+MLP\+::disable\+\_\+automake (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+Disables auto-\/assembly of the network ~\newline
+ Before using the network, you need to call make so that it is built from the table \mbox{\Hypertarget{classNetMLP_aa9f2f9f54eeedb268e91a0a36e0868ae}\label{classNetMLP_aa9f2f9f54eeedb268e91a0a36e0868ae}} 
+\index{NetMLP@{NetMLP}!feedforward@{feedforward}}
+\index{feedforward@{feedforward}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{feedforward()}{feedforward()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Net\+MLP\+::feedforward (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Requires a method that implements direct propagation 
+
+Implements \mbox{\hyperlink{classNet_a9f05cbc81074c590400ed15d60aa2bdb}{Net$<$ std\+::vector$<$ Layer\+MLP $>$, std\+::vector$<$ activations\+::fptr $>$, std\+::vector$<$ MLPLink $>$, std\+::tuple$<$ size\+\_\+t, neuron\+\_\+t $>$ $>$}}.
+
+\mbox{\Hypertarget{classNetMLP_a2123db1df8076b6bdd67ec363285e76a}\label{classNetMLP_a2123db1df8076b6bdd67ec363285e76a}} 
+\index{NetMLP@{NetMLP}!feedforward@{feedforward}}
+\index{feedforward@{feedforward}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{feedforward()}{feedforward()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily std\+::tuple$<$ size\+\_\+t, neuron\+\_\+t $>$ Net\+MLP\+::feedforward (\begin{DoxyParamCaption}\item[{std\+::vector$<$ neuron\+\_\+t $>$ \&}]{input\+\_\+values }\end{DoxyParamCaption})}
+
+Implements forward propagation and returns the network response 
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+values} & values ​​that need to be set on the input layer \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+result of response() method call 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classNetMLP_ae5d590f1182207018c47d9daee70dc2e}\label{classNetMLP_ae5d590f1182207018c47d9daee70dc2e}} 
+\index{NetMLP@{NetMLP}!make@{make}}
+\index{make@{make}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily void Net\+MLP\+::make (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+Assembles a network using a layer table \mbox{\Hypertarget{classNetMLP_a973cf694e68ecd76e869b48d01da7ad0}\label{classNetMLP_a973cf694e68ecd76e869b48d01da7ad0}} 
+\index{NetMLP@{NetMLP}!size@{size}}
+\index{size@{size}!NetMLP@{NetMLP}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t Net\+MLP\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+calculates network size \begin{DoxyReturn}{Returns}
+layers count 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNet_aa882fe60c748b0d44b4bb73b38240178}{Net$<$ std\+::vector$<$ Layer\+MLP $>$, std\+::vector$<$ activations\+::fptr $>$, std\+::vector$<$ MLPLink $>$, std\+::tuple$<$ size\+\_\+t, neuron\+\_\+t $>$ $>$}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}\end{DoxyCompactItemize}

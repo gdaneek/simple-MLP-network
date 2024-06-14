@@ -1,0 +1,17 @@
+\hypertarget{conceptNoVoidType}{}\doxysection{No\+Void\+Type Concept Reference}
+\label{conceptNoVoidType}\index{NoVoidType@{NoVoidType}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptNoVoidType}{NoVoidType}} =  !std::is\_void\_v<T>}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Requires the type to be anything other than void 

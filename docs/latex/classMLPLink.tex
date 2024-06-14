@@ -1,0 +1,119 @@
+\hypertarget{classMLPLink}{}\doxysection{MLPLink Class Reference}
+\label{classMLPLink}\index{MLPLink@{MLPLink}}
+
+
+{\ttfamily \#include $<$mlp.\+hh$>$}
+
+
+
+Inheritance diagram for MLPLink\+:
+% FIG 0
+
+
+Collaboration diagram for MLPLink\+:
+% FIG 1
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMLPLink_1_1iterator}{iterator}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classMLPLink_a72cff425cd2cda2c4ed6d265a83d38f1}{MLPLink}} (const size\+\_\+t input\+\_\+layer\+\_\+size, const size\+\_\+t output\+\_\+layer\+\_\+size)
+\item 
+\mbox{\Hypertarget{classMLPLink_ace5eee5ee1ea03ab01e542438917fc61}\label{classMLPLink_ace5eee5ee1ea03ab01e542438917fc61}} 
+size\+\_\+t {\bfseries input\+\_\+layer\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classMLPLink_a71ff816295d19ae3670a354b54de9463}\label{classMLPLink_a71ff816295d19ae3670a354b54de9463}} 
+size\+\_\+t {\bfseries output\+\_\+layer\+\_\+size} () const
+\item 
+\mbox{\Hypertarget{classMLPLink_aa3947b3fabffa2e5b2e9cf58f4a9ca6b}\label{classMLPLink_aa3947b3fabffa2e5b2e9cf58f4a9ca6b}} 
+size\+\_\+t {\bfseries get\+\_\+cols} () const
+\item 
+\mbox{\Hypertarget{classMLPLink_a464e3193085302aca545e498dd2e8d57}\label{classMLPLink_a464e3193085302aca545e498dd2e8d57}} 
+size\+\_\+t {\bfseries get\+\_\+rows} () const
+\item 
+\mbox{\Hypertarget{classMLPLink_a842e4bb55dfb11e9ec5a42cd969ceeac}\label{classMLPLink_a842e4bb55dfb11e9ec5a42cd969ceeac}} 
+weight \& {\bfseries get\+\_\+weight} (const int64\+\_\+t i, const int64\+\_\+t j)
+\item 
+size\+\_\+t \mbox{\hyperlink{classMLPLink_af3ec83fb745ea6092a26008e416d4652}{size}} () const override
+\item 
+\mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink\+::\+NLink\+Iterator\+Proxy}} \mbox{\hyperlink{classMLPLink_aee08e77c3c85e2e2b0a346c1359c7616}{begin}} () override
+\item 
+\mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink\+::\+NLink\+Iterator\+Proxy}} \mbox{\hyperlink{classMLPLink_a1cbdd68a5593f6730c754a82f3026e8a}{end}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classMLPLink_a3f423d7c762e6ee5c65ecfbabdec8f4b}\label{classMLPLink_a3f423d7c762e6ee5c65ecfbabdec8f4b}} 
+class {\bfseries MLPModel\+Saver}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+A structure that implements neural connections between two successive layers ~\newline
+ Structure is quite simplified because it is assumed that it is only necessary to create a certain number of weights for successive layers ~\newline
+ 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classMLPLink_a72cff425cd2cda2c4ed6d265a83d38f1}\label{classMLPLink_a72cff425cd2cda2c4ed6d265a83d38f1}} 
+\index{MLPLink@{MLPLink}!MLPLink@{MLPLink}}
+\index{MLPLink@{MLPLink}!MLPLink@{MLPLink}}
+\doxysubsubsection{\texorpdfstring{MLPLink()}{MLPLink()}}
+{\footnotesize\ttfamily MLPLink\+::\+MLPLink (\begin{DoxyParamCaption}\item[{const size\+\_\+t}]{input\+\_\+layer\+\_\+size,  }\item[{const size\+\_\+t}]{output\+\_\+layer\+\_\+size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [explicit]}}
+
+Neural connection builder 
+\begin{DoxyParams}{Parameters}
+{\em input\+\_\+layer\+\_\+size} & first layer size \\
+\hline
+{\em output\+\_\+layer\+\_\+size} & second layer size (must follow the first one!) \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMLPLink_aee08e77c3c85e2e2b0a346c1359c7616}\label{classMLPLink_aee08e77c3c85e2e2b0a346c1359c7616}} 
+\index{MLPLink@{MLPLink}!begin@{begin}}
+\index{begin@{begin}!MLPLink@{MLPLink}}
+\doxysubsubsection{\texorpdfstring{begin()}{begin()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink\+::\+NLink\+Iterator\+Proxy}} MLPLink\+::begin (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires a method that returns an iterator to the beginning of the nlink \begin{DoxyReturn}{Returns}
+iterator pointing to the element 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNLink_a8d6ff263f0cd8064e1d80c7956913234}{NLink}}.
+
+\mbox{\Hypertarget{classMLPLink_a1cbdd68a5593f6730c754a82f3026e8a}\label{classMLPLink_a1cbdd68a5593f6730c754a82f3026e8a}} 
+\index{MLPLink@{MLPLink}!end@{end}}
+\index{end@{end}!MLPLink@{MLPLink}}
+\doxysubsubsection{\texorpdfstring{end()}{end()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink\+::\+NLink\+Iterator\+Proxy}} MLPLink\+::end (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+requires a method that returns an iterator to the ending of the nlink \begin{DoxyReturn}{Returns}
+iterator pointing to the memory area behind the last element 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNLink_a3d8caec37cb042ef0ba13a8c6ed79a52}{NLink}}.
+
+\mbox{\Hypertarget{classMLPLink_af3ec83fb745ea6092a26008e416d4652}\label{classMLPLink_af3ec83fb745ea6092a26008e416d4652}} 
+\index{MLPLink@{MLPLink}!size@{size}}
+\index{size@{size}!MLPLink@{MLPLink}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily size\+\_\+t MLPLink\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+Size of neural connections \begin{DoxyReturn}{Returns}
+Returns the size of the weight matrix (i.\+e. the size of the input layer) 
+\end{DoxyReturn}
+
+
+Implements \mbox{\hyperlink{classNLink}{NLink}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/\mbox{\hyperlink{mlp_8hh}{mlp.\+hh}}\end{DoxyCompactItemize}

@@ -1,0 +1,20 @@
+\hypertarget{conceptIterable}{}\doxysection{Iterable Concept Reference}
+\label{conceptIterable}\index{Iterable@{Iterable}}
+
+
+{\ttfamily \#include $<$net.\+hh$>$}
+
+\doxysubsection{Concept definition}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\textcolor{keyword}{template}<\textcolor{keyword}{typename} T>}
+\DoxyCodeLine{\textcolor{keyword}{concept }\mbox{\hyperlink{conceptIterable}{Iterable}} =  \textcolor{keyword}{requires}(T t) \{}
+\DoxyCodeLine{                     \{ std::begin(t) \} -\/> std::input\_iterator;}
+\DoxyCodeLine{                     \{ std::end(t) \} -\/> std::input\_iterator;}
+\DoxyCodeLine{                   \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Detailed Description}
+Requires iterability of the passed type 

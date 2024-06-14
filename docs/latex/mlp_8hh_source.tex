@@ -1,0 +1,148 @@
+\hypertarget{mlp_8hh_source}{}\doxysection{mlp.\+hh}
+\label{mlp_8hh_source}\index{include/mlp.hh@{include/mlp.hh}}
+\mbox{\hyperlink{mlp_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{7 \textcolor{preprocessor}{\#ifndef MLP\_HH}}
+\DoxyCodeLine{8 \textcolor{preprocessor}{\#define MLP\_HH}}
+\DoxyCodeLine{9 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#include <ctime>}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#include <fstream>}}
+\DoxyCodeLine{12 \textcolor{preprocessor}{\#include <iostream>}}
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <set>}}
+\DoxyCodeLine{14 \textcolor{preprocessor}{\#include <vector>}}
+\DoxyCodeLine{15 }
+\DoxyCodeLine{16 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{activations_8hh}{top/activations.hh}}"{}}}
+\DoxyCodeLine{17 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{net_8hh}{top/net.hh}}"{}}}
+\DoxyCodeLine{18 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{net__ms_8hh}{top/net\_ms.hh}}"{}}}
+\DoxyCodeLine{19 }
+\DoxyCodeLine{26 \textcolor{keyword}{class }\mbox{\hyperlink{classMLPLink}{MLPLink}} : \textcolor{keyword}{public} \mbox{\hyperlink{classNLink}{NLink}} \{}
+\DoxyCodeLine{27   \textcolor{keywordtype}{size\_t} cols, rows;}
+\DoxyCodeLine{28   std::vector<weight> weights;  \textcolor{comment}{//< implements a weight matrix}}
+\DoxyCodeLine{29   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classMLPModelSaver}{MLPModelSaver}};   \textcolor{comment}{//< must be friend to access protected fields}}
+\DoxyCodeLine{30  \textcolor{keyword}{public}:}
+\DoxyCodeLine{36   \textcolor{keyword}{explicit} \mbox{\hyperlink{classMLPLink_a72cff425cd2cda2c4ed6d265a83d38f1}{MLPLink}}(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} input\_layer\_size,}
+\DoxyCodeLine{37                    \textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} output\_layer\_size);}
+\DoxyCodeLine{38   \textcolor{keywordtype}{size\_t} input\_layer\_size() \textcolor{keyword}{const};}
+\DoxyCodeLine{39   \textcolor{keywordtype}{size\_t} output\_layer\_size() \textcolor{keyword}{const};}
+\DoxyCodeLine{40   \textcolor{keywordtype}{size\_t} get\_cols()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} cols; \}}
+\DoxyCodeLine{41   \textcolor{keywordtype}{size\_t} get\_rows()\textcolor{keyword}{ const }\{ \textcolor{keywordflow}{return} rows; \}}
+\DoxyCodeLine{42   weight\& get\_weight(\textcolor{keyword}{const} int64\_t i, \textcolor{keyword}{const} int64\_t j);}
+\DoxyCodeLine{43   \textcolor{keyword}{struct }\mbox{\hyperlink{structMLPLink_1_1iterator}{iterator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}} \{}
+\DoxyCodeLine{44     \textcolor{keyword}{explicit} \mbox{\hyperlink{structMLPLink_1_1iterator}{iterator}}(weight* \_ptr) \{ ptr = \_ptr; \};}
+\DoxyCodeLine{45     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator++(\textcolor{keywordtype}{int}) \textcolor{keyword}{override};}
+\DoxyCodeLine{46     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator-\/-\/(\textcolor{keywordtype}{int}) \textcolor{keyword}{override};}
+\DoxyCodeLine{47     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator++() \textcolor{keyword}{override};}
+\DoxyCodeLine{48     \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& operator-\/-\/() \textcolor{keyword}{override};}
+\DoxyCodeLine{49     weight\& operator*() \textcolor{keyword}{override};}
+\DoxyCodeLine{50     weight* operator-\/>() \textcolor{keyword}{override};}
+\DoxyCodeLine{51     \textcolor{keywordtype}{bool} operator==(\textcolor{keyword}{const} \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& other) \textcolor{keyword}{override};}
+\DoxyCodeLine{52     \textcolor{keywordtype}{bool} operator!=(\textcolor{keyword}{const} \mbox{\hyperlink{structNLink_1_1iterator}{NLink::iterator}}\& other) \textcolor{keyword}{override};}
+\DoxyCodeLine{53   \};}
+\DoxyCodeLine{59   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classMLPLink_af3ec83fb745ea6092a26008e416d4652}{size}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{60 }
+\DoxyCodeLine{61   \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink::NLinkIteratorProxy}} \mbox{\hyperlink{classMLPLink_aee08e77c3c85e2e2b0a346c1359c7616}{begin}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{62   \mbox{\hyperlink{classNLink_1_1NLinkIteratorProxy}{NLink::NLinkIteratorProxy}} \mbox{\hyperlink{classMLPLink_a1cbdd68a5593f6730c754a82f3026e8a}{end}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{63 \};}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{70 \textcolor{keyword}{class }\mbox{\hyperlink{classNeuronMLP}{NeuronMLP}} : \textcolor{keyword}{public} \mbox{\hyperlink{classNeuron}{Neuron}} \{}
+\DoxyCodeLine{71  \textcolor{keyword}{public}:}
+\DoxyCodeLine{72   \textcolor{keyword}{mutable} neuron\_t shift;  \textcolor{comment}{//< shift value}}
+\DoxyCodeLine{77 \textcolor{comment}{}  \textcolor{keyword}{explicit} \mbox{\hyperlink{classNeuronMLP_a691f1ec20e28868ad5a3371c03a68145}{NeuronMLP}}(\textcolor{keyword}{const} neuron\_t \_value);}
+\DoxyCodeLine{82   \mbox{\hyperlink{classNeuronMLP_aebcf68d04458ab0a9082f84efcc66b62}{NeuronMLP}}();}
+\DoxyCodeLine{88   \mbox{\hyperlink{classNeuronMLP_a50b704d241e9245d8424057ffb0cdf7d}{NeuronMLP}}(\mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}\&\& other) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{94   \mbox{\hyperlink{classNeuronMLP_acf45e6f869bcc1e8f982d4a3d3e50d63}{NeuronMLP}}(\mbox{\hyperlink{classNeuronMLP}{NeuronMLP}} \textcolor{keyword}{const}\& other) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{100   \textcolor{keyword}{constexpr} \mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}\& \mbox{\hyperlink{classNeuronMLP_ada0c0a2bd3f3e92b284743ffb49e2971}{operator=}}(\textcolor{keyword}{const} \mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}\& other) = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{101   \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuronMLP_af25a177ba8080b9e174652909caac9db}{operator=}}(\textcolor{keyword}{const} neuron\_t value) \textcolor{keyword}{override};}
+\DoxyCodeLine{102   \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuronMLP_afd316907568558d0064ebd419d54d0be}{operator+=}}(\textcolor{keyword}{const} neuron\_t value)}
+\DoxyCodeLine{103       \textcolor{keyword}{override};  }
+\DoxyCodeLine{104   \mbox{\hyperlink{classNeuron}{Neuron}}\& \mbox{\hyperlink{classNeuronMLP_a9273504deebbceeedb12ac02c7163f04}{operator*=}}(\textcolor{keyword}{const} neuron\_t value) \textcolor{keyword}{override};}
+\DoxyCodeLine{105   \textcolor{keyword}{explicit} \textcolor{keyword}{operator} neuron\_t()}
+\DoxyCodeLine{106       \textcolor{keyword}{const override};  }
+\DoxyCodeLine{107 \};}
+\DoxyCodeLine{108 }
+\DoxyCodeLine{114 \textcolor{keyword}{class }\mbox{\hyperlink{classLayerMLP}{LayerMLP}} : \textcolor{keyword}{public} \mbox{\hyperlink{classLayer}{Layer}} \{}
+\DoxyCodeLine{115   std::vector<NeuronMLP> neurons;  \textcolor{comment}{//< array of MLP neurons}}
+\DoxyCodeLine{116  \textcolor{keyword}{public}:}
+\DoxyCodeLine{122   \textcolor{keyword}{explicit} \mbox{\hyperlink{classLayerMLP_a10d9227798819ae21fff74423543c69e}{LayerMLP}}(\textcolor{keyword}{const} \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}{size}});}
+\DoxyCodeLine{128   \textcolor{keyword}{explicit} \mbox{\hyperlink{classLayerMLP_a876a41d0df9eb5b72134a8476412b77e}{LayerMLP}}(std::vector<NeuronMLP> \textcolor{keyword}{const}\& neurons);}
+\DoxyCodeLine{134   \textcolor{keyword}{explicit} \mbox{\hyperlink{classLayerMLP_a1fcfc4adfa672484992d691a909a56be}{LayerMLP}}(std::vector<neuron\_t> \textcolor{keyword}{const}\& neuron\_values);}
+\DoxyCodeLine{140   \textcolor{keyword}{explicit} \mbox{\hyperlink{classLayerMLP_aea97f9157c09c22c4c3fe75407c42b2e}{LayerMLP}}(std::vector<neuron\_t>\&\& neuron\_values);}
+\DoxyCodeLine{141 }
+\DoxyCodeLine{147   \mbox{\hyperlink{classLayerMLP}{LayerMLP}}\& \mbox{\hyperlink{classLayerMLP_a2e0a96037b7816f4aa062909a351068b}{operator=}}(std::vector<neuron\_t>\&\& values);}
+\DoxyCodeLine{148   \mbox{\hyperlink{classLayerMLP}{LayerMLP}}\& \mbox{\hyperlink{classLayerMLP_a2e0a96037b7816f4aa062909a351068b}{operator=}}(\textcolor{keyword}{const} std::vector<neuron\_t>\& values);}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150   }
+\DoxyCodeLine{151   \textcolor{keyword}{const} std::vector<neuron\_t> neuron\_values() \textcolor{keyword}{const};}
+\DoxyCodeLine{152   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classLayerMLP_a4cc9e7e372ebbf9e139f49bee40b8aa8}{size}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{159   \mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}\& \mbox{\hyperlink{classLayerMLP_a90087a7c15947605b375898ae728bde3}{operator[]}}(int64\_t i) \textcolor{comment}{/* override */};}
+\DoxyCodeLine{160 }
+\DoxyCodeLine{165   \textcolor{keywordtype}{void} \textcolor{keyword}{inline} \mbox{\hyperlink{classLayerMLP_ac96fc9ea08207f676d4a0db707018084}{apply\_offsets}}();}
+\DoxyCodeLine{166 }
+\DoxyCodeLine{167 }
+\DoxyCodeLine{171   \textcolor{keyword}{struct }\mbox{\hyperlink{structLayerMLP_1_1iterator}{iterator}} : \textcolor{keyword}{public} \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}} \{}
+\DoxyCodeLine{172     \textcolor{keyword}{explicit} \mbox{\hyperlink{structLayerMLP_1_1iterator}{iterator}}(\mbox{\hyperlink{classNeuron}{Neuron}}* \_ptr) \{ ptr = \_ptr; \};}
+\DoxyCodeLine{173     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator++(\textcolor{keywordtype}{int}) \textcolor{keyword}{override};}
+\DoxyCodeLine{174     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator-\/-\/(\textcolor{keywordtype}{int}) \textcolor{keyword}{override};}
+\DoxyCodeLine{175     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator++() \textcolor{keyword}{override};}
+\DoxyCodeLine{176     \mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& operator-\/-\/() \textcolor{keyword}{override};}
+\DoxyCodeLine{177     \mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}\& operator*() \textcolor{keyword}{override};}
+\DoxyCodeLine{178     \mbox{\hyperlink{classNeuronMLP}{NeuronMLP}}* operator-\/>() \textcolor{keyword}{override};}
+\DoxyCodeLine{179     \textcolor{keywordtype}{bool} operator==(\mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& other) \textcolor{keyword}{override};}
+\DoxyCodeLine{180     \textcolor{keywordtype}{bool} operator!=(\mbox{\hyperlink{structLayer_1_1iterator}{Layer::iterator}}\& other) \textcolor{keyword}{override};}
+\DoxyCodeLine{181   \};}
+\DoxyCodeLine{182 }
+\DoxyCodeLine{183   \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer::LayerIteratorProxy}} \mbox{\hyperlink{classLayerMLP_a5e0e2959978254d69f1d599893b46ca7}{begin}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{184   \mbox{\hyperlink{classLayer_1_1LayerIteratorProxy}{Layer::LayerIteratorProxy}} \mbox{\hyperlink{classLayerMLP_afd0f8ed0366c40fa9e97ede6d061a7a3}{end}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{185 \};}
+\DoxyCodeLine{186 }
+\DoxyCodeLine{190 \textcolor{keyword}{class }\mbox{\hyperlink{classNetMLP}{NetMLP}} : \textcolor{keyword}{public} \mbox{\hyperlink{classNet}{Net}}<std::vector<LayerMLP>, std::vector<activations::fptr>,}
+\DoxyCodeLine{191                           std::vector<MLPLink>, std::tuple<size\_t, neuron\_t>> \{}
+\DoxyCodeLine{192   \textcolor{keyword}{friend} \textcolor{keyword}{class }\mbox{\hyperlink{classMLPModelSaver}{MLPModelSaver}};  \textcolor{comment}{//< must be friend to access protected fields}}
+\DoxyCodeLine{193   \textcolor{keywordtype}{size\_t} layer\_indexer;  \textcolor{comment}{//< indexer for determining the location of a layer in}}
+\DoxyCodeLine{194                          \textcolor{comment}{//the network}}
+\DoxyCodeLine{195   \textcolor{keywordtype}{bool} enable\_automake\{}
+\DoxyCodeLine{196       \textcolor{keyword}{true}\};  \textcolor{comment}{//< allows auto-\/assembly if the table is not empty}}
+\DoxyCodeLine{197   std::set<std::tuple<size\_t, size\_t, activations::fptr>>}
+\DoxyCodeLine{198       table;  \textcolor{comment}{//< layer table. Used to build a network}}
+\DoxyCodeLine{203 \textcolor{comment}{}  \textcolor{keywordtype}{void} set\_input(std::vector<weight>\& values);}
+\DoxyCodeLine{207   \textcolor{keywordtype}{void} calc\_output();}
+\DoxyCodeLine{213   std::tuple<size\_t, neuron\_t> response() \textcolor{keyword}{override};}
+\DoxyCodeLine{214 }
+\DoxyCodeLine{215  \textcolor{keyword}{public}:}
+\DoxyCodeLine{216   \mbox{\hyperlink{classNetMLP}{NetMLP}}() = \textcolor{keywordflow}{default};}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{224   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_a8de6ee9df5c3a80379c24179f076932e}{add}}(\textcolor{keywordtype}{size\_t} neuron\_count, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations::fptr}} activation,}
+\DoxyCodeLine{225            \textcolor{keywordtype}{size\_t} layer\_index = 0);}
+\DoxyCodeLine{230   \mbox{\hyperlink{classNetMLP_ae7eb340f38c04e197b2bbd36d329a507}{NetMLP}}(\textcolor{keywordtype}{size\_t} in\_sz, \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations::fptr}} in, \textcolor{keywordtype}{size\_t} out\_sz,}
+\DoxyCodeLine{231          \mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations::fptr}} out);}
+\DoxyCodeLine{235   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_ae5d590f1182207018c47d9daee70dc2e}{make}}();}
+\DoxyCodeLine{236 }
+\DoxyCodeLine{242   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_ad2c093ba95c153a8f1618da6faf389f7}{change\_activation}}(\mbox{\hyperlink{classactivations_1_1ActivationFunc}{activations::fptr}} newf, \textcolor{keywordtype}{size\_t} layer\_index);}
+\DoxyCodeLine{247   \textcolor{keywordtype}{size\_t} \mbox{\hyperlink{classNetMLP_a973cf694e68ecd76e869b48d01da7ad0}{size}}() \textcolor{keyword}{const override};}
+\DoxyCodeLine{248   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_aa9f2f9f54eeedb268e91a0a36e0868ae}{feedforward}}() \textcolor{keyword}{override};}
+\DoxyCodeLine{254   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_afef1413398bb0a6b2f144f21c734c709}{disable\_automake}}() \{ enable\_automake = \textcolor{keyword}{false}; \}}
+\DoxyCodeLine{260   std::tuple<size\_t, neuron\_t> \mbox{\hyperlink{classNetMLP_a2123db1df8076b6bdd67ec363285e76a}{feedforward}}(std::vector<neuron\_t>\& input\_values);}
+\DoxyCodeLine{264   \textcolor{keywordtype}{void} \mbox{\hyperlink{classNetMLP_a15bd7cfe36346883c4fb3b5221f1790b}{backprop}}(\textcolor{keyword}{const} std::vector<double>\& target, \textcolor{keywordtype}{double} learning\_rate);}
+\DoxyCodeLine{265 \};}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{273 \mbox{\hyperlink{classLayerMLP}{LayerMLP}} \mbox{\hyperlink{mlp_8hh_a4e64aafe6984704b9103a754d622c7be}{operator*}}(\mbox{\hyperlink{classLayerMLP}{LayerMLP}}\& layer, \mbox{\hyperlink{classMLPLink}{MLPLink}}\& links);}
+\DoxyCodeLine{274 }
+\DoxyCodeLine{280 \textcolor{keyword}{class }\mbox{\hyperlink{classMLPModelSaver}{MLPModelSaver}} : \textcolor{keyword}{public} \mbox{\hyperlink{classModelSaver}{ModelSaver}}<NetMLP> \{}
+\DoxyCodeLine{285   \textcolor{keywordtype}{void} check\_file\_signature(std::ifstream\& fin) \textcolor{keyword}{const};}
+\DoxyCodeLine{286 }
+\DoxyCodeLine{287  \textcolor{keyword}{public}:}
+\DoxyCodeLine{292   \textcolor{keyword}{static} \textcolor{keyword}{const} std::string \mbox{\hyperlink{classMLPModelSaver_a1d5d245fb75969fca02648c999cdaa11}{make\_filename}}(\mbox{\hyperlink{classNetMLP}{NetMLP}}\& net);}
+\DoxyCodeLine{300   std::string \mbox{\hyperlink{classMLPModelSaver_a70aa14a1ab854b6acf6b0addade35634}{save\_net\_to\_file}}(\mbox{\hyperlink{classNetMLP}{NetMLP}}\& net, \textcolor{keyword}{const} std::string path = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{301                                \textcolor{keyword}{const} std::string msg = \textcolor{stringliteral}{"{}"{}}) \textcolor{keyword}{override};}
+\DoxyCodeLine{309   \mbox{\hyperlink{classNetMLP}{NetMLP}} \mbox{\hyperlink{classMLPModelSaver_a9dc396ee55c840691777344d43e4900a}{netmaker}}(std::vector<std::tuple<size\_t, activations::fptr>>\& layers,}
+\DoxyCodeLine{310                   std::vector<weight>\& weights, std::vector<neuron\_t>\& shifts);}
+\DoxyCodeLine{316   std::tuple<NetMLP, std::string> \mbox{\hyperlink{classMLPModelSaver_ab8540e7c3b89463cfd31ff1c85e5a5d5}{upload\_net\_from\_file}}(}
+\DoxyCodeLine{317       std::string path) \textcolor{keyword}{override};}
+\DoxyCodeLine{324   \textcolor{keywordtype}{void} \mbox{\hyperlink{classMLPModelSaver_a985ca9fe5f404e363dad9d706fb0b345}{show\_model\_info}}(\mbox{\hyperlink{classNetMLP}{NetMLP}}\& net, std::string msg = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{325                        std::ostream\& osteram = std::cout) \textcolor{keyword}{const};}
+\DoxyCodeLine{326 \};}
+\DoxyCodeLine{327 }
+\DoxyCodeLine{328 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// MLP\_HH}}
+
+\end{DoxyCode}

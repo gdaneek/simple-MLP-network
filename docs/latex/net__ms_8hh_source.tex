@@ -1,0 +1,45 @@
+\hypertarget{net__ms_8hh_source}{}\doxysection{net\+\_\+ms.\+hh}
+\label{net__ms_8hh_source}\index{include/top/net\_ms.hh@{include/top/net\_ms.hh}}
+\mbox{\hyperlink{net__ms_8hh}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{1 }
+\DoxyCodeLine{10 \textcolor{preprocessor}{\#ifndef NET\_MODEL\_SAVER}}
+\DoxyCodeLine{11 \textcolor{preprocessor}{\#define NET\_MODEL\_SAVER}}
+\DoxyCodeLine{12 }
+\DoxyCodeLine{13 \textcolor{preprocessor}{\#include <type\_traits>}}
+\DoxyCodeLine{14 }
+\DoxyCodeLine{15 \textcolor{preprocessor}{\#include "{}\mbox{\hyperlink{net_8hh}{top/net.hh}}"{}}}
+\DoxyCodeLine{16 }
+\DoxyCodeLine{22 \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }Base,}
+\DoxyCodeLine{23           \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{24 \textcolor{keyword}{struct }\mbox{\hyperlink{structIsDerivedCheck}{IsDerivedCheck}} \{}
+\DoxyCodeLine{25  \textcolor{keyword}{private}:}
+\DoxyCodeLine{26   \textcolor{keyword}{template} <\textcolor{keyword}{typename}... Args>                              \textcolor{comment}{// шаблон с переменным числом параметров}}
+\DoxyCodeLine{27   \textcolor{keyword}{static} \textcolor{keyword}{auto} check(Base<Args...> *) -\/> std::true\_type;    \textcolor{comment}{// пробуем создать Net}}
+\DoxyCodeLine{28   \textcolor{keyword}{static} \textcolor{keyword}{auto} check(...) -\/> std::false\_type;}
+\DoxyCodeLine{29  \textcolor{keyword}{public}:}
+\DoxyCodeLine{30   \textcolor{keyword}{using }type = \textcolor{keyword}{decltype}(check(std::declval<Derived *>()));}
+\DoxyCodeLine{31 \};}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33 \textcolor{keyword}{template} <\textcolor{keyword}{template} <\textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}, \textcolor{keyword}{typename}> \textcolor{keyword}{class }Base,}
+\DoxyCodeLine{34           \textcolor{keyword}{typename} Derived>}
+\DoxyCodeLine{35 \textcolor{keyword}{concept }DerivedFromNet = \mbox{\hyperlink{structIsDerivedCheck}{IsDerivedCheck<Base, Derived>::type::value}};}
+\DoxyCodeLine{36 }
+\DoxyCodeLine{40 \textcolor{keyword}{template} <\textcolor{keyword}{typename} NetType>}
+\DoxyCodeLine{41   \textcolor{keyword}{requires} DerivedFromNet<Net, NetType>}
+\DoxyCodeLine{42 \textcolor{keyword}{class }\mbox{\hyperlink{classModelSaver}{ModelSaver}} \{}
+\DoxyCodeLine{43  \textcolor{keyword}{protected}:}
+\DoxyCodeLine{44   \textcolor{keyword}{const} \textcolor{keyword}{static} \textcolor{keyword}{inline} uint64\_t file\_signature\{0x10454c4946504c4d\},}
+\DoxyCodeLine{45       model\_end\_lb\{0x104f464e4954454e\}; \textcolor{comment}{//< mlp file signature and model end mark values}}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47  \textcolor{keyword}{public}:}
+\DoxyCodeLine{55   \textcolor{keyword}{virtual} std::string \mbox{\hyperlink{classModelSaver_a057733d77932fdf24e6f3b6356f23abd}{save\_net\_to\_file}}(NetType \&net,}
+\DoxyCodeLine{56                                        \textcolor{keyword}{const} std::string path = \textcolor{stringliteral}{"{}"{}},}
+\DoxyCodeLine{57                                        \textcolor{keyword}{const} std::string msg = \textcolor{stringliteral}{"{}"{}}) = 0;}
+\DoxyCodeLine{63   \textcolor{keyword}{virtual} std::tuple<NetType, std::string> \mbox{\hyperlink{classModelSaver_ad4f01a3fec4a84559430616499b185b4}{upload\_net\_from\_file}}(}
+\DoxyCodeLine{64       std::string path) = 0;}
+\DoxyCodeLine{65 \};}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#endif  }\textcolor{comment}{// NET\_MODEL\_SAVER}}
+
+\end{DoxyCode}
