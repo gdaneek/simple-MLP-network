@@ -48,9 +48,16 @@ add_test(NAME mlpsaver-test COMMAND mlpsaver-test --force-colors -d)
 add_executable(console-test ${TESTS_DIR}/console-test.cc ${CC_SOURCES})
 add_test(NAME console-test COMMAND console-test --force-colors -d)
 
+add_executable(learning-test ${TESTS_DIR}/learning-test.cc ${CC_SOURCES})
+add_test(NAME learning-test COMMAND learning-test --force-colors -d)
+
+add_executable(dataset-test ${TESTS_DIR}/dataset-test.cc ${CC_SOURCES})
+add_test(NAME dataset-test COMMAND dataset-test --force-colors -d)
+
 target_link_libraries(mlp-test ${SFML_LIBS})
 target_link_libraries(mlpsaver-test ${SFML_LIBS})
 target_link_libraries(activations-test ${SFML_LIBS})
 target_link_libraries(console-test ${SFML_LIBS})
+target_link_libraries(learning-test ${SFML_LIBS})
 
 
