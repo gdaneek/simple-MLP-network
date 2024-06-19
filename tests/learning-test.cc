@@ -1,6 +1,6 @@
 #define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include "doctest.h"
-#include "../include/dataset.hh"
+#include "../include/dgen.hh"
 #include "../include/learning.hh"
 #include <stdexcept>
 #include <vector>
